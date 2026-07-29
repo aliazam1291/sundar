@@ -1,15 +1,18 @@
 # Netlify build config.
 #
 # The Next.js app sits at the repo root, which is what Netlify assumes by
-# default — so there is no `base` here on purpose. Do not set a "Base
-# directory" in the Netlify UI either; a UI value overrides this file.
+# default — so there is no `base` here on purpose.
 #
-# `publish` is deliberately not set: @netlify/plugin-nextjs points it at the
-# right build output itself, and hand-setting it is a common way to end up
-# serving nothing and 404ing.
+# `publish` MUST be set here. Leaving it out does not hand control to the
+# plugin; it lets whatever is configured in the Netlify UI win, and this
+# project's UI had it pointing at the repo root. With the app at the root
+# that makes publish == base, which @netlify/plugin-nextjs rejects outright
+# ("Your publish directory cannot be the same as the base directory").
+# Settings declared here take precedence over the UI, so this pins it.
 
 [build]
   command = "npm run build"
+  publish = ".next"
 
 [build.environment]
   # Next 16 / React 19 need a modern Node; Netlify's default can lag.
