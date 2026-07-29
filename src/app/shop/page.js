@@ -1,5 +1,6 @@
 import Link from "next/link";
 import ProductCard from "@/components/product-card";
+import TastingBench from "@/components/sections/tasting-bench";
 import Marquee from "@/components/marquee";
 import { PRODUCTS, RANGES, RANGE_LIST, productsByRange } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
@@ -94,6 +95,9 @@ export default async function ShopPage({ searchParams }) {
           </div>
         </div>
       </section>
+
+      {/* build a chutki, get a real blend back */}
+      <TastingBench />
 
       <div className="border-y-2 border-ink bg-chilli py-3.5 text-paper">
         <Marquee

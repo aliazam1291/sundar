@@ -501,6 +501,67 @@ body {
   opacity: 0.75;
 }
 
+/* Stone judder while the chakki is actually turning. */
+@keyframes chakki-shake {
+  0%, 100% { translate: 0 0; }
+  25%      { translate: 0.7px -0.5px; }
+  50%      { translate: -0.6px 0.6px; }
+  75%      { translate: 0.4px 0.5px; }
+}
+.chakki-shake {
+  animation: chakki-shake 0.11s linear infinite;
+}
+
+/* — Tasting bench dial ————————————————————————————
+   A range input styled as a painted slider. Both vendor tracks/thumbs are
+   spelled out; there is no cross-browser shorthand for these. */
+.dial {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 1.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+.dial::-webkit-slider-runnable-track {
+  height: 0.85rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--dial) 0 var(--dial-pct),
+    var(--color-sand) var(--dial-pct) 100%
+  );
+}
+.dial::-moz-range-track {
+  height: 0.85rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--dial) 0 var(--dial-pct),
+    var(--color-sand) var(--dial-pct) 100%
+  );
+}
+.dial::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: -0.43rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-paper);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+.dial::-moz-range-thumb {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--color-ink);
+  border-radius: 999px;
+  background: var(--color-paper);
+  box-shadow: 2px 2px 0 var(--color-ink);
+}
+
 /* Dotted divider rule */
 .rule-dots {
   height: 4px;

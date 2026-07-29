@@ -36,22 +36,41 @@ export default function Home() {
         />
       </div>
 
-      <HornOkPlease />
+      {/* The page reads: the idea → the range → the shelf → a breather →
+          the story → the proof → where to buy. Sections also alternate
+          light and dark so each one lands as its own painted panel. */}
+
+      {/* the idea — light, straight after the dark hero */}
       <Chutki />
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-dragonfruit)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
+
+      {/* the three ranges — pays off the switcher in the hero */}
       <Ranges />
 
+      {/* the shelf */}
       <Featured />
+
+      <div className="trim-band" style={{ "--trim-a": "var(--color-tomato)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
+
+      {/* the breather — loudest thing on the page, and the hinge into the film */}
+      <HornOkPlease />
+
+      {/* the story */}
       <Journey />
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-kiwi)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
-      <Sourcing />
 
+      {/* the proof */}
+      <Sourcing />
       <RegionMap />
+
+      {/* how to actually use it */}
       <Ritual />
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-cobalt)", "--trim-b": "var(--color-raspberry)" }} aria-hidden="true" />
+
+      {/* where to buy */}
       <FindUs />
     </>
   );

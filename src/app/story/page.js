@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Journey from "@/components/sections/journey";
 import Sourcing from "@/components/sections/sourcing";
+import ChakkiMill from "@/components/sections/chakki-mill";
 import { TIMELINE, FOUNDER } from "@/lib/content";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
@@ -43,6 +44,9 @@ export default function StoryPage() {
 
       {/* the film reel */}
       <Journey />
+
+      {/* grind it yourself */}
+      <ChakkiMill />
 
       {/* the making */}
       <section className="tex-paper bg-cream section">
