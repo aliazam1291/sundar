@@ -703,6 +703,36 @@ body {
   transform-style: preserve-3d;
   transition: transform 0.8s var(--ease-spice);
 }
+
+/* The studio white is knocked out of the pack shots, so a pouch sits on any
+   ground with its own drop shadow — no card, no plate. */
+.pack--photo .pack__body {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+.pack--photo .pack__photo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 22px rgba(20, 16, 12, 0.35));
+}
+.pack--photo .pack__shadow {
+  display: none;
+}
+
+/* One SKU is a lifestyle screenshot rather than a cutout — it keeps a plate. */
+.pack--plate .pack__body {
+  padding: 5%;
+  border: 2px solid var(--color-ink);
+  border-radius: 1.1rem;
+  background: var(--color-paper);
+  box-shadow: 6px 6px 0 var(--color-ink);
+  overflow: hidden;
+}
+.pack--plate .pack__photo {
+  filter: none;
+}
 .pack--tilt .pack__body {
   transform: rotateY(-13deg) rotateX(3deg);
 }
@@ -963,6 +993,15 @@ body {
 .anim-arc {
   animation: arc-out 0.7s ease-out both;
   transform-origin: 320px 216px;
+}
+
+/* Pack swap on the hero switcher */
+@keyframes swap-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+.anim-swap {
+  animation: swap-in 0.5s var(--ease-spice) both;
 }
 
 @keyframes rise-in {

@@ -1,24 +1,44 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import PackShot from "@/components/pack-shot";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
-import { getProduct, PRODUCTS } from "@/lib/products";
+import { RANGE_LIST, getProduct, productsByRange, PRODUCTS } from "@/lib/products";
+
+/**
+ * Landing hero — an interactive range switcher.
+ *
+ * One pack on a void said nothing about a three-range brand, so the stage is
+ * the control: pick a range and the pack, the line and the accent all change.
+ * The pack sits on a lit plinth rather than floating.
+ */
 
 const STATS = [
-  { n: "50", label: "years, one recipe" },
-  { n: String(PRODUCTS.length), label: "blends in the range" },
-  { n: "12", label: "sourcing districts" },
-  { n: "0", label: "additives, ever" },
+  { n: "50", label: "years" },
+  { n: String(PRODUCTS.length), label: "blends" },
+  { n: "12", label: "districts" },
+  { n: "0", label: "additives" },
 ];
+
+/* One hero pack per range. */
+const HERO_FOR = {
+  heritage: "shahi-hing",
+  regions: "jeeravan-poha-masala",
+  essentials: "lal-mirch-powder",
+};
 
 /* deterministic sprinkle field — no hydration mismatch */
 const SPRINKLES = [
-  { l: 18, d: 0, s: 2.4 }, { l: 30, d: 0.5, s: 3.0 }, { l: 44, d: 1.1, s: 2.6 },
-  { l: 55, d: 0.3, s: 3.3 }, { l: 66, d: 1.5, s: 2.2 }, { l: 76, d: 0.9, s: 2.9 },
-  { l: 24, d: 1.9, s: 3.1 }, { l: 61, d: 2.2, s: 2.5 },
+  { l: 18, d: 0, s: 2.4 }, { l: 32, d: 0.5, s: 3.0 }, { l: 46, d: 1.1, s: 2.6 },
+  { l: 58, d: 0.3, s: 3.3 }, { l: 70, d: 1.5, s: 2.2 }, { l: 80, d: 0.9, s: 2.9 },
 ];
 
 export default function Hero() {
-  const hero = getProduct("darbari-garam-masala");
+  const [rangeId, setRangeId] = useState("essentials");
+  const range = RANGE_LIST.find((r) => r.id === rangeId);
+  const hero = getProduct(HERO_FOR[rangeId]);
+  const count = productsByRange(rangeId).length;
 
   return (
     <section className="relative isolate overflow-hidden bg-linear-to-b from-forest-2 via-forest to-forest text-ghee">
@@ -29,77 +49,68 @@ export default function Hero() {
       />
       <div className="tex-grid pointer-events-none absolute inset-0 opacity-[0.35]" />
 
-      {/* floating spice glyphs */}
-      <div className="pointer-events-none absolute inset-0 text-marigold/25" aria-hidden="true">
-        <SpiceIcon mono name="starAnise" className="anim-float absolute left-[2%] top-[6%] w-14 md:w-20" style={{ "--dur": "8s", "--r": "-12deg" }} />
-                <SpiceIcon mono name="chilli" className="anim-float absolute bottom-[6%] left-[3%] w-12 md:w-16" style={{ "--dur": "7.4s", "--delay": "0.6s", "--r": "8deg" }} />
-              </div>
+      <div className="pointer-events-none absolute inset-0 text-marigold/20" aria-hidden="true">
+        <SpiceIcon mono name="starAnise" className="anim-float absolute left-[2%] top-[8%] w-14 md:w-20" style={{ "--dur": "8s", "--r": "-12deg" }} />
+        <SpiceIcon mono name="chilli" className="anim-float absolute bottom-[8%] left-[3%] w-12 md:w-16" style={{ "--dur": "7.4s", "--delay": "0.6s", "--r": "8deg" }} />
+      </div>
 
-      <div className="shell relative grid items-center gap-12 pb-16 pt-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-8 lg:pb-24 lg:pt-16">
+      <div className="shell relative grid items-center gap-10 pb-12 pt-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10 lg:pb-16 lg:pt-12">
         {/* ── copy ── */}
         <div className="anim-rise">
           <p
-            className="plaque tilt-tag label-micro flex items-center gap-2.5"
-            style={{ animationDelay: "60ms", "--plaque-bg": "var(--color-rani)", "--plaque-fg": "var(--color-paper)" }}
+            className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
+            style={{ animationDelay: "60ms", "--plaque-bg": "var(--color-dragonfruit)", "--plaque-fg": "var(--color-paper)" }}
           >
             <Star className="w-3.5" />
             Since 1975 · Indore, Madhya Pradesh
           </p>
 
-          <h1 className="h-poster text-drop mt-6 text-ghee" style={{ animationDelay: "140ms", "--drop": "var(--color-oxblood)" }}>
+          <p className="font-deva mt-4 text-[clamp(1.15rem,2vw,1.6rem)] leading-tight text-marigold" lang="hi">
+            अपना रीजन, अपनी थाली।
+          </p>
+
+          <h1
+            className="font-poster text-drop mt-1.5 text-[clamp(2.4rem,5vw,4.4rem)] leading-[0.94] text-ghee"
+            style={{ "--drop": "var(--color-oxblood)" }}
+          >
             Bring your region
             <br />
             <span className="text-marigold">back to your plate.</span>
           </h1>
 
-          <p
-            className="lede mt-5 max-w-xl text-ghee/80"
-            style={{ animationDelay: "240ms" }}
-          >
+          <p className="lede mt-4 max-w-lg text-ghee/80">
             <strong className="font-semibold text-marigold">Kam masala, poora swaad.</strong>{" "}
-            Fifty years of slow-ground, single-origin blends — Heritage for the occasion,
-            Regions for the craving, Essentials for every night in between.
+            Fifty years of slow-ground, single-origin blends — three ranges, one recipe book.
           </p>
 
-          <div
-            className="mt-9 flex flex-wrap items-center gap-3.5"
-            style={{ animationDelay: "340ms" }}
-          >
-            <Link href="/shop" className="btn btn-gold">
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <Link href={`/shop?range=${rangeId}`} className="btn btn-gold">
               <SpiceIcon mono name="jar" className="w-4" />
-              Shop the range
+              Shop {range.name}
             </Link>
             <Link href="/story" className="btn btn-ghost text-marigold">
               A boy, a bicycle, 1975
             </Link>
           </div>
 
-          {/* stats */}
-          <dl
-            className="mt-12 grid max-w-xl grid-cols-2 gap-x-6 gap-y-6 border-t border-ghee/20 pt-8 sm:grid-cols-4"
-            style={{ animationDelay: "440ms" }}
-          >
+          <dl className="mt-8 flex flex-wrap gap-x-9 gap-y-4 border-t border-ghee/20 pt-5">
             {STATS.map((s) => (
               <div key={s.label}>
-                <dd
-                  className="h-poster-xs text-drop-sm text-marigold"
-                  style={{ "--drop": "var(--color-oxblood)" }}
-                >
-                  {s.n}
-                </dd>
-                <dt className="label-micro mt-2.5 text-ghee/70">{s.label}</dt>
+                <dd className="font-poster text-[1.8rem] leading-none text-marigold">{s.n}</dd>
+                <dt className="label-micro mt-1.5 text-ghee/65">{s.label}</dt>
               </div>
             ))}
           </dl>
         </div>
 
-        {/* ── pack stage ── */}
-        <div className="relative mx-auto w-full max-w-[330px] sm:max-w-[380px] lg:max-w-[420px]">
-          {/* halo */}
-          <div className="absolute left-1/2 top-1/2 -z-10 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-marigold/12 blur-3xl" />
+        {/* ── the stage ── */}
+        <div className="relative">
+          {/* plinth: a lit arch the pack stands on, so it is somewhere */}
+          <div className="pointer-events-none absolute inset-x-[4%] top-[3%] bottom-[15%] arch-top rounded-b-2xl border-2 border-marigold/40 bg-linear-to-b from-marigold/[0.14] to-transparent" aria-hidden="true" />
+          <div className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[62%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-marigold/15 blur-3xl" aria-hidden="true" />
 
           {/* rotating seal */}
-          <div className="anim-spin-slow absolute -right-1 -top-3 z-10 w-24 sm:w-28 lg:-right-4" style={{ "--dur": "34s" }}>
+          <div className="anim-spin-slow absolute right-[3%] top-[2%] z-20 w-16 sm:w-20" style={{ "--dur": "34s" }}>
             <svg viewBox="0 0 120 120" className="w-full text-marigold" aria-hidden="true">
               <defs>
                 <path id="seal-path" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none" />
@@ -110,11 +121,10 @@ export default function Hero() {
                 </textPath>
               </text>
             </svg>
-            <Star className="absolute left-1/2 top-1/2 w-5 -translate-x-1/2 -translate-y-1/2 text-marigold" />
+            <Star className="absolute left-1/2 top-1/2 w-4 -translate-x-1/2 -translate-y-1/2 text-marigold" />
           </div>
 
-          {/* sprinkle */}
-          <div className="pointer-events-none absolute inset-x-0 top-[6%] z-10 h-32" aria-hidden="true">
+          <div className="pointer-events-none absolute inset-x-0 top-[8%] z-10 h-28" aria-hidden="true">
             {SPRINKLES.map((p, i) => (
               <span
                 key={i}
@@ -124,26 +134,54 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="anim-float" style={{ "--dur": "9s" }}>
-            <PackShot product={hero} size="lg" />
+          {/* the pack — keyed so each switch replays the entrance */}
+          <div className="relative mx-auto w-full max-w-[268px] px-2 pt-7 sm:max-w-[310px]">
+            <div key={hero.slug} className="anim-swap">
+              <PackShot product={hero} size="lg" />
+            </div>
           </div>
 
-          <div className="mt-7 text-center">
+          {/* caption */}
+          <div key={`${hero.slug}-cap`} className="anim-swap relative mt-5 text-center">
             <p className="h-card text-ghee">{hero.tagline}</p>
-            <p className="font-deva mt-1.5 text-copy-lg text-marigold">{hero.hindi}</p>
+            <p className="font-deva mt-1 text-copy text-marigold" lang="hi">{hero.hindi}</p>
           </div>
+
+          {/* ── the switcher ── */}
+          <div
+            className="relative mt-5 flex justify-center gap-2"
+            role="tablist"
+            aria-label="Choose a range"
+          >
+            {RANGE_LIST.map((r) => {
+              const on = r.id === rangeId;
+              return (
+                <button
+                  key={r.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={on}
+                  onClick={() => setRangeId(r.id)}
+                  className={`label-micro flex items-center gap-2 rounded-full border-2 px-3.5 py-2.5 transition-all duration-300 ${
+                    on
+                      ? "border-marigold bg-marigold text-ink shadow-[3px_3px_0_var(--color-oxblood)]"
+                      : "border-ghee/30 text-ghee/70 hover:border-marigold hover:text-marigold"
+                  }`}
+                >
+                  <SpiceIcon mono name={r.icon} className="w-4 shrink-0" />
+                  {r.name}
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="label-micro mt-3 text-center text-ghee/55" aria-live="polite">
+            {range.who} · {count} blends
+          </p>
         </div>
       </div>
 
-      {/* bottom rule */}
-      <div className="shell relative pb-8">
-        <p className="rule-diamond text-marigold/45">
-          <span className="label-micro whitespace-nowrap">Scroll · मसालों का सिकंदर</span>
-        </p>
-      </div>
-
-      {/* lorry-tail bead trim */}
-      <div className="beads relative h-3 w-full text-marigold/60" aria-hidden="true" />
+      <div className="beads relative h-3 w-full text-marigold/50" aria-hidden="true" />
     </section>
   );
 }

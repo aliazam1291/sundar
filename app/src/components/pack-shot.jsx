@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Logo from "@/components/logo";
 import { SpiceIcon, Sunburst, Star } from "@/components/spice-icons";
 
@@ -7,7 +8,13 @@ import { SpiceIcon, Sunburst, Star } from "@/components/spice-icons";
  * name locked bottom-left in Anton. No cream information panel — the pack
  * is the poster.
  */
-export default function PackShot({ product, className = "", size = "md", tilt = true }) {
+export default function PackShot({
+  product,
+  className = "",
+  size = "md",
+  tilt = true,
+  priority = false,
+}) {
   const [c1, c2] = product.hue;
   const scale = {
     sm: {
@@ -32,6 +39,34 @@ export default function PackShot({ product, className = "", size = "md", tilt = 
       arch: "inset-x-[15%] top-[20%] h-[49%]",
     },
   }[size];
+
+  /* Real packaging shot wins over the vector mock every time — the vector is
+     only the fallback for a product with no photographed pouch. */
+  if (product.image) {
+    return (
+      <div
+        className={`pack pack--photo ${product.imagePlate ? "pack--plate" : ""} ${
+          tilt ? "pack--tilt" : ""
+        } ${className}`}
+      >
+        <div className="pack__body">
+          <Image
+            src={product.image}
+            alt={`${product.name} ${product.kind} pack`}
+            width={600}
+            height={600}
+            sizes="(max-width: 640px) 60vw, 320px"
+            className="pack__photo"
+            priority={priority}
+          />
+          {product.badge ? (
+            <span className="pack__roundel font-poster">{product.badge}</span>
+          ) : null}
+        </div>
+        <div className="pack__shadow" aria-hidden="true" />
+      </div>
+    );
+  }
 
   return (
     <div

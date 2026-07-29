@@ -30,7 +30,7 @@ export default function Ranges() {
             />
           </div>
           <Link href="/shop" className="btn btn-rani shrink-0" data-reveal="up" style={{ "--reveal-delay": "100ms" }}>
-            See all 22 blends
+            See all 32 blends
           </Link>
         </div>
 

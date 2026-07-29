@@ -12,7 +12,9 @@ founder's story from *A Heritage Film*.
 - **React 19**
 - **Tailwind CSS v4** (`@theme` design tokens in `src/app/globals.css`)
 - `next/font` — Anton, Hanken Grotesk, Cinzel, Baloo 2 (the brand type spec)
-- No image assets: every pack shot, illustration and texture is vector/CSS
+- Real packaging shots in `public/packs/` (32 PNG cutouts, scraped from
+  sundermasala.com and background-knocked-out); every illustration, texture and
+  ornament is still vector/CSS
 
 ## Run
 
@@ -31,7 +33,7 @@ app/src/
   app/
     page.js               home
     shop/page.js          range-filtered grid (?range=heritage|regions|essentials)
-    shop/[slug]/page.js   product detail (SSG, 22 routes)
+    shop/[slug]/page.js   product detail (SSG, 32 routes)
     story/page.js         heritage + the film reel
     regions/page.js       regional map + Regions range
     globals.css           design system: tokens, textures, pack shot, motion
@@ -43,7 +45,7 @@ app/src/
     logo.jsx              Sunder lockup
     reveal-root.jsx       one IntersectionObserver for all scroll reveals
   lib/
-    products.js           22 blends, 3 ranges (Essentials = the live catalogue)
+    products.js           the live 32-SKU catalogue, mapped to 3 ranges
     content.js            journey, timeline, regions, ritual, pillars
 ```
 
@@ -73,6 +75,8 @@ app/src/
 
 ## Notes
 
-Product copy, pricing and provenance are illustrative placeholders for the
-rebrand — replace with real catalogue data before launch. The India map is a
-stylised silhouette, not cartographic.
+Names, kinds, pack sizes, prices, descriptions and packaging shots are the real
+catalogue from sundermasala.com. The brand layer on top — taglines, Hindi lines,
+heat ratings, range assignment — is written for the rebrand. There is no
+provenance data in the source catalogue, so the product page does not claim any.
+The India map is a stylised silhouette, not cartographic.

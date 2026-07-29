@@ -35,10 +35,10 @@ export default async function ProductPage({ params }) {
   const related = relatedProducts(product);
 
   const SPECS = [
-    { label: "Grind", value: product.grind, icon: "chakki" },
-    { label: "Origin", value: product.origin, icon: "sprig" },
-    { label: "Harvest", value: product.harvest, icon: "jar" },
-    { label: "Net weight", value: product.size, icon: "mortar" },
+    { label: "Range", value: range.name, icon: range.icon },
+    { label: "Pack sizes", value: product.sizes.join(" · "), icon: "mortar" },
+    { label: "Heat", value: ["None", "Mild", "Medium", "Warm", "Hot", "Fierce"][product.heat], icon: "flame" },
+    { label: "Additives", value: "None, ever", icon: "sprig" },
   ];
 
   return (
@@ -169,29 +169,25 @@ export default async function ProductPage({ params }) {
 
             <div className="space-y-8">
               <div data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
-                <p className="eyebrow text-chilli-ink">What&rsquo;s inside</p>
+                <p className="eyebrow text-chilli-ink">Available in</p>
                 <ul className="mt-5 flex flex-wrap gap-2">
-                  {product.notes.map((n) => (
+                  {product.sizes.map((n) => (
                     <li key={n} className="chip border-ink/25 text-ink-soft">
                       {n}
                     </li>
                   ))}
                 </ul>
                 <p className="mt-5 text-meta text-ink-soft">
-                  Nothing else. No colours, no anti-caking agents, no fillers.
+                  No artificial colours, no added preservatives. Processed and packed in a
+                  hygienic plant.
                 </p>
               </div>
 
               <div data-reveal="up" style={{ "--reveal-delay": "160ms" }}>
                 <p className="eyebrow text-chilli-ink">Cook it with</p>
-                <ul className="mt-5 space-y-2.5">
-                  {product.pairs.map((p) => (
-                    <li key={p} className="flex items-center gap-3 border-b border-ink/10 pb-2.5">
-                      <SpiceIcon mono name="sprig" className="w-4 shrink-0 text-forest-3" />
-                      <span className="text-copy text-ink-soft">{p}</span>
-                    </li>
-                  ))}
-                </ul>
+                <p className="mt-5 text-copy text-ink-soft">
+                  {product.uses || "A staple across everyday Indian cooking — use to taste."}
+                </p>
               </div>
 
               <div
@@ -199,12 +195,10 @@ export default async function ProductPage({ params }) {
                 data-reveal="up"
                 style={{ "--reveal-delay": "220ms" }}
               >
-                <p className="h-poster-xs text-marigold">
-                  Harvest {product.harvest}
-                </p>
+                <p className="h-poster-xs text-marigold">Store it right</p>
                 <p className="mt-2.5 text-copy text-ghee/70">
-                  Milled below 40°C in small batches, then sealed the same day. Best within nine
-                  months of opening.
+                  Keep in a cool, air-tight, dry place. Hygienically packed — best used within
+                  nine months of opening.
                 </p>
               </div>
             </div>

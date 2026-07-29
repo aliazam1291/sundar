@@ -49,7 +49,7 @@ export default function RegionsPage() {
               The Regions range
             </h2>
             <Link href="/shop" className="btn shrink-0" data-reveal="up">
-              All 22 blends
+              All 32 blends
             </Link>
           </div>
 

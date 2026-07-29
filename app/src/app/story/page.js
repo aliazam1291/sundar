@@ -7,7 +7,7 @@ import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 export const metadata = {
   title: "Our story — a boy, a bicycle, 1975",
   description:
-    "Fifty years from one stone chakki in Indore to a range of twenty-two blends. The taste the same, the story new.",
+    "Fifty years from one stone chakki in Indore to a range of thirty-two blends. The taste the same, the story new.",
 };
 
 export default function StoryPage() {
