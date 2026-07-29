@@ -19,7 +19,6 @@ founder's story from *A Heritage Film*.
 ## Run
 
 ```bash
-cd app
 npm install
 npm run dev
 ```
@@ -29,7 +28,7 @@ Build: `npm run build` · Serve: `npm run start`
 ## Structure
 
 ```
-app/src/
+src/
   app/
     page.js               home
     shop/page.js          range-filtered grid (?range=heritage|regions|essentials)
