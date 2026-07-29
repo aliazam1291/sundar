@@ -1,0 +1,23 @@
+# Netlify build config.
+#
+# The Next.js app is NOT at the repo root — it lives in `app/`. Without this
+# file Netlify builds from the root, finds no package.json, publishes nothing,
+# and every route 404s.
+#
+# `publish` is deliberately not set: @netlify/plugin-nextjs points it at the
+# right build output itself, and hand-setting it (relative to base? to root?)
+# is the usual way this ends up 404ing again.
+
+[build]
+  base = "app"
+  command = "npm run build"
+
+[build.environment]
+  # Next 16 / React 19 need a modern Node; Netlify's default can lag.
+  NODE_VERSION = "22"
+
+# Required. /shop is server-rendered on demand (it awaits `searchParams` to
+# filter by range), so this cannot be a static-only deploy — the runtime has
+# to be present for that route and for next/image.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
