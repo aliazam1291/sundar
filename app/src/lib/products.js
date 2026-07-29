@@ -3,6 +3,8 @@
  * Three ranges, three appetites (per the brand strategy deck).
  */
 
+import { fillFor, inkVariant } from "@/lib/color";
+
 export const RANGES = {
   heritage: {
     id: "heritage",
@@ -455,6 +457,16 @@ export const PRODUCTS = [
     featured: true,
   },
 ];
+
+/* ── Derived accessible colours ───────────────────────────
+   `hue` is tuned for fills. Text needs different values, so derive them
+   once here rather than eyeballing a second hex per product. */
+for (const p of PRODUCTS) {
+  // The hue as readable text on cream — also doubles as a dark fill for pills.
+  p.hueInk = inkVariant(p.hue[0], 4.5);
+  // Hero gradient, deepened so light type stays legible on the yellow blends.
+  p.hueFill = [fillFor(p.hue[0], 4.6), fillFor(p.hue[1], 4.6)];
+}
 
 /* ── Helpers ──────────────────────────────────────────── */
 

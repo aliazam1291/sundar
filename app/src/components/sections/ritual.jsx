@@ -15,7 +15,7 @@ export default function Ritual() {
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div data-reveal="up">
-              <p className="eyebrow flex items-center gap-2.5 text-chilli">
+              <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
                 <Star className="w-3.5" />
                 How to use it
               </p>
@@ -40,7 +40,7 @@ export default function Ritual() {
                   style={{ "--reveal-delay": `${i * 100}ms` }}
                   className="group relative flex items-start gap-5 rounded-[1.3rem] border-2 border-ink/12 bg-paper/85 p-5 transition-all hover:border-ink sm:p-7"
                 >
-                  <span className="font-poster shrink-0 text-[2.6rem] leading-none text-saffron transition-colors group-hover:text-chilli sm:text-[3.2rem]">
+                  <span className="font-poster shrink-0 text-[2.6rem] leading-none text-saffron-deep transition-colors group-hover:text-chilli-ink sm:text-[3.2rem]">
                     {r.step}
                   </span>
                   <span>
@@ -62,7 +62,7 @@ export default function Ritual() {
       <section className="relative overflow-hidden bg-paper py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <div className="max-w-2xl" data-reveal="up">
-            <p className="eyebrow flex items-center gap-2.5 text-chilli">
+            <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
               <Star className="w-3.5" />
               Beyond the packet
             </p>

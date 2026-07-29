@@ -46,7 +46,9 @@ export default async function ProductPage({ params }) {
       {/* ── hero ── */}
       <section
         className="relative isolate overflow-hidden py-12 lg:py-16"
-        style={{ background: `linear-gradient(165deg, ${product.hue[0]}, ${product.hue[1]})` }}
+        style={{
+          background: `linear-gradient(165deg, ${product.hueFill[0]}, ${product.hueFill[1]})`,
+        }}
       >
         <Sunburst
           className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-white"
@@ -112,14 +114,18 @@ export default async function ProductPage({ params }) {
               </div>
 
               <div className="mt-9 flex flex-wrap gap-3" style={{ animationDelay: "420ms" }}>
-                <button type="button" className="btn btn-gold">
+                <Link href="/#stockists" className="btn btn-gold">
                   <SpiceIcon name="jar" className="w-4" />
-                  Add to basket
-                </button>
+                  Where to buy
+                </Link>
                 <Link href="/shop" className="btn btn-ghost text-white">
                   Back to the shelf
                 </Link>
               </div>
+
+              <p className="mt-4 text-[0.78rem] text-white/55" style={{ animationDelay: "460ms" }}>
+                Quick commerce in Indore &amp; Bhopal · nationwide shipping · 10,000+ kirana stores
+              </p>
             </div>
           </div>
         </div>
@@ -147,7 +153,7 @@ export default async function ProductPage({ params }) {
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <div className="grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
             <div data-reveal="up">
-              <p className="eyebrow text-chilli">Why it tastes like this</p>
+              <p className="eyebrow text-chilli-ink">Why it tastes like this</p>
               <p className="font-editorial mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] text-ink">
                 {product.story}
               </p>
@@ -163,7 +169,7 @@ export default async function ProductPage({ params }) {
 
             <div className="space-y-8">
               <div data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
-                <p className="eyebrow text-chilli">What&rsquo;s inside</p>
+                <p className="eyebrow text-chilli-ink">What&rsquo;s inside</p>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {product.notes.map((n) => (
                     <li key={n} className="chip border-ink/25 text-ink/75">
@@ -177,7 +183,7 @@ export default async function ProductPage({ params }) {
               </div>
 
               <div data-reveal="up" style={{ "--reveal-delay": "160ms" }}>
-                <p className="eyebrow text-chilli">Cook it with</p>
+                <p className="eyebrow text-chilli-ink">Cook it with</p>
                 <ul className="mt-5 space-y-2.5">
                   {product.pairs.map((p) => (
                     <li key={p} className="flex items-center gap-3 border-b border-ink/10 pb-2.5">

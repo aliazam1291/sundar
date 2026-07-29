@@ -15,7 +15,7 @@ export default function Chutki() {
   return (
     <section id="chutki" className="tex-paper relative overflow-hidden bg-cream py-20 lg:py-28">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-        <p className="eyebrow flex items-center gap-2.5 text-chilli" data-reveal="up">
+        <p className="eyebrow flex items-center gap-2.5 text-chilli-ink" data-reveal="up">
           <Star className="w-3.5" />
           The revelation
         </p>
@@ -23,7 +23,7 @@ export default function Chutki() {
         <h2 className="h-poster mt-5 max-w-5xl" data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
           <span className="text-ink">It was never a fistful.</span>
           <br />
-          <span className="text-saffron">It was one chutki.</span>
+          <span className="text-saffron-deep">It was one chutki.</span>
         </h2>
 
         <p

@@ -48,7 +48,7 @@ export default function StoryPage() {
       <section className="tex-paper bg-cream py-20 lg:py-28">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
           <div className="max-w-2xl" data-reveal="up">
-            <p className="eyebrow flex items-center gap-2.5 text-chilli">
+            <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
               <Star className="w-3.5" />
               The making
             </p>
@@ -65,7 +65,7 @@ export default function StoryPage() {
                 style={{ "--reveal-delay": `${i * 90}ms` }}
                 className="group grid items-start gap-5 rounded-[1.4rem] border-2 border-ink/12 bg-paper/80 p-6 transition-all hover:border-ink sm:grid-cols-[auto_auto_1fr] sm:gap-8 sm:p-8"
               >
-                <span className="font-poster text-[2.6rem] leading-none text-saffron transition-colors group-hover:text-chilli sm:text-[3.4rem]">
+                <span className="font-poster text-[2.6rem] leading-none text-saffron-deep transition-colors group-hover:text-chilli-ink sm:text-[3.4rem]">
                   {t.year}
                 </span>
 

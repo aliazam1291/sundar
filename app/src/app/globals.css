@@ -18,13 +18,21 @@
 
   --color-oxblood: #6f1a10;
   --color-oxblood-2: #8b2517;
-  --color-chilli: #d93a22;
+  /* Slightly deepened so cream/paper text on a chilli fill clears 4.5:1. */
+  --color-chilli: #d03821;
   --color-chilli-2: #e8563a;
 
   --color-saffron: #e58c1a;
   --color-turmeric: #f2b30a;
   --color-marigold: #ffc740;
   --color-ghee: #ffdf8c;
+
+  /* Accessible ink variants — the bright accents above are for FILLS.
+     Use these when the accent is the text colour on a light background.
+     *-ink clears 4.5:1 (body copy) · *-deep clears 3:1 (24px+ display). */
+  --color-saffron-ink: #8c5510;
+  --color-saffron-deep: #b36d14;
+  --color-chilli-ink: #b4301c;
 
   --color-paper: #fdf6e8;
   --color-cream: #f7ecd6;

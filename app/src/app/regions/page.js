@@ -21,7 +21,7 @@ export default function RegionsPage() {
         <SpiceIcon name="thela" className="pointer-events-none absolute -right-8 bottom-0 w-80 text-oxblood opacity-[0.12]" />
 
         <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-          <p className="eyebrow flex items-center gap-2.5 text-oxblood">
+          <p className="eyebrow flex items-center gap-2.5 text-ink">
             <Star className="w-3.5" />
             {REGIONS.length} regions · {items.length} blends
           </p>

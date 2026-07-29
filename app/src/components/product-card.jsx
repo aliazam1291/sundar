@@ -35,10 +35,7 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="border-t-2 border-ink/12 bg-paper/85 p-5 sm:p-6">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <p
-                className="chip mb-2.5 border-none px-0 opacity-70"
-                style={{ color: product.hue[0] }}
-              >
+              <p className="chip mb-2.5 border-none px-0" style={{ color: product.hueInk }}>
                 {range.name}
               </p>
               <h3 className="font-poster text-[1.6rem] leading-[0.9] text-ink sm:text-[1.85rem]">
@@ -48,7 +45,7 @@ export default function ProductCard({ product, index = 0 }) {
             </div>
             <span
               className="mt-1 shrink-0 rounded-full px-2.5 py-1 text-[0.72rem] font-bold text-paper"
-              style={{ background: product.hue[0] }}
+              style={{ background: product.hueInk }}
             >
               {formatPrice(product.price)}
             </span>

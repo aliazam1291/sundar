@@ -11,7 +11,7 @@ export default function RegionMap() {
     <section id="regions" className="relative overflow-hidden bg-paper py-20 lg:py-28">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <div className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow flex items-center gap-2.5 text-chilli">
+          <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
             <Star className="w-3.5" />
             The regional map
           </p>
@@ -105,7 +105,7 @@ export default function RegionMap() {
                     <span className="mt-2 block font-editorial text-[0.94rem] italic text-ink/75">
                       {r.note}
                     </span>
-                    <span className="mt-2 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.13em] text-saffron transition-transform duration-300 group-hover:translate-x-1">
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.13em] text-saffron-ink transition-transform duration-300 group-hover:translate-x-1">
                       {r.blend}
                       <svg viewBox="0 0 24 24" className="w-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h13M12 6l6 6-6 6" />

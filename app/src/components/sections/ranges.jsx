@@ -8,7 +8,7 @@ export default function Ranges() {
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div data-reveal="up">
-            <p className="eyebrow flex items-center gap-2.5 text-chilli">
+            <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
               <Star className="w-3.5" />
               Three ranges, three appetites
             </p>
