@@ -5,7 +5,7 @@ export const metadata = { title: "Page not found" };
 
 export default function NotFound() {
   return (
-    <section className="relative isolate flex min-h-[72vh] items-center overflow-hidden bg-forest py-24 text-ghee">
+    <section className="relative isolate flex min-h-[72vh] items-center overflow-hidden bg-forest section-lg text-ghee">
       <Sunburst
         className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold"
         rays={48}
@@ -19,7 +19,7 @@ export default function NotFound() {
         style={{ "--dur": "8s", "--r": "12deg" }}
       />
 
-      <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+      <div className="relative shell">
         <p className="eyebrow flex items-center gap-2.5 text-marigold">
           <Star className="w-3.5" />
           Error 404
@@ -38,7 +38,7 @@ export default function NotFound() {
 
         <div className="mt-9 flex flex-wrap gap-3.5">
           <Link href="/shop" className="btn btn-gold">
-            <SpiceIcon name="jar" className="w-4" />
+            <SpiceIcon mono name="jar" className="w-4" />
             Shop the range
           </Link>
           <Link href="/" className="btn btn-ghost text-ghee">

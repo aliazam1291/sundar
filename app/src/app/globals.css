@@ -2,14 +2,17 @@
 
 /* ============================================================
    SUNDER MASALA — DESIGN SYSTEM
-   "Truck-art editorial" · deep spice canvas, poster type,
-   marigold heat, riso grain.
+   Truck-art poster maximalism. Bold & expressive, Indian
+   cultural roots, vibrant colour, nostalgic yet modern.
    ============================================================ */
 
 @theme {
   /* — Core palette ————————————————————————————————— */
   --color-ink: #14100c;
   --color-soot: #241b13;
+  /* Warm ink for body copy — never fade black to grey on a warm ground. */
+  --color-ink-soft: #4a3a29;
+  --color-ink-mute: #6d5942;
 
   --color-forest: #0e3b2c;
   --color-forest-2: #16523c;
@@ -18,7 +21,6 @@
 
   --color-oxblood: #6f1a10;
   --color-oxblood-2: #8b2517;
-  /* Slightly deepened so cream/paper text on a chilli fill clears 4.5:1. */
   --color-chilli: #d03821;
   --color-chilli-2: #e8563a;
 
@@ -27,12 +29,25 @@
   --color-marigold: #ffc740;
   --color-ghee: #ffdf8c;
 
-  /* Accessible ink variants — the bright accents above are for FILLS.
-     Use these when the accent is the text colour on a light background.
+  /* — Truck-art brights ————————————————————————————
+     The poster palette: rani pink and cobalt do the work the
+     spice colours can't, and keep the page from going all-warm. */
+  --color-rani: #e11d74;
+  --color-rani-2: #ff4fa3;
+  --color-rani-deep: #a8115a;
+
+  --color-cobalt: #1b4db1;
+  --color-cobalt-2: #2f6fe0;
+  --color-sky: #7fb2f0;
+
+  /* Accessible ink variants — the brights above are for FILLS.
+     Use these when the accent is text on a light ground.
      *-ink clears 4.5:1 (body copy) · *-deep clears 3:1 (24px+ display). */
   --color-saffron-ink: #8c5510;
   --color-saffron-deep: #b36d14;
   --color-chilli-ink: #b4301c;
+  --color-rani-ink: #b0135a;
+  --color-cobalt-ink: #1b4db1;
 
   --color-paper: #fdf6e8;
   --color-cream: #f7ecd6;
@@ -50,11 +65,28 @@
   --color-dune: #d9c1a3;
   --color-ivory: #f4e8d8;
 
-  /* — Type ———————————————————————————————————————— */
+  /* — Type ————————————————————————————————————————
+     Anton for display · Hanken Grotesk for everything else ·
+     Cinzel + Baloo as the two range accents. */
   --font-poster: var(--font-anton), "Arial Narrow", sans-serif;
-  --font-editorial: var(--font-fraunces), Georgia, serif;
-  --font-body: var(--font-familjen), system-ui, sans-serif;
-  --font-deva: var(--font-tiro), serif;
+  --font-body: var(--font-hanken), system-ui, sans-serif;
+  --font-heritage: var(--font-cinzel), Georgia, serif;
+  --font-regional: var(--font-baloo), system-ui, sans-serif;
+  --font-deva: var(--font-baloo), system-ui, sans-serif;
+
+  /* — Type scale ——————————————————————————————————
+     Five body steps, full stop. Everything below 0.7rem was
+     illegible and everything between 0.92–1.02rem was noise. */
+  --text-micro: 0.7rem;
+  --text-micro--line-height: 1.2;
+  --text-label: 0.78rem;
+  --text-label--line-height: 1.25;
+  --text-meta: 0.86rem;
+  --text-meta--line-height: 1.45;
+  --text-copy: 0.97rem;
+  --text-copy--line-height: 1.62;
+  --text-copy-lg: 1.06rem;
+  --text-copy-lg--line-height: 1.6;
 
   /* — Motion ————————————————————————————————————— */
   --ease-spice: cubic-bezier(0.22, 1, 0.36, 1);
@@ -96,12 +128,12 @@ body {
 }
 
 ::selection {
-  background: var(--color-marigold);
-  color: var(--color-ink);
+  background: var(--color-rani);
+  color: var(--color-paper);
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-turmeric);
+  outline: 3px solid var(--color-cobalt-2);
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -127,6 +159,53 @@ body {
 }
 
 /* ============================================================
+   LAYOUT RHYTHM
+   One container, one vertical scale. Nothing sets its own
+   gutters — the page gutter is fluid so the inner card padding
+   is never larger than the space outside it.
+   ============================================================ */
+
+.shell {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: clamp(1.15rem, 4vw, 2.5rem);
+}
+
+.shell-narrow {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1.15rem, 4vw, 2.5rem);
+}
+
+.section {
+  padding-block: clamp(4rem, 7.5vw, 7rem);
+}
+
+.section-lg {
+  padding-block: clamp(5rem, 10vw, 9rem);
+}
+
+.section-sm {
+  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+}
+
+/* Gap between a section header block and the grid beneath it. */
+.section-body {
+  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+/* Card padding — one step for feature cards, one for compact ones. */
+.card-pad {
+  padding: clamp(1.35rem, 2.6vw, 2.25rem);
+}
+
+.card-pad-sm {
+  padding: clamp(1.15rem, 2vw, 1.6rem);
+}
+
+/* ============================================================
    TYPE UTILITIES
    ============================================================ */
 
@@ -139,12 +218,23 @@ body {
 }
 
 .font-editorial {
-  font-family: var(--font-editorial);
-  font-optical-sizing: auto;
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
+/* Heritage accent — classic, regal, timeless. Headings only. */
+.font-heritage {
+  font-family: var(--font-heritage);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Regional accent — friendly, bold, expressive. Headings + Devanagari. */
+.font-regional,
 .font-deva {
-  font-family: var(--font-deva);
+  font-family: var(--font-regional);
+  font-weight: 600;
 }
 
 /* Poster headline — fluid, tight, grid-breaking */
@@ -153,36 +243,71 @@ body {
   text-transform: uppercase;
   line-height: 0.82;
   letter-spacing: -0.005em;
-  font-size: clamp(2.75rem, 9vw, 8.5rem);
+  font-size: clamp(2.9rem, 8.6vw, 8rem);
 }
 
 .h-poster-sm {
   font-family: var(--font-poster);
   text-transform: uppercase;
   line-height: 0.86;
-  font-size: clamp(2rem, 5.5vw, 4.25rem);
+  font-size: clamp(2.15rem, 5.2vw, 4.25rem);
 }
 
+.h-poster-xs {
+  font-family: var(--font-poster);
+  text-transform: uppercase;
+  line-height: 0.9;
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+}
+
+/* Sub-headline — Hanken Grotesk, per the type spec */
 .h-editorial {
-  font-family: var(--font-editorial);
-  font-variation-settings: "SOFT" 30, "WONK" 1, "opsz" 40;
-  font-weight: 600;
-  line-height: 1.02;
-  letter-spacing: -0.02em;
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.06;
+  letter-spacing: -0.025em;
+  font-size: clamp(1.75rem, 3.8vw, 3rem);
+}
+
+.h-card {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
 }
 
 .eyebrow {
   font-family: var(--font-body);
-  font-weight: 600;
-  font-size: clamp(0.66rem, 1.1vw, 0.78rem);
-  letter-spacing: 0.28em;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Uppercase micro label — replaces nine near-identical sizes */
+.label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-label);
+  letter-spacing: 0.14em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.label-micro {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--text-micro);
+  letter-spacing: 0.18em;
+  line-height: 1.2;
   text-transform: uppercase;
 }
 
 .lede {
-  font-size: clamp(1.02rem, 1.55vw, 1.3rem);
-  line-height: 1.55;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.58;
   letter-spacing: -0.005em;
 }
 
@@ -196,6 +321,14 @@ body {
   .text-outline {
     -webkit-text-stroke-width: 3px;
   }
+}
+
+/* Hard poster shadow — the hoarding-painter's drop */
+.text-drop {
+  text-shadow: 3px 3px 0 var(--drop, var(--color-ink));
+}
+.text-drop-sm {
+  text-shadow: 2px 2px 0 var(--drop, var(--color-ink));
 }
 
 /* ============================================================
@@ -261,10 +394,99 @@ body {
   background-size: 56px 56px;
 }
 
+/* Diagonal barber stripes — lorry mudflap trim */
+.tex-stripe {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--stripe, var(--color-chilli)) 0 10px,
+    transparent 10px 20px
+  );
+}
+
 /* Stitched dashed frame — from the Dal Masala creative */
 .stitch {
   outline: 2px dashed currentColor;
   outline-offset: -12px;
+}
+
+/* ============================================================
+   TRUCK-ART TRIM
+   The decorative furniture: dotted borders, stamp edges,
+   painted bands and hand-lettered plaques.
+   ============================================================ */
+
+/* Dotted inner rule inside a solid border — the hoarding double-line */
+.dotty {
+  position: relative;
+}
+.dotty::before {
+  content: "";
+  position: absolute;
+  inset: 0.6rem;
+  border: 2px dotted currentColor;
+  border-radius: inherit;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* Bead trim — a run of dots along the top and bottom edges */
+.beads {
+  background-image: radial-gradient(currentColor 2.2px, transparent 2.4px);
+  background-size: 14px 14px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+/* Postage-stamp scallop — for the Regions "stamp" cards */
+.frame-stamp {
+  --scallop: 9px;
+  -webkit-mask-image:
+    radial-gradient(var(--scallop) at var(--scallop) var(--scallop), #0000 99%, #000),
+    conic-gradient(#000 0 0);
+  -webkit-mask-composite: destination-in;
+  mask-image:
+    radial-gradient(var(--scallop) at var(--scallop) var(--scallop), #0000 99%, #000),
+    conic-gradient(#000 0 0);
+  mask-composite: intersect;
+  -webkit-mask-size: calc(2 * var(--scallop)) calc(2 * var(--scallop)), auto;
+  mask-size: calc(2 * var(--scallop)) calc(2 * var(--scallop)), auto;
+  -webkit-mask-repeat: round, no-repeat;
+  mask-repeat: round, no-repeat;
+}
+
+/* Mandir arch — the temple-poster silhouette */
+.arch-top {
+  border-start-start-radius: 50% 22%;
+  border-start-end-radius: 50% 22%;
+}
+
+/* Painted plaque — the "HORN OK PLEASE" panel */
+.plaque {
+  position: relative;
+  display: inline-block;
+  padding: 0.5rem 1.15rem 0.6rem;
+  background: var(--plaque-bg, var(--color-marigold));
+  color: var(--plaque-fg, var(--color-ink));
+  border: 2px solid var(--color-ink);
+  border-radius: 0.65rem;
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+
+/* Angled ribbon tag */
+.tilt-tag {
+  transform: rotate(-2.5deg);
+}
+.tilt-tag-r {
+  transform: rotate(2deg);
+}
+
+/* Dotted divider rule */
+.rule-dots {
+  height: 4px;
+  background-image: radial-gradient(currentColor 1.8px, transparent 2px);
+  background-size: 12px 4px;
+  background-repeat: repeat-x;
+  opacity: 0.55;
 }
 
 /* ============================================================
@@ -288,6 +510,7 @@ body {
 }
 .brush-chilli::before { background: var(--color-chilli); }
 .brush-forest::before { background: var(--color-forest-3); }
+.brush-rani::before { background: var(--color-rani-2); }
 
 /* — Underline sweep on hover ————————————————————— */
 .link-sweep {
@@ -326,8 +549,8 @@ body {
   color: var(--btn-fg);
   border: 2px solid var(--color-ink);
   border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.86rem;
+  font-weight: 700;
+  font-size: var(--text-label);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1;
@@ -347,6 +570,10 @@ body {
   transform: translate(2px, 2px);
   box-shadow: 1px 1px 0 var(--btn-shadow);
 }
+.btn-sm {
+  padding: 0.7rem 1.15rem;
+  font-size: var(--text-micro);
+}
 .btn-hot {
   --btn-bg: var(--color-chilli);
   --btn-fg: var(--color-paper);
@@ -356,6 +583,16 @@ body {
   --btn-bg: var(--color-marigold);
   --btn-fg: var(--color-ink);
   --btn-shadow: var(--color-oxblood);
+}
+.btn-rani {
+  --btn-bg: var(--color-rani);
+  --btn-fg: var(--color-paper);
+  --btn-shadow: var(--color-ink);
+}
+.btn-cobalt {
+  --btn-bg: var(--color-cobalt);
+  --btn-fg: var(--color-paper);
+  --btn-shadow: var(--color-marigold);
 }
 .btn-ghost {
   --btn-bg: transparent;
@@ -372,11 +609,19 @@ body {
   padding: 0.4rem 0.85rem;
   border: 1.5px solid currentColor;
   border-radius: 999px;
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: var(--text-micro);
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* Solid poster chip — reads at a glance on busy grounds */
+.chip-solid {
+  border-color: var(--color-ink);
+  background: var(--chip-bg, var(--color-marigold));
+  color: var(--chip-fg, var(--color-ink));
+  box-shadow: 2px 2px 0 var(--color-ink);
 }
 
 /* — Card lift ————————————————————————————————— */
@@ -387,6 +632,20 @@ body {
 }
 .card-lift:hover {
   transform: translateY(-8px);
+}
+
+/* Poster card — hard border, hard shadow, no apology */
+.card-poster {
+  border: 2px solid var(--color-ink);
+  border-radius: 1.4rem;
+  box-shadow: 6px 6px 0 var(--card-shadow, var(--color-ink));
+  transition:
+    transform 0.4s var(--ease-spice),
+    box-shadow 0.4s var(--ease-spice);
+}
+.card-poster:hover {
+  transform: translate(-3px, -3px);
+  box-shadow: 10px 10px 0 var(--card-shadow, var(--color-ink));
 }
 
 /* ============================================================
@@ -485,7 +744,7 @@ body {
   aspect-ratio: 1;
   padding: 0.4rem;
   border-radius: 999px;
-  background: var(--color-chilli);
+  background: var(--color-rani);
   color: var(--color-paper);
   font-size: clamp(0.44rem, 1.15vw, 0.66rem);
   line-height: 1.05;
@@ -613,6 +872,16 @@ body {
 }
 .anim-rise > * {
   animation: rise-in 0.9s var(--ease-spice) both;
+}
+
+/* Blinking bulb — the lorry-tail fairy lights */
+@keyframes bulb {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+.anim-bulb {
+  animation: bulb 1.6s steps(2, end) infinite;
+  animation-delay: var(--delay, 0s);
 }
 
 /* ============================================================

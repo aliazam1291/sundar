@@ -29,10 +29,10 @@ export default function Journey() {
       <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-7 bg-black sm:h-9" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-7 bg-black sm:h-9" />
 
-      <div className="relative mx-auto max-w-[1200px] px-4 py-24 sm:px-6 lg:px-10 lg:py-32">
+      <div className="shell-narrow relative section-lg">
         {/* title card */}
         <header className="text-center" data-reveal="up">
-          <p className="font-mono text-[0.66rem] uppercase tracking-[0.55em] text-dune/60">
+          <p className="font-body text-micro uppercase tracking-[0.55em] text-dune/60">
             MMXXVI · A film in one reel
           </p>
 
@@ -40,18 +40,18 @@ export default function Journey() {
             1975
           </h2>
 
-          <p className="font-mono mt-5 text-[0.7rem] uppercase tracking-[0.42em] text-ivory/50">
+          <p className="font-body mt-5 text-micro uppercase tracking-[0.42em] text-ivory/50">
             भारत · India
           </p>
 
           <div className="mx-auto mt-12 max-w-md">
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.4em] text-dune/50">
+            <p className="font-body text-micro uppercase tracking-[0.4em] text-dune/50">
               His name
             </p>
             <p className="font-editorial mt-3 text-[clamp(1.5rem,4vw,2.4rem)] leading-tight text-ivory">
               {FOUNDER.name}
             </p>
-            <p className="font-mono mt-3 text-[0.62rem] uppercase tracking-[0.34em] text-terracotta-2">
+            <p className="font-body mt-3 text-micro uppercase tracking-[0.34em] text-terracotta-2">
               {FOUNDER.role} · {FOUNDER.roleHi}
             </p>
           </div>
@@ -66,10 +66,10 @@ export default function Journey() {
                 <span className="font-poster text-outline text-[2.6rem] leading-none text-terracotta/70">
                   {ch.chapter}
                 </span>
-                <span className="font-mono text-[0.62rem] uppercase tracking-[0.42em] text-dune/55">
+                <span className="font-body text-micro uppercase tracking-[0.42em] text-dune/55">
                   {ch.label}
                 </span>
-                <span className="ml-auto font-mono text-[0.62rem] tracking-[0.3em] text-ivory/35">
+                <span className="ml-auto font-body text-micro tracking-[0.3em] text-ivory/35">
                   {ch.year}
                 </span>
               </div>
@@ -103,15 +103,15 @@ export default function Journey() {
                       <p className="font-deva text-[clamp(1.5rem,4vw,2.3rem)] leading-snug text-terracotta">
                         {ch.body}
                       </p>
-                      <p className="font-mono mt-4 text-[0.7rem] uppercase tracking-[0.28em] text-ivory/45">
+                      <p className="font-body mt-4 text-micro uppercase tracking-[0.28em] text-ivory/45">
                         {ch.bodyEn}
                       </p>
                     </>
                   ) : (
-                    <p className="text-[1.02rem] leading-relaxed text-ivory/62">{ch.body}</p>
+                    <p className="text-copy-lg leading-relaxed text-ivory/62">{ch.body}</p>
                   )}
 
-                  <p className="font-mono mt-6 text-[0.6rem] uppercase tracking-[0.34em] text-terracotta-2/80">
+                  <p className="font-body mt-6 text-micro uppercase tracking-[0.34em] text-terracotta-2/80">
                     {ch.meta}
                   </p>
                 </div>
@@ -146,17 +146,17 @@ export default function Journey() {
           </p>
 
           <div className="mt-12 flex items-center justify-center gap-4">
-            <SpiceIcon name="chakki" className="w-8 text-terracotta" />
+            <SpiceIcon mono name="chakki" className="w-8 text-terracotta" />
             <span className="font-poster text-[clamp(2.6rem,8vw,4.6rem)] leading-none text-ivory">
               Sunder
             </span>
-            <SpiceIcon name="chakki" className="w-8 -scale-x-100 text-terracotta" />
+            <SpiceIcon mono name="chakki" className="w-8 -scale-x-100 text-terracotta" />
           </div>
 
-          <p className="font-mono mt-4 text-[0.66rem] uppercase tracking-[0.7em] text-ivory/50">
+          <p className="font-body mt-4 text-micro uppercase tracking-[0.7em] text-ivory/50">
             Spices
           </p>
-          <p className="font-mono mt-3 text-[0.6rem] uppercase tracking-[0.6em] text-dune/45">
+          <p className="font-body mt-3 text-micro uppercase tracking-[0.6em] text-dune/45">
             Since · 1975
           </p>
 

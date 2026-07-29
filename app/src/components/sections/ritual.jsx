@@ -11,11 +11,11 @@ export default function Ritual() {
   return (
     <>
       {/* ── the ritual ── */}
-      <section id="ritual" className="tex-paper relative overflow-hidden bg-sand/60 py-20 lg:py-28">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+      <section id="ritual" className="tex-paper relative overflow-hidden bg-sand/60 section">
+        <div className="shell">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div data-reveal="up">
-              <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
+              <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-chilli)", "--plaque-fg": "var(--color-paper)" }}>
                 <Star className="w-3.5" />
                 How to use it
               </p>
@@ -24,12 +24,12 @@ export default function Ritual() {
                 <br />
                 <span className="text-chilli">ritual.</span>
               </h2>
-              <p className="lede mt-6 max-w-md text-ink/68">
+              <p className="lede mt-6 max-w-md text-ink-soft">
                 Four steps, thirty seconds, and the difference between a dish that tastes of spice
                 and one that tastes of dust.
               </p>
 
-              <SpiceIcon name="pinch" className="mt-10 hidden w-32 text-ink/15 lg:block" strokeWidth={1.2} />
+              <SpiceIcon mono name="pinch" className="mt-10 hidden w-32 text-clay/50 lg:block" />
             </div>
 
             <ol className="relative space-y-3">
@@ -47,7 +47,7 @@ export default function Ritual() {
                     <span className="font-editorial block text-[1.3rem] leading-tight text-ink">
                       {r.title}
                     </span>
-                    <span className="mt-2 block text-[0.96rem] leading-relaxed text-ink/62">
+                    <span className="mt-2 block text-copy leading-relaxed text-ink-soft">
                       {r.body}
                     </span>
                   </span>
@@ -59,19 +59,19 @@ export default function Ritual() {
       </section>
 
       {/* ── the platforms ── */}
-      <section className="relative overflow-hidden bg-paper py-20 lg:py-28">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+      <section className="relative overflow-hidden bg-paper section">
+        <div className="shell">
           <div className="max-w-2xl" data-reveal="up">
-            <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
+            <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-chilli)", "--plaque-fg": "var(--color-paper)" }}>
               <Star className="w-3.5" />
               Beyond the packet
             </p>
-            <h2 className="h-editorial mt-4 text-ink">
+            <h2 className="h-editorial mt-5 text-ink">
               We do not wait for the event. We are the event.
             </h2>
           </div>
 
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+          <div className="section-body grid gap-5 lg:grid-cols-3">
             {JOURNAL.map((j, i) => (
               <article
                 key={j.title}
@@ -90,7 +90,7 @@ export default function Ritual() {
                   <h3 className="font-poster mt-6 text-[2.1rem] leading-[0.9]">{j.title}</h3>
                 </div>
 
-                <p className="relative mt-8 max-w-xs text-[0.98rem] leading-relaxed opacity-82">
+                <p className="relative mt-8 max-w-xs text-copy leading-relaxed opacity-82">
                   {j.body}
                 </p>
               </article>

@@ -13,21 +13,27 @@ const PINCH = seeded(11, 17);
 
 export default function Chutki() {
   return (
-    <section id="chutki" className="tex-paper relative overflow-hidden bg-cream py-20 lg:py-28">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-        <p className="eyebrow flex items-center gap-2.5 text-chilli-ink" data-reveal="up">
+    <section id="chutki" className="tex-paper relative overflow-hidden bg-cream section">
+      <div className="shell">
+        <p
+          className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
+          data-reveal="up"
+          style={{ "--plaque-bg": "var(--color-cobalt)", "--plaque-fg": "var(--color-paper)" }}
+        >
           <Star className="w-3.5" />
           The revelation
         </p>
 
-        <h2 className="h-poster mt-5 max-w-5xl" data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
+        <h2 className="h-poster mt-6 max-w-5xl" data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
           <span className="text-ink">It was never a fistful.</span>
           <br />
-          <span className="text-saffron-deep">It was one chutki.</span>
+          <span className="text-drop text-rani-ink" style={{ "--drop": "var(--color-marigold)" }}>
+            It was one chutki.
+          </span>
         </h2>
 
         <p
-          className="lede mt-7 max-w-2xl text-ink/70"
+          className="lede mt-7 max-w-2xl text-ink-soft"
           data-reveal="up"
           style={{ "--reveal-delay": "160ms" }}
         >
@@ -37,15 +43,15 @@ export default function Chutki() {
         </p>
 
         {/* comparison */}
-        <div className="mt-16 grid gap-5 md:grid-cols-2 md:gap-6">
+        <div className="section-body grid gap-5 md:grid-cols-2 md:gap-6">
           {/* fistful */}
           <figure
-            className="group relative overflow-hidden rounded-[1.6rem] border-2 border-ink/15 bg-sand/50 p-7 sm:p-9"
+            className="card-poster card-pad group relative overflow-hidden bg-sand/60" style={{ "--card-shadow": "var(--color-clay)" }}
             data-reveal="left"
           >
             <figcaption className="flex items-baseline justify-between gap-4">
-              <span className="font-poster text-[1.7rem] leading-none text-ink/45">A fistful</span>
-              <span className="chip border-ink/25 text-ink/45">Heavy · flat</span>
+              <span className="h-poster-xs text-ink-mute">A fistful</span>
+              <span className="chip border-ink/25 text-ink-mute">Heavy · flat</span>
             </figcaption>
 
             <div className="relative mt-7 h-52 sm:h-60" aria-hidden="true">
@@ -57,13 +63,13 @@ export default function Chutki() {
                 />
               ))}
               <div className="absolute inset-0 grid place-content-center">
-                <span className="font-poster text-[3.4rem] leading-none text-ink/12 sm:text-[4.6rem]">
+                <span className="font-poster text-[3.4rem] leading-none text-clay/45 sm:text-[4.6rem]">
                   Too much
                 </span>
               </div>
             </div>
 
-            <p className="mt-5 max-w-sm text-[0.95rem] text-ink/55">
+            <p className="mt-5 max-w-sm text-copy text-ink-soft">
               More powder does not mean more flavour. It means more dust, more bitterness, and a
               dish that tastes of the packet instead of the produce.
             </p>
@@ -71,14 +77,14 @@ export default function Chutki() {
 
           {/* pinch */}
           <figure
-            className="group relative overflow-hidden rounded-[1.6rem] border-2 border-ink bg-forest p-7 text-ghee shadow-[8px_8px_0_var(--color-saffron)] sm:p-9"
+            className="card-poster card-pad group relative overflow-hidden bg-forest text-ghee"
             data-reveal="right"
             style={{ "--reveal-delay": "120ms" }}
           >
             <div className="tex-sunburst-warm pointer-events-none absolute inset-0" />
 
             <figcaption className="relative flex items-baseline justify-between gap-4">
-              <span className="font-poster text-[1.7rem] leading-none text-marigold">One chutki</span>
+              <span className="h-poster-xs text-marigold">One chutki</span>
               <span className="chip border-marigold/50 text-marigold">Precise · alive</span>
             </figcaption>
 
@@ -101,7 +107,7 @@ export default function Chutki() {
               </span>
             </div>
 
-            <p className="relative mt-5 max-w-sm text-[0.95rem] text-ghee/70">
+            <p className="relative mt-5 max-w-sm text-copy text-ghee/70">
               Ground fine and fresh, the right blend blooms in two seconds of hot fat. You need
               less of it — which is, inconveniently for us, the whole point.
             </p>
@@ -110,7 +116,7 @@ export default function Chutki() {
 
         {/* payoff band */}
         <div
-          className="mt-6 flex flex-col items-start justify-between gap-5 rounded-[1.6rem] bg-oxblood px-7 py-8 text-paper sm:flex-row sm:items-center sm:px-10"
+          className="card-poster card-pad dotty mt-5 flex flex-col items-start justify-between gap-5 bg-rani text-paper sm:flex-row sm:items-center" style={{ "--card-shadow": "var(--color-cobalt)" }}
           data-reveal="up"
         >
           <p className="h-poster-sm max-w-2xl">
@@ -118,7 +124,7 @@ export default function Chutki() {
             <br />
             <span className="text-marigold">We just never read the label.</span>
           </p>
-          <p className="font-deva shrink-0 text-lg text-marigold">कम मसाला, पूरा स्वाद</p>
+          <p className="font-deva shrink-0 text-copy-lg text-marigold">कम मसाला, पूरा स्वाद</p>
         </div>
       </div>
     </section>

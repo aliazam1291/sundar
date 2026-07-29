@@ -23,7 +23,7 @@ export default async function ShopPage({ searchParams }) {
   return (
     <>
       {/* header */}
-      <section className="relative isolate overflow-hidden bg-forest py-16 text-ghee lg:py-20">
+      <section className="relative isolate overflow-hidden bg-forest section text-ghee">
         <Sunburst
           className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold"
           rays={48}
@@ -31,7 +31,7 @@ export default async function ShopPage({ searchParams }) {
         />
         <div className="tex-grid pointer-events-none absolute inset-0 opacity-30" />
 
-        <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <div className="relative shell">
           <p className="eyebrow flex items-center gap-2.5 text-marigold">
             <Star className="w-3.5" />
             {PRODUCTS.length} blends · three ranges
@@ -54,7 +54,7 @@ export default async function ShopPage({ searchParams }) {
         className="sticky z-30 border-y-2 border-ink bg-marigold"
         style={{ top: "var(--header-h, 4.6rem)" }}
       >
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <div className="shell">
           <div className="no-scrollbar flex gap-2.5 overflow-x-auto py-3.5">
             {FILTERS.map((f) => {
               const on = active === f.id;
@@ -70,7 +70,7 @@ export default async function ShopPage({ searchParams }) {
                       : "border-ink/25 text-ink hover:border-ink hover:bg-ink/8"
                   }`}
                 >
-                  <SpiceIcon name={f.icon} className="w-4" />
+                  <SpiceIcon mono name={f.icon} className="w-4" />
                   {f.name}
                 </Link>
               );
@@ -80,9 +80,9 @@ export default async function ShopPage({ searchParams }) {
       </div>
 
       {/* grid */}
-      <section className="tex-paper bg-cream py-14 lg:py-20">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-          <p className="mb-8 text-[0.76rem] font-semibold uppercase tracking-[0.2em] text-ink/50">
+      <section className="tex-paper bg-cream section">
+        <div className="shell">
+          <p className="mb-8 text-label font-semibold uppercase tracking-[0.2em] text-ink-soft">
             Showing {items.length} {items.length === 1 ? "blend" : "blends"}
             {range ? ` · ${range.full}` : ""}
           </p>
@@ -99,7 +99,7 @@ export default async function ShopPage({ searchParams }) {
         <Marquee
           items={["Free shipping over ₹799", "Harvest-dated batches", "No colours · no preservatives", "Ships across India"]}
           speed={34}
-          itemClassName="text-[0.72rem] font-semibold uppercase tracking-[0.24em]"
+          itemClassName="text-label font-semibold uppercase tracking-[0.24em]"
         />
       </div>
     </>

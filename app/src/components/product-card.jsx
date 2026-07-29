@@ -38,26 +38,26 @@ export default function ProductCard({ product, index = 0 }) {
               <p className="chip mb-2.5 border-none px-0" style={{ color: product.hueInk }}>
                 {range.name}
               </p>
-              <h3 className="font-poster text-[1.6rem] leading-[0.9] text-ink sm:text-[1.85rem]">
+              <h3 className="h-poster-xs text-ink">
                 {product.name}
               </h3>
-              <p className="mt-1 truncate text-[0.8rem] font-medium text-ink/55">{product.kind}</p>
+              <p className="mt-1 truncate text-label font-medium text-ink-soft">{product.kind}</p>
             </div>
             <span
-              className="mt-1 shrink-0 rounded-full px-2.5 py-1 text-[0.72rem] font-bold text-paper"
+              className="mt-1 shrink-0 rounded-full px-2.5 py-1 text-label font-bold text-paper"
               style={{ background: product.hueInk }}
             >
               {formatPrice(product.price)}
             </span>
           </div>
 
-          <p className="mt-3 font-editorial text-[0.95rem] leading-snug text-ink/75">
+          <p className="mt-3 text-copy text-ink-soft">
             {product.tagline}
           </p>
 
           <div className="mt-4 flex items-center justify-between gap-3 border-t border-ink/10 pt-3.5">
             <HeatScale level={product.heat} showLabel={false} size="w-3.5" className="text-chilli" />
-            <span className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-ink/45">
+            <span className="text-micro font-semibold uppercase tracking-[0.16em] text-ink-mute">
               {product.size}
             </span>
           </div>

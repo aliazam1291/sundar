@@ -15,13 +15,23 @@ export default function Home() {
     <>
       <Hero />
 
-      <div className="border-y-2 border-ink bg-marigold py-3.5 text-ink">
+      <div className="relative border-y-2 border-ink bg-turmeric py-4 text-ink">
+        <div
+          className="tex-stripe absolute inset-x-0 top-0 h-1.5 opacity-70"
+          style={{ "--stripe": "var(--color-cobalt)" }}
+          aria-hidden="true"
+        />
         <Marquee
           items={TICKER}
           speed={30}
           gap="2.5rem"
           reverse
-          itemClassName="font-poster text-[1.35rem] sm:text-[1.7rem] leading-none"
+          itemClassName="h-poster-xs text-drop-sm"
+        />
+        <div
+          className="tex-stripe absolute inset-x-0 bottom-0 h-1.5 opacity-70"
+          style={{ "--stripe": "var(--color-rani)" }}
+          aria-hidden="true"
         />
       </div>
 

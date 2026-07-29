@@ -16,7 +16,7 @@ export default function HeatScale({ level = 0, className = "", showLabel = true,
         ))}
       </span>
       {showLabel ? (
-        <span className="text-[0.66rem] font-semibold uppercase tracking-[0.16em] opacity-70">
+        <span className="text-micro font-semibold uppercase tracking-[0.16em] opacity-70">
           {LABELS[level]}
         </span>
       ) : null}

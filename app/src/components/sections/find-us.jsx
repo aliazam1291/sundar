@@ -35,7 +35,7 @@ const CHANNELS = [
 
 export default function FindUs() {
   return (
-    <section className="relative isolate overflow-hidden bg-forest py-20 text-ghee lg:py-28">
+    <section className="relative isolate overflow-hidden bg-forest section text-ghee">
       <Sunburst
         className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold"
         rays={46}
@@ -43,18 +43,18 @@ export default function FindUs() {
       />
       <div className="tex-grid pointer-events-none absolute inset-0 opacity-25" />
 
-      <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+      <div className="relative shell">
         <div className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow flex items-center gap-2.5 text-marigold">
+          <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-rani)", "--plaque-fg": "var(--color-paper)" }}>
             <Star className="w-3.5" />
             Where to buy
           </p>
-          <h2 className="h-editorial mt-4">
+          <h2 className="h-editorial mt-5">
             The moment you crave it, it should be one tap away.
           </h2>
         </div>
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="section-body grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CHANNELS.map((c, i) => (
             <div
               key={c.id}
@@ -67,14 +67,14 @@ export default function FindUs() {
                 name={c.icon}
                 className="w-9 text-marigold transition-transform duration-500 group-hover:-rotate-12"
               />
-              <p className="eyebrow mt-6 text-marigold/80">{c.kicker}</p>
+              <p className="label-micro mt-6 text-marigold">{c.kicker}</p>
               <h3 className="font-editorial mt-2.5 text-[1.3rem] leading-tight">{c.title}</h3>
-              <p className="mt-3 text-[0.92rem] leading-relaxed text-ghee/65">{c.body}</p>
+              <p className="mt-3 text-copy leading-relaxed text-ghee/65">{c.body}</p>
 
               {c.contact ? (
                 <a
                   href="mailto:hello@sundermasala.com"
-                  className="link-sweep mt-5 inline-block text-[0.85rem] font-semibold text-marigold"
+                  className="link-sweep mt-5 inline-block text-meta font-semibold text-marigold"
                 >
                   hello@sundermasala.com
                 </a>
@@ -91,7 +91,7 @@ export default function FindUs() {
             No dead ends.
           </p>
           <Link href="/shop" className="btn btn-gold shrink-0">
-            <SpiceIcon name="jar" className="w-4" />
+            <SpiceIcon mono name="jar" className="w-4" />
             Shop the range
           </Link>
         </div>

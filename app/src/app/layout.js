@@ -1,7 +1,11 @@
-import { Anton, Fraunces, Familjen_Grotesk, Tiro_Devanagari_Hindi } from "next/font/google";
+import { Anton, Hanken_Grotesk, Cinzel, Baloo_2 } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+
+/* Brand fonts, per the Sunder Masala type spec:
+   Anton = display · Hanken Grotesk = everything else
+   Cinzel = Heritage accent · Baloo 2 = Regional accent (+ all Devanagari) */
 
 const anton = Anton({
   variable: "--font-anton",
@@ -10,23 +14,21 @@ const anton = Anton({
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
-  display: "swap",
-});
-
-const familjen = Familjen_Grotesk({
-  variable: "--font-familjen",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
   display: "swap",
 });
 
-const tiro = Tiro_Devanagari_Hindi({
-  variable: "--font-tiro",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const baloo = Baloo_2({
+  variable: "--font-baloo",
   subsets: ["devanagari", "latin"],
-  weight: "400",
   display: "swap",
 });
 
@@ -73,7 +75,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${anton.variable} ${fraunces.variable} ${familjen.variable} ${tiro.variable} h-full`}
+      className={`${anton.variable} ${hanken.variable} ${cinzel.variable} ${baloo.variable} h-full`}
     >
       <body className="grain min-h-full flex flex-col bg-paper text-ink">
         <a

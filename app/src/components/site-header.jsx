@@ -63,12 +63,13 @@ export default function SiteHeader() {
   return (
     <>
       {/* announcement ticker */}
-      <div className="relative z-50 border-b-2 border-ink bg-chilli py-2 text-paper">
+      <div className="relative z-50 border-b-2 border-ink bg-rani py-2 text-paper">
+        <div className="beads absolute inset-x-0 top-0 h-1.5 text-marigold/70" aria-hidden="true" />
         <Marquee
           items={TICKER}
           speed={42}
           gap="2rem"
-          itemClassName="text-[0.68rem] font-semibold uppercase tracking-[0.24em]"
+          itemClassName="label-micro"
         />
       </div>
 
@@ -80,17 +81,16 @@ export default function SiteHeader() {
             : "border-transparent bg-paper"
         }`}
       >
-        <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10">
+        <div className="shell flex items-center justify-between gap-4">
           <Link
             href="/"
             aria-label="Sunder Masala — home"
-            className={`shrink-0 transition-all duration-300 ${scrolled ? "py-2.5" : "py-3.5"}`}
+            className={`shrink-0 transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}
           >
             <Logo
-              className={`h-auto transition-all duration-300 ${scrolled ? "w-[104px]" : "w-[124px]"}`}
-              card="transparent"
-              brand="#d81f26"
-              type="#fdf6e8"
+              className={`w-auto transition-all duration-300 ${scrolled ? "h-10" : "h-12"}`}
+              brand="#e01f26"
+              type="#ffffff"
             />
           </Link>
 
@@ -102,8 +102,8 @@ export default function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`link-sweep text-[0.78rem] font-semibold uppercase tracking-[0.18em] transition-opacity hover:opacity-100 ${
-                    active ? "opacity-100" : "opacity-65"
+                  className={`link-sweep label transition-colors hover:text-rani-ink ${
+                    active ? "text-rani-ink" : "text-ink-soft"
                   }`}
                 >
                   {item.label}
@@ -113,8 +113,8 @@ export default function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2.5">
-            <Link href="/shop" className="btn btn-hot hidden !px-5 !py-2.5 !text-[0.7rem] sm:inline-flex">
-              <SpiceIcon name="jar" className="w-4" />
+            <Link href="/shop" className="btn btn-hot btn-sm hidden sm:inline-flex">
+              <SpiceIcon mono name="jar" className="w-4" />
               Buy the range
             </Link>
 
@@ -161,7 +161,7 @@ export default function SiteHeader() {
           }`}
         />
         <nav
-          className={`tex-sunburst absolute inset-x-0 top-0 origin-top overflow-y-auto bg-forest pt-[104px] pb-10 text-ghee transition-transform duration-500 ${
+          className={`tex-sunburst absolute inset-x-0 top-0 origin-top overflow-y-auto bg-forest pt-[calc(var(--header-h,4.6rem)+2.75rem)] pb-10 text-ghee transition-transform duration-500 ${
             open ? "translate-y-0" : "-translate-y-full"
           }`}
           style={{ maxHeight: "100dvh", transitionTimingFunction: "var(--ease-spice)" }}

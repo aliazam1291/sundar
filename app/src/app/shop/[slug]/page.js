@@ -45,7 +45,7 @@ export default async function ProductPage({ params }) {
     <>
       {/* ── hero ── */}
       <section
-        className="relative isolate overflow-hidden py-12 lg:py-16"
+        className="relative isolate overflow-hidden section-sm"
         style={{
           background: `linear-gradient(165deg, ${product.hueFill[0]}, ${product.hueFill[1]})`,
         }}
@@ -60,9 +60,9 @@ export default async function ProductPage({ params }) {
           className="pointer-events-none absolute -right-16 top-6 w-[26rem] text-white opacity-[0.07]"
         />
 
-        <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <div className="relative shell">
           {/* breadcrumb */}
-          <nav aria-label="Breadcrumb" className="mb-9 flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-white/60">
+          <nav aria-label="Breadcrumb" className="mb-9 flex items-center gap-2 text-micro font-semibold uppercase tracking-[0.16em] text-white/60">
             <Link href="/shop" className="link-sweep hover:text-white">Shop</Link>
             <span aria-hidden="true">/</span>
             <Link href={`/shop?range=${range.id}`} className="link-sweep hover:text-white">{range.name}</Link>
@@ -90,23 +90,23 @@ export default async function ProductPage({ params }) {
                 {product.name}
               </h1>
 
-              <p className="mt-3 text-[1.05rem] font-semibold uppercase tracking-[0.14em] text-white/65" style={{ animationDelay: "180ms" }}>
+              <p className="mt-3 text-copy-lg font-semibold uppercase tracking-[0.14em] text-white/65" style={{ animationDelay: "180ms" }}>
                 {product.kind}
               </p>
 
               <p className="font-editorial mt-6 max-w-lg text-[clamp(1.2rem,2.4vw,1.6rem)] leading-snug" style={{ animationDelay: "240ms" }}>
                 {product.tagline}
               </p>
-              <p className="font-deva mt-2.5 text-[1.05rem] text-white/70" style={{ animationDelay: "280ms" }}>
+              <p className="font-deva mt-2.5 text-copy-lg text-white/70" style={{ animationDelay: "280ms" }}>
                 {product.hindi}
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5" style={{ animationDelay: "340ms" }}>
                 <div>
-                  <span className="font-poster block text-[2.6rem] leading-none">
+                  <span className="h-poster-xs block">
                     {formatPrice(product.price)}
                   </span>
-                  <span className="mt-1 block text-[0.7rem] uppercase tracking-[0.16em] text-white/55">
+                  <span className="mt-1 block text-micro uppercase tracking-[0.16em] text-white/55">
                     {product.size} · incl. taxes
                   </span>
                 </div>
@@ -115,7 +115,7 @@ export default async function ProductPage({ params }) {
 
               <div className="mt-9 flex flex-wrap gap-3" style={{ animationDelay: "420ms" }}>
                 <Link href="/#stockists" className="btn btn-gold">
-                  <SpiceIcon name="jar" className="w-4" />
+                  <SpiceIcon mono name="jar" className="w-4" />
                   Where to buy
                 </Link>
                 <Link href="/shop" className="btn btn-ghost text-white">
@@ -123,7 +123,7 @@ export default async function ProductPage({ params }) {
                 </Link>
               </div>
 
-              <p className="mt-4 text-[0.78rem] text-white/55" style={{ animationDelay: "460ms" }}>
+              <p className="mt-4 text-label text-white/55" style={{ animationDelay: "460ms" }}>
                 Quick commerce in Indore &amp; Bhopal · nationwide shipping · 10,000+ kirana stores
               </p>
             </div>
@@ -133,15 +133,15 @@ export default async function ProductPage({ params }) {
 
       {/* ── specs strip ── */}
       <section className="border-y-2 border-ink bg-marigold">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-2 divide-ink/20 px-4 sm:px-6 lg:grid-cols-4 lg:divide-x lg:px-10">
+        <div className="shell grid grid-cols-2 divide-ink/20 lg:grid-cols-4 lg:divide-x">
           {SPECS.map((s) => (
             <div key={s.label} className="flex items-center gap-3.5 py-5 lg:justify-center lg:px-4">
-              <SpiceIcon name={s.icon} className="w-7 shrink-0 text-ink/70" />
+              <SpiceIcon name={s.icon} className="w-7 shrink-0" />
               <div className="min-w-0">
-                <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink/50">
+                <p className="text-micro font-bold uppercase tracking-[0.2em] text-ink-soft">
                   {s.label}
                 </p>
-                <p className="truncate text-[0.9rem] font-semibold text-ink">{s.value}</p>
+                <p className="truncate text-meta font-semibold text-ink">{s.value}</p>
               </div>
             </div>
           ))}
@@ -149,8 +149,8 @@ export default async function ProductPage({ params }) {
       </section>
 
       {/* ── story + notes ── */}
-      <section className="tex-paper bg-cream py-16 lg:py-24">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+      <section className="tex-paper bg-cream section">
+        <div className="shell">
           <div className="grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
             <div data-reveal="up">
               <p className="eyebrow text-chilli-ink">Why it tastes like this</p>
@@ -159,8 +159,8 @@ export default async function ProductPage({ params }) {
               </p>
 
               <div className="mt-10 rounded-[1.4rem] border-2 border-ink/12 bg-paper/70 p-6 sm:p-8">
-                <p className="eyebrow text-ink/50">The chutki rule</p>
-                <p className="mt-3.5 text-[1.02rem] leading-relaxed text-ink/72">
+                <p className="eyebrow text-ink-soft">The chutki rule</p>
+                <p className="mt-3.5 text-copy-lg leading-relaxed text-ink-soft">
                   One pinch into shimmering fat, count to two, then the rest of the dish. This blend
                   is ground fine enough that more is genuinely worse.
                 </p>
@@ -172,12 +172,12 @@ export default async function ProductPage({ params }) {
                 <p className="eyebrow text-chilli-ink">What&rsquo;s inside</p>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {product.notes.map((n) => (
-                    <li key={n} className="chip border-ink/25 text-ink/75">
+                    <li key={n} className="chip border-ink/25 text-ink-soft">
                       {n}
                     </li>
                   ))}
                 </ul>
-                <p className="mt-5 text-[0.86rem] text-ink/50">
+                <p className="mt-5 text-meta text-ink-soft">
                   Nothing else. No colours, no anti-caking agents, no fillers.
                 </p>
               </div>
@@ -187,8 +187,8 @@ export default async function ProductPage({ params }) {
                 <ul className="mt-5 space-y-2.5">
                   {product.pairs.map((p) => (
                     <li key={p} className="flex items-center gap-3 border-b border-ink/10 pb-2.5">
-                      <SpiceIcon name="sprig" className="w-4 shrink-0 text-saffron" />
-                      <span className="text-[0.98rem] text-ink/78">{p}</span>
+                      <SpiceIcon mono name="sprig" className="w-4 shrink-0 text-forest-3" />
+                      <span className="text-copy text-ink-soft">{p}</span>
                     </li>
                   ))}
                 </ul>
@@ -199,10 +199,10 @@ export default async function ProductPage({ params }) {
                 data-reveal="up"
                 style={{ "--reveal-delay": "220ms" }}
               >
-                <p className="font-poster text-[1.5rem] leading-none text-marigold">
+                <p className="h-poster-xs text-marigold">
                   Harvest {product.harvest}
                 </p>
-                <p className="mt-2.5 text-[0.92rem] text-ghee/70">
+                <p className="mt-2.5 text-copy text-ghee/70">
                   Milled below 40°C in small batches, then sealed the same day. Best within nine
                   months of opening.
                 </p>
@@ -214,8 +214,8 @@ export default async function ProductPage({ params }) {
 
       {/* ── related ── */}
       {related.length ? (
-        <section className="bg-paper py-16 lg:py-24">
-          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <section className="bg-paper section">
+          <div className="shell">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <h2 className="h-editorial max-w-xl text-ink" data-reveal="up">
                 More from {range.name}

@@ -8,9 +8,9 @@ import { SpiceIcon, Sunburst, Star } from "@/components/spice-icons";
 export default function PackShot({ product, className = "", size = "md", tilt = true }) {
   const [c1, c2] = product.hue;
   const scale = {
-    sm: { pad: "p-3", name: "text-[1.05rem]", kind: "text-[0.5rem]", logo: "w-[52px]" },
-    md: { pad: "p-4 sm:p-5", name: "text-[1.5rem] sm:text-[1.75rem]", kind: "text-[0.58rem]", logo: "w-[72px]" },
-    lg: { pad: "p-5 sm:p-7", name: "text-[2rem] sm:text-[2.6rem]", kind: "text-[0.68rem]", logo: "w-[92px]" },
+    sm: { pad: "p-3", name: "text-[1.05rem]", kind: "text-[0.5rem]", logo: "w-[56px]" },
+    md: { pad: "p-4 sm:p-5", name: "text-[1.5rem] sm:text-[1.75rem]", kind: "text-[0.58rem]", logo: "w-[76px]" },
+    lg: { pad: "p-5 sm:p-7", name: "text-[2rem] sm:text-[2.6rem]", kind: "text-[0.68rem]", logo: "w-[96px]" },
   }[size];
 
   return (
@@ -25,7 +25,7 @@ export default function PackShot({ product, className = "", size = "md", tilt = 
         <div className="pack__face">
           {/* ── information panel ── */}
           <div className={`pack__panel ${scale.pad}`}>
-            <Logo className={`${scale.logo} h-auto`} card="transparent" brand="#d81f26" type="#fdf6e8" />
+            <Logo className={`${scale.logo} -ml-1 h-auto`} brand="#e01f26" type="#ffffff" />
 
             <div className="mt-auto">
               <p
@@ -34,13 +34,13 @@ export default function PackShot({ product, className = "", size = "md", tilt = 
               >
                 {product.name}
               </p>
-              <p className={`mt-1.5 font-semibold uppercase tracking-[0.2em] text-ink/60 ${scale.kind}`}>
+              <p className={`mt-1.5 font-semibold uppercase tracking-[0.2em] text-ink-soft ${scale.kind}`}>
                 {product.kind}
               </p>
 
               <div className="mt-2.5 h-px w-full bg-ink/25" />
 
-              <p className={`mt-2 font-semibold uppercase tracking-[0.22em] text-ink/45 ${scale.kind}`}>
+              <p className={`mt-2 font-semibold uppercase tracking-[0.22em] text-ink-mute ${scale.kind}`}>
                 Premium Quality
               </p>
             </div>
@@ -52,10 +52,10 @@ export default function PackShot({ product, className = "", size = "md", tilt = 
 
             {/* scattered ghost icons */}
             <div className="absolute inset-0 overflow-hidden opacity-[0.22] text-white" aria-hidden="true">
-              <SpiceIcon name={product.icon} className="absolute -left-2 top-[8%] w-8" />
-              <SpiceIcon name="cardamom" className="absolute right-1 top-[26%] w-6" />
-              <SpiceIcon name="mustard" className="absolute left-3 top-[46%] w-5" />
-              <SpiceIcon name="cinnamon" className="absolute -right-1 bottom-[30%] w-7" />
+              <SpiceIcon mono name={product.icon} className="absolute -left-2 top-[8%] w-8" />
+              <SpiceIcon mono name="cardamom" className="absolute right-1 top-[26%] w-6" />
+              <SpiceIcon mono name="mustard" className="absolute left-3 top-[46%] w-5" />
+              <SpiceIcon mono name="cinnamon" className="absolute -right-1 bottom-[30%] w-7" />
               <Star className="absolute right-4 top-[6%] w-3" />
               <Star className="absolute left-1 bottom-[16%] w-2.5" />
             </div>

@@ -4,24 +4,29 @@ import { SpiceIcon, Star, Sunburst } from "@/components/spice-icons";
 
 export default function Ranges() {
   return (
-    <section id="ranges" className="relative bg-paper py-20 lg:py-28">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+    <section id="ranges" className="relative overflow-hidden bg-turmeric section text-ink">
+      <div className="tex-dots pointer-events-none absolute inset-0 text-oxblood" aria-hidden="true" />
+
+      <div className="shell relative">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div data-reveal="up">
-            <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
+            <p
+              className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
+              style={{ "--plaque-bg": "var(--color-forest)", "--plaque-fg": "var(--color-marigold)" }}
+            >
               <Star className="w-3.5" />
               Three ranges, three appetites
             </p>
-            <h2 className="h-editorial mt-4 max-w-2xl text-ink">
+            <h2 className="h-editorial mt-5 max-w-2xl text-ink">
               One spice box does not fit every night of the week.
             </h2>
           </div>
-          <Link href="/shop" className="btn shrink-0" data-reveal="up" style={{ "--reveal-delay": "100ms" }}>
-            See all 18 blends
+          <Link href="/shop" className="btn btn-rani shrink-0" data-reveal="up" style={{ "--reveal-delay": "100ms" }}>
+            See all 22 blends
           </Link>
         </div>
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+        <div className="section-body grid gap-5 lg:grid-cols-3">
           {RANGE_LIST.map((range, i) => {
             const count = productsByRange(range.id).length;
             const dark = range.id !== "regions";
@@ -32,7 +37,7 @@ export default function Ranges() {
                 href={`/shop?range=${range.id}`}
                 data-reveal="up"
                 style={{ "--reveal-delay": `${i * 110}ms`, background: range.bg, color: range.ink }}
-                className="card-lift group relative isolate flex min-h-[27rem] flex-col justify-between overflow-hidden rounded-[1.6rem] border-2 border-ink p-7 sm:p-9"
+                className="card-poster card-pad arch-top group relative isolate flex min-h-[27rem] flex-col justify-between overflow-hidden"
               >
                 <Sunburst
                   className="pointer-events-none absolute inset-x-0 bottom-0 h-[80%] w-full"
@@ -47,27 +52,30 @@ export default function Ranges() {
 
                 <div className="relative">
                   <div className="flex items-center justify-between gap-4">
-                    <span className="chip border-current/40 opacity-75">{range.who}</span>
+                    <span
+                      className="chip chip-solid"
+                      style={{ "--chip-bg": range.accent, "--chip-fg": "var(--color-ink)" }}
+                    >
+                      {range.who}
+                    </span>
                     <SpiceIcon name={range.icon} className="w-8 opacity-80" />
                   </div>
 
-                  <h3 className="font-poster mt-7 text-[3.1rem] leading-[0.86] sm:text-[3.6rem]">
+                  <h3 className={`${range.font} mt-7 text-[2.9rem] leading-[0.92] sm:text-[3.5rem]`}>
                     {range.name}
                   </h3>
 
-                  <p className="mt-4 max-w-xs text-[1rem] leading-relaxed opacity-80">
-                    {range.blurb}
-                  </p>
+                  <p className="mt-4 max-w-xs text-copy opacity-85">{range.blurb}</p>
                 </div>
 
                 <div className="relative mt-10">
-                  <p className="font-editorial text-[1.2rem] italic opacity-90">“{range.line}”</p>
+                  <p className="h-card italic opacity-95">“{range.line}”</p>
 
-                  <div className="mt-6 flex items-center justify-between border-t border-current/25 pt-5">
-                    <span className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] opacity-70">
-                      {count} blends
-                    </span>
-                    <span className="flex items-center gap-2 text-[0.78rem] font-bold uppercase tracking-[0.14em] transition-transform duration-300 group-hover:translate-x-1.5">
+                  <div className="rule-dots mt-6 opacity-45" aria-hidden="true" />
+
+                  <div className="mt-5 flex items-center justify-between">
+                    <span className="label-micro opacity-80">{count} blends</span>
+                    <span className="label-micro flex items-center gap-2 transition-transform duration-300 group-hover:translate-x-1.5">
                       Explore
                       <svg viewBox="0 0 24 24" className="w-4" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M4 12h15M13 6l6 6-6 6" />

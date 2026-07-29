@@ -1,11 +1,11 @@
 import Link from "next/link";
 import PackShot from "@/components/pack-shot";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
-import { getProduct } from "@/lib/products";
+import { getProduct, PRODUCTS } from "@/lib/products";
 
 const STATS = [
   { n: "50", label: "years, one recipe" },
-  { n: "18", label: "blends in the range" },
+  { n: String(PRODUCTS.length), label: "blends in the range" },
   { n: "12", label: "sourcing districts" },
   { n: "0", label: "additives, ever" },
 ];
@@ -21,7 +21,7 @@ export default function Hero() {
   const hero = getProduct("darbari-garam-masala");
 
   return (
-    <section className="relative isolate overflow-hidden bg-forest text-ghee">
+    <section className="relative isolate overflow-hidden bg-linear-to-b from-forest-2 via-forest to-forest text-ghee">
       <Sunburst
         className="pointer-events-none absolute inset-x-0 bottom-0 h-[120%] w-full text-marigold"
         rays={56}
@@ -31,34 +31,34 @@ export default function Hero() {
 
       {/* floating spice glyphs */}
       <div className="pointer-events-none absolute inset-0 text-marigold/25" aria-hidden="true">
-        <SpiceIcon name="starAnise" className="anim-float absolute left-[6%] top-[18%] w-14 md:w-20" style={{ "--dur": "8s", "--r": "-12deg" }} />
-        <SpiceIcon name="cardamom" className="anim-float absolute right-[8%] top-[12%] w-10 md:w-14" style={{ "--dur": "6.5s", "--delay": "1.2s", "--r": "14deg" }} />
-        <SpiceIcon name="chilli" className="anim-float absolute bottom-[16%] left-[11%] w-12 md:w-16" style={{ "--dur": "7.4s", "--delay": "0.6s", "--r": "8deg" }} />
-        <SpiceIcon name="cinnamon" className="anim-float absolute bottom-[26%] right-[5%] w-12 md:w-16" style={{ "--dur": "9s", "--delay": "2s", "--r": "-18deg" }} />
+        <SpiceIcon mono name="starAnise" className="anim-float absolute left-[6%] top-[18%] w-14 md:w-20" style={{ "--dur": "8s", "--r": "-12deg" }} />
+        <SpiceIcon mono name="cardamom" className="anim-float absolute right-[8%] top-[12%] w-10 md:w-14" style={{ "--dur": "6.5s", "--delay": "1.2s", "--r": "14deg" }} />
+        <SpiceIcon mono name="chilli" className="anim-float absolute bottom-[16%] left-[11%] w-12 md:w-16" style={{ "--dur": "7.4s", "--delay": "0.6s", "--r": "8deg" }} />
+        <SpiceIcon mono name="cinnamon" className="anim-float absolute bottom-[26%] right-[5%] w-12 md:w-16" style={{ "--dur": "9s", "--delay": "2s", "--r": "-18deg" }} />
       </div>
 
-      <div className="relative mx-auto grid max-w-[1400px] items-center gap-12 px-4 pb-16 pt-14 sm:px-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-8 lg:px-10 lg:pb-24 lg:pt-20">
+      <div className="shell relative grid items-center gap-12 pb-16 pt-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-8 lg:pb-24 lg:pt-16">
         {/* ── copy ── */}
         <div className="anim-rise">
           <p
-            className="eyebrow flex items-center gap-2.5 text-marigold"
-            style={{ animationDelay: "60ms" }}
+            className="plaque tilt-tag label-micro flex items-center gap-2.5"
+            style={{ animationDelay: "60ms", "--plaque-bg": "var(--color-rani)", "--plaque-fg": "var(--color-paper)" }}
           >
             <Star className="w-3.5" />
             Since 1975 · Indore, Madhya Pradesh
           </p>
 
-          <h1 className="h-poster mt-5 text-ghee" style={{ animationDelay: "140ms" }}>
+          <h1 className="h-poster text-drop mt-6 text-ghee" style={{ animationDelay: "140ms", "--drop": "var(--color-oxblood)" }}>
             Bring your region
             <br />
             <span className="text-marigold">back to your plate.</span>
           </h1>
 
           <p
-            className="lede mt-7 max-w-xl text-ghee/78"
+            className="lede mt-7 max-w-xl text-ghee/80"
             style={{ animationDelay: "240ms" }}
           >
-            <strong className="font-semibold text-ghee">Kam masala, poora swaad.</strong>{" "}
+            <strong className="font-semibold text-marigold">Kam masala, poora swaad.</strong>{" "}
             Fifty years of slow-ground, single-origin blends — Heritage for the occasion,
             Regions for the craving, Essentials for every night in between.
           </p>
@@ -68,10 +68,10 @@ export default function Hero() {
             style={{ animationDelay: "340ms" }}
           >
             <Link href="/shop" className="btn btn-gold">
-              <SpiceIcon name="jar" className="w-4" />
+              <SpiceIcon mono name="jar" className="w-4" />
               Shop the range
             </Link>
-            <Link href="/story" className="btn btn-ghost text-ghee">
+            <Link href="/story" className="btn btn-ghost text-marigold">
               A boy, a bicycle, 1975
             </Link>
           </div>
@@ -83,10 +83,13 @@ export default function Hero() {
           >
             {STATS.map((s) => (
               <div key={s.label}>
-                <dd className="font-poster text-[2.4rem] leading-none text-marigold">{s.n}</dd>
-                <dt className="mt-1.5 text-[0.72rem] uppercase tracking-[0.13em] text-ghee/55">
-                  {s.label}
-                </dt>
+                <dd
+                  className="h-poster-xs text-drop-sm text-marigold"
+                  style={{ "--drop": "var(--color-oxblood)" }}
+                >
+                  {s.n}
+                </dd>
+                <dt className="label-micro mt-2.5 text-ghee/70">{s.label}</dt>
               </div>
             ))}
           </dl>
@@ -128,20 +131,21 @@ export default function Hero() {
           </div>
 
           <div className="mt-7 text-center">
-            <p className="font-editorial text-[1.15rem] text-ghee">{hero.tagline}</p>
-            <p className="font-deva mt-1.5 text-sm text-marigold">{hero.hindi}</p>
+            <p className="h-card text-ghee">{hero.tagline}</p>
+            <p className="font-deva mt-1.5 text-copy-lg text-marigold">{hero.hindi}</p>
           </div>
         </div>
       </div>
 
       {/* bottom rule */}
-      <div className="relative mx-auto max-w-[1400px] px-4 pb-8 sm:px-6 lg:px-10">
-        <p className="rule-diamond text-ghee/40">
-          <span className="whitespace-nowrap text-[0.68rem] uppercase tracking-[0.3em]">
-            Scroll · मसालों का सिकंदर
-          </span>
+      <div className="shell relative pb-8">
+        <p className="rule-diamond text-marigold/45">
+          <span className="label-micro whitespace-nowrap">Scroll · मसालों का सिकंदर</span>
         </p>
       </div>
+
+      {/* lorry-tail bead trim */}
+      <div className="beads relative h-3 w-full text-marigold/60" aria-hidden="true" />
     </section>
   );
 }

@@ -16,11 +16,11 @@ export default function RegionsPage() {
 
   return (
     <>
-      <section className="relative isolate overflow-hidden bg-saffron py-16 text-ink lg:py-24">
+      <section className="relative isolate overflow-hidden bg-saffron section text-ink">
         <Sunburst className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-oxblood" rays={50} opacity={0.12} />
-        <SpiceIcon name="thela" className="pointer-events-none absolute -right-8 bottom-0 w-80 text-oxblood opacity-[0.12]" />
+        <SpiceIcon mono name="thela" className="pointer-events-none absolute -right-8 bottom-0 w-80 text-oxblood opacity-[0.12]" />
 
-        <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+        <div className="relative shell">
           <p className="eyebrow flex items-center gap-2.5 text-ink">
             <Star className="w-3.5" />
             {REGIONS.length} regions · {items.length} blends
@@ -32,7 +32,7 @@ export default function RegionsPage() {
             <span className="text-oxblood">apni thali.</span>
           </h1>
 
-          <p className="lede mt-7 max-w-xl text-ink/70">
+          <p className="lede mt-7 max-w-xl text-ink-soft">
             A national masala is a compromise between everybody. These are not that. Each blend is
             learned in one city, from the people who will tell you exactly what the last shop got
             wrong.
@@ -42,14 +42,14 @@ export default function RegionsPage() {
 
       <RegionMap />
 
-      <section className="tex-paper bg-cream py-16 lg:py-24">
-        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+      <section className="tex-paper bg-cream section">
+        <div className="shell">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
             <h2 className="h-editorial max-w-xl text-ink" data-reveal="up">
               The Regions range
             </h2>
             <Link href="/shop" className="btn shrink-0" data-reveal="up">
-              All 18 blends
+              All 22 blends
             </Link>
           </div>
 

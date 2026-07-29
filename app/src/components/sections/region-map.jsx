@@ -8,34 +8,34 @@ const INDIA =
 
 export default function RegionMap() {
   return (
-    <section id="regions" className="relative overflow-hidden bg-paper py-20 lg:py-28">
-      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+    <section id="regions" className="relative overflow-hidden bg-cobalt section text-paper">
+      <div className="shell">
         <div className="max-w-2xl" data-reveal="up">
-          <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
+          <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-marigold)", "--plaque-fg": "var(--color-ink)" }}>
             <Star className="w-3.5" />
             The regional map
           </p>
-          <h2 className="h-editorial mt-4 text-ink">
+          <h2 className="h-editorial mt-5 text-paper">
             Every region has a hero dish. Each one has a masala hiding behind it.
           </h2>
-          <p className="lede mt-5 text-ink/65">
+          <p className="lede mt-5 max-w-xl text-sky">
             We go to the city, learn the blend from the people who argue about it, and put their
             proportions on the shelf. Eight so far.
           </p>
         </div>
 
-        <div className="mt-16 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <div className="section-body grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           {/* map */}
           <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none" data-reveal="scale">
             <div className="relative aspect-[100/120] w-full">
               <svg viewBox="0 0 100 120" className="absolute inset-0 h-full w-full" aria-hidden="true">
                 <defs>
                   <pattern id="mapDots" width="3.2" height="3.2" patternUnits="userSpaceOnUse">
-                    <circle cx="1.6" cy="1.6" r="0.42" fill="var(--color-clay)" opacity="0.55" />
+                    <circle cx="1.6" cy="1.6" r="0.42" fill="var(--color-marigold)" opacity="0.8" />
                   </pattern>
                 </defs>
-                <path d={INDIA} fill="url(#mapDots)" stroke="var(--color-ink)" strokeWidth="0.7" strokeLinejoin="round" opacity="0.85" />
-                <path d={INDIA} fill="var(--color-saffron)" opacity="0.08" />
+                <path d={INDIA} fill="var(--color-cobalt-2)" stroke="var(--color-marigold)" strokeWidth="1" strokeLinejoin="round" />
+                <path d={INDIA} fill="url(#mapDots)" />
               </svg>
 
               {/* pins */}
@@ -60,14 +60,14 @@ export default function RegionMap() {
                   </span>
 
                   {/* tooltip */}
-                  <span className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2.5 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border-2 border-ink bg-forest px-2.5 py-1.5 text-[0.66rem] font-semibold uppercase tracking-[0.1em] text-ghee opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 sm:block">
+                  <span className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2.5 hidden -translate-x-1/2 whitespace-nowrap rounded-lg border-2 border-ink bg-forest px-2.5 py-1.5 text-micro font-semibold uppercase tracking-[0.1em] text-ghee opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 sm:block">
                     {r.city}
                   </span>
                 </Link>
               ))}
             </div>
 
-            <p className="mt-4 text-center text-[0.66rem] uppercase tracking-[0.22em] text-ink/40">
+            <p className="label-micro mt-4 text-center text-sky">
               Stylised · not to scale
             </p>
           </div>
@@ -78,14 +78,14 @@ export default function RegionMap() {
               <li key={r.id} data-reveal="up" style={{ "--reveal-delay": `${(i % 4) * 70}ms` }}>
                 <Link
                   href={`/shop/${r.slug}`}
-                  className="group flex h-full items-start gap-3.5 rounded-[1.1rem] border-2 border-ink/12 bg-cream/55 p-4 transition-all hover:-translate-y-1 hover:border-ink hover:bg-cream"
+                  className="card-pad-sm group flex h-full items-start gap-3.5 rounded-[1.1rem] border-2 border-ink bg-cream transition-all hover:-translate-y-1 hover:shadow-[5px_5px_0_var(--color-marigold)]"
                 >
                   <span
                     className={`mt-1 grid h-8 w-8 shrink-0 place-content-center rounded-full text-paper ${
                       r.home ? "bg-chilli" : "bg-forest"
                     }`}
                   >
-                    <SpiceIcon name={r.home ? "pinch" : "chilli"} className="w-4" />
+                    <SpiceIcon mono name={r.home ? "pinch" : "chilli"} className="w-4" />
                   </span>
 
                   <span className="min-w-0">
@@ -94,18 +94,18 @@ export default function RegionMap() {
                         {r.city}
                       </span>
                       {r.home ? (
-                        <span className="rounded-full bg-chilli px-2 py-0.5 text-[0.55rem] font-bold uppercase tracking-[0.14em] text-paper">
+                        <span className="rounded-full bg-chilli px-2 py-0.5 text-micro font-bold uppercase tracking-[0.14em] text-paper">
                           Home
                         </span>
                       ) : null}
                     </span>
-                    <span className="mt-1 block text-[0.78rem] text-ink/50">
+                    <span className="mt-1 block text-label text-ink-soft">
                       {r.dish} · {r.state}
                     </span>
-                    <span className="mt-2 block font-editorial text-[0.94rem] italic text-ink/75">
+                    <span className="mt-2 block font-editorial text-copy italic text-ink-soft">
                       {r.note}
                     </span>
-                    <span className="mt-2 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-[0.13em] text-saffron-ink transition-transform duration-300 group-hover:translate-x-1">
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-micro font-bold uppercase tracking-[0.13em] text-saffron-ink transition-transform duration-300 group-hover:translate-x-1">
                       {r.blend}
                       <svg viewBox="0 0 24 24" className="w-3.5" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M5 12h13M12 6l6 6-6 6" />

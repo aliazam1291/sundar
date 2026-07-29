@@ -52,11 +52,11 @@ export default function SiteFooter() {
           items={["Kam masala, poora swaad", "Local hero masala", "Since 1975", "Ek chutki, full fire"]}
           speed={38}
           gap="3rem"
-          itemClassName="font-poster text-[2.4rem] sm:text-[3.6rem] leading-none text-marigold"
+          itemClassName="h-poster-sm text-marigold"
         />
       </div>
 
-      <div className="relative mx-auto max-w-[1400px] px-4 py-14 sm:px-6 lg:px-10 lg:py-20">
+      <div className="shell relative section">
         <div className="grid gap-12 lg:grid-cols-[1.35fr_2fr]">
           {/* brand + newsletter */}
           <div data-reveal="up">
@@ -103,7 +103,7 @@ export default function SiteFooter() {
                 <ul className="mt-5 space-y-3">
                   {col.links.map((l) => (
                     <li key={l.label}>
-                      <Link href={l.href} className="link-sweep text-[0.95rem] text-ghee/75 hover:text-ghee">
+                      <Link href={l.href} className="link-sweep text-copy text-ghee/75 hover:text-ghee">
                         {l.label}
                       </Link>
                     </li>
@@ -126,14 +126,14 @@ export default function SiteFooter() {
               <SpiceIcon name={r.icon} className="mt-0.5 w-7 shrink-0 text-marigold" />
               <div>
                 <p className="font-poster text-lg leading-none">{r.name}</p>
-                <p className="mt-1.5 text-[0.82rem] text-ghee/60">{r.who}</p>
+                <p className="mt-1.5 text-label text-ghee/60">{r.who}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* legal */}
-        <div className="mt-12 flex flex-col gap-4 border-t border-ghee/15 pt-7 text-[0.76rem] text-ghee/55 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-4 border-t border-ghee/15 pt-7 text-label text-ghee/55 sm:flex-row sm:items-center sm:justify-between">
           <p className="flex items-center gap-2">
             <Star className="w-3 text-marigold" />
             © {new Date().getFullYear()} Sunder Masala · Indore, Madhya Pradesh
