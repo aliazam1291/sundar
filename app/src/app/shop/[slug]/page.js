@@ -1,0 +1,232 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import PackShot from "@/components/pack-shot";
+import ProductCard from "@/components/product-card";
+import HeatScale from "@/components/heat-scale";
+import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import {
+  PRODUCTS,
+  RANGES,
+  getProduct,
+  relatedProducts,
+  formatPrice,
+} from "@/lib/products";
+
+export function generateStaticParams() {
+  return PRODUCTS.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const product = getProduct(slug);
+  if (!product) return {};
+  return {
+    title: `${product.name} — ${product.kind}`,
+    description: `${product.tagline} ${product.story.slice(0, 120)}…`,
+  };
+}
+
+export default async function ProductPage({ params }) {
+  const { slug } = await params;
+  const product = getProduct(slug);
+  if (!product) notFound();
+
+  const range = RANGES[product.range];
+  const related = relatedProducts(product);
+
+  const SPECS = [
+    { label: "Grind", value: product.grind, icon: "chakki" },
+    { label: "Origin", value: product.origin, icon: "sprig" },
+    { label: "Harvest", value: product.harvest, icon: "jar" },
+    { label: "Net weight", value: product.size, icon: "mortar" },
+  ];
+
+  return (
+    <>
+      {/* ── hero ── */}
+      <section
+        className="relative isolate overflow-hidden py-12 lg:py-16"
+        style={{ background: `linear-gradient(165deg, ${product.hue[0]}, ${product.hue[1]})` }}
+      >
+        <Sunburst
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-white"
+          rays={48}
+          opacity={0.11}
+        />
+        <SpiceIcon
+          name={product.icon}
+          className="pointer-events-none absolute -right-16 top-6 w-[26rem] text-white opacity-[0.07]"
+        />
+
+        <div className="relative mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+          {/* breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-9 flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-white/60">
+            <Link href="/shop" className="link-sweep hover:text-white">Shop</Link>
+            <span aria-hidden="true">/</span>
+            <Link href={`/shop?range=${range.id}`} className="link-sweep hover:text-white">{range.name}</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-white/85">{product.name}</span>
+          </nav>
+
+          <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+            {/* pack */}
+            <div className="relative mx-auto w-full max-w-[330px] lg:max-w-none">
+              <div className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/12 blur-3xl" />
+              <div className="anim-float" style={{ "--dur": "8s" }}>
+                <PackShot product={product} size="lg" />
+              </div>
+            </div>
+
+            {/* copy */}
+            <div className="anim-rise text-white">
+              <p className="eyebrow flex items-center gap-2.5 text-white/70" style={{ animationDelay: "40ms" }}>
+                <Star className="w-3.5" />
+                {range.full}
+              </p>
+
+              <h1 className="h-poster mt-4 text-[clamp(2.6rem,7.5vw,5.5rem)]" style={{ animationDelay: "120ms" }}>
+                {product.name}
+              </h1>
+
+              <p className="mt-3 text-[1.05rem] font-semibold uppercase tracking-[0.14em] text-white/65" style={{ animationDelay: "180ms" }}>
+                {product.kind}
+              </p>
+
+              <p className="font-editorial mt-6 max-w-lg text-[clamp(1.2rem,2.4vw,1.6rem)] leading-snug" style={{ animationDelay: "240ms" }}>
+                {product.tagline}
+              </p>
+              <p className="font-deva mt-2.5 text-[1.05rem] text-white/70" style={{ animationDelay: "280ms" }}>
+                {product.hindi}
+              </p>
+
+              <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5" style={{ animationDelay: "340ms" }}>
+                <div>
+                  <span className="font-poster block text-[2.6rem] leading-none">
+                    {formatPrice(product.price)}
+                  </span>
+                  <span className="mt-1 block text-[0.7rem] uppercase tracking-[0.16em] text-white/55">
+                    {product.size} · incl. taxes
+                  </span>
+                </div>
+                <HeatScale level={product.heat} className="text-white" />
+              </div>
+
+              <div className="mt-9 flex flex-wrap gap-3" style={{ animationDelay: "420ms" }}>
+                <button type="button" className="btn btn-gold">
+                  <SpiceIcon name="jar" className="w-4" />
+                  Add to basket
+                </button>
+                <Link href="/shop" className="btn btn-ghost text-white">
+                  Back to the shelf
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── specs strip ── */}
+      <section className="border-y-2 border-ink bg-marigold">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-2 divide-ink/20 px-4 sm:px-6 lg:grid-cols-4 lg:divide-x lg:px-10">
+          {SPECS.map((s) => (
+            <div key={s.label} className="flex items-center gap-3.5 py-5 lg:justify-center lg:px-4">
+              <SpiceIcon name={s.icon} className="w-7 shrink-0 text-ink/70" />
+              <div className="min-w-0">
+                <p className="text-[0.62rem] font-bold uppercase tracking-[0.2em] text-ink/50">
+                  {s.label}
+                </p>
+                <p className="truncate text-[0.9rem] font-semibold text-ink">{s.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── story + notes ── */}
+      <section className="tex-paper bg-cream py-16 lg:py-24">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+          <div className="grid gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-20">
+            <div data-reveal="up">
+              <p className="eyebrow text-chilli">Why it tastes like this</p>
+              <p className="font-editorial mt-6 text-[clamp(1.35rem,2.6vw,1.9rem)] leading-[1.35] text-ink">
+                {product.story}
+              </p>
+
+              <div className="mt-10 rounded-[1.4rem] border-2 border-ink/12 bg-paper/70 p-6 sm:p-8">
+                <p className="eyebrow text-ink/50">The chutki rule</p>
+                <p className="mt-3.5 text-[1.02rem] leading-relaxed text-ink/72">
+                  One pinch into shimmering fat, count to two, then the rest of the dish. This blend
+                  is ground fine enough that more is genuinely worse.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
+                <p className="eyebrow text-chilli">What&rsquo;s inside</p>
+                <ul className="mt-5 flex flex-wrap gap-2">
+                  {product.notes.map((n) => (
+                    <li key={n} className="chip border-ink/25 text-ink/75">
+                      {n}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-5 text-[0.86rem] text-ink/50">
+                  Nothing else. No colours, no anti-caking agents, no fillers.
+                </p>
+              </div>
+
+              <div data-reveal="up" style={{ "--reveal-delay": "160ms" }}>
+                <p className="eyebrow text-chilli">Cook it with</p>
+                <ul className="mt-5 space-y-2.5">
+                  {product.pairs.map((p) => (
+                    <li key={p} className="flex items-center gap-3 border-b border-ink/10 pb-2.5">
+                      <SpiceIcon name="sprig" className="w-4 shrink-0 text-saffron" />
+                      <span className="text-[0.98rem] text-ink/78">{p}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div
+                className="rounded-[1.4rem] border-2 border-ink bg-forest p-6 text-ghee"
+                data-reveal="up"
+                style={{ "--reveal-delay": "220ms" }}
+              >
+                <p className="font-poster text-[1.5rem] leading-none text-marigold">
+                  Harvest {product.harvest}
+                </p>
+                <p className="mt-2.5 text-[0.92rem] text-ghee/70">
+                  Milled below 40°C in small batches, then sealed the same day. Best within nine
+                  months of opening.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── related ── */}
+      {related.length ? (
+        <section className="bg-paper py-16 lg:py-24">
+          <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <h2 className="h-editorial max-w-xl text-ink" data-reveal="up">
+                More from {range.name}
+              </h2>
+              <Link href={`/shop?range=${range.id}`} className="btn shrink-0" data-reveal="up">
+                See the range
+              </Link>
+            </div>
+
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((p, i) => (
+                <ProductCard key={p.slug} product={p} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+    </>
+  );
+}
