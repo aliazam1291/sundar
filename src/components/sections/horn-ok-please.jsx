@@ -7,10 +7,18 @@ import { Star, SpiceIcon } from "@/components/spice-icons";
 /**
  * The back of the lorry — HORN OK PLEASE, as an interactive panel.
  *
- * Press the horn and the whole tailgate reacts: the bulb string flashes, the
- * panel jolts, sound arcs fly out and the slogan board flips to the next line.
- * Everything is vector and CSS; there is no audio.
+ * Press the horn and the whole tailgate reacts: it sounds, the bulb string
+ * flashes, the panel jolts, sound arcs fly out and the slogan board flips.
+ *
+ * The horn is synthesised with Web Audio rather than shipped as an audio
+ * file — a pressure horn is just a detuned chord through a lowpass, so there
+ * is no asset to license, download or cache.
  */
+
+/* An Indian pressure horn is a musical triad, not a single tone. */
+const HORN_CHORD = [370, 466, 554]; // F#4 major-ish
+const HORN_MIX = [0.5, 0.34, 0.28];
+const HORN_LEN = 0.75;
 
 /* Slogans the board cycles through — the real ones you read on GT Road. */
 const SLOGANS = [
@@ -32,17 +40,76 @@ export default function HornOkPlease() {
   const [slogan, setSlogan] = useState(0);
   const [honking, setHonking] = useState(false);
   const [honks, setHonks] = useState(0);
+  const [muted, setMuted] = useState(false);
   const timer = useRef(null);
+  const audio = useRef(null);
+
+  /* Built lazily on the click, which is also what satisfies the browser's
+     autoplay policy — an AudioContext created before a gesture starts
+     suspended and stays silent. */
+  const sound = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+
+    let ctx = audio.current;
+    if (!ctx) {
+      ctx = new Ctx();
+      audio.current = ctx;
+    }
+    if (ctx.state === "suspended") ctx.resume();
+
+    const t = ctx.currentTime;
+
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, t);
+    master.gain.exponentialRampToValueAtTime(0.26, t + 0.045);
+    master.gain.setValueAtTime(0.26, t + 0.48);
+    master.gain.exponentialRampToValueAtTime(0.0001, t + HORN_LEN);
+
+    /* Tame the sawtooth buzz into something brassy rather than harsh. */
+    const tone = ctx.createBiquadFilter();
+    tone.type = "lowpass";
+    tone.frequency.setValueAtTime(2600, t);
+    tone.Q.value = 0.6;
+
+    tone.connect(master);
+    master.connect(ctx.destination);
+
+    HORN_CHORD.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(freq, t);
+      // the pitch sags as the air lets go, like the real thing
+      osc.frequency.setValueAtTime(freq, t + 0.5);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.94, t + HORN_LEN);
+
+      const mix = ctx.createGain();
+      mix.gain.value = HORN_MIX[i];
+
+      osc.connect(mix);
+      mix.connect(tone);
+      osc.start(t);
+      osc.stop(t + HORN_LEN + 0.02);
+    });
+  }, []);
 
   const honk = useCallback(() => {
+    if (!muted) sound();
     setHonking(true);
     setHonks((n) => n + 1);
     setSlogan((s) => (s + 1) % SLOGANS.length);
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setHonking(false), 700);
-  }, []);
+  }, [muted, sound]);
 
-  useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(
+    () => () => {
+      clearTimeout(timer.current);
+      audio.current?.close?.();
+    },
+    []
+  );
 
   const line = SLOGANS[slogan];
 
@@ -74,6 +141,24 @@ export default function HornOkPlease() {
             <button type="button" onClick={honk} className="btn btn-gold">
               <SpiceIcon mono name="truck" className="w-4" />
               Honk
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setMuted((m) => !m)}
+              aria-pressed={muted}
+              className="grid h-11 w-11 shrink-0 place-content-center rounded-full border-2 border-paper/40 text-paper/70 transition-colors hover:border-sun hover:text-sun"
+              title={muted ? "Unmute the horn" : "Mute the horn"}
+            >
+              <span className="sr-only">{muted ? "Unmute the horn" : "Mute the horn"}</span>
+              <svg viewBox="0 0 24 24" className="w-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M11 5 6 9H3v6h3l5 4z" />
+                {muted ? (
+                  <path d="m16 9 5 6M21 9l-5 6" />
+                ) : (
+                  <path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+                )}
+              </svg>
             </button>
             <Link href="/regions" className="btn btn-ghost text-sun">
               Follow the route
