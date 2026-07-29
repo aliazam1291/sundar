@@ -1,5 +1,7 @@
 import { RITUAL, JOURNAL } from "@/lib/content";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import Backdrop from "@/components/backdrop";
+import Bilingual, { DevaWatermark } from "@/components/bilingual";
 
 const TONE = {
   forest: "bg-forest text-ghee",
@@ -12,19 +14,28 @@ export default function Ritual() {
     <>
       {/* ── the ritual ── */}
       <section id="ritual" className="tex-paper relative overflow-hidden bg-sand/60 section">
-        <div className="shell">
+        <Backdrop field="margins" opacity={0.16} ornamentClass="text-oxblood/20" />
+        <DevaWatermark word="स्वाद" className="text-oxblood" position="right" opacity={0.06} />
+
+        <div className="shell relative">
           <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
             <div data-reveal="up">
               <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-chilli)", "--plaque-fg": "var(--color-paper)" }}>
                 <Star className="w-3.5" />
-                How to use it
+                Tareeka yeh hai
               </p>
-              <h2 className="h-poster-sm mt-5 text-ink">
-                The chutki
-                <br />
-                <span className="text-chilli">ritual.</span>
-              </h2>
-              <p className="lede mt-6 max-w-md text-ink-soft">
+              <Bilingual
+                className="mt-4 text-ink"
+                size="sm"
+                accent="text-chilli-ink"
+                hi="चार क़दम, तीस सेकंड।"
+                en={
+                  <>
+                    The chutki <span className="text-chilli">ritual.</span>
+                  </>
+                }
+              />
+              <p className="lede mt-5 max-w-md text-ink-soft">
                 Four steps, thirty seconds, and the difference between a dish that tastes of spice
                 and one that tastes of dust.
               </p>
@@ -40,7 +51,7 @@ export default function Ritual() {
                   style={{ "--reveal-delay": `${i * 100}ms` }}
                   className="group relative flex items-start gap-5 rounded-[1.3rem] border-2 border-ink/12 bg-paper/85 p-5 transition-all hover:border-ink sm:p-7"
                 >
-                  <span className="font-poster shrink-0 text-[2.6rem] leading-none text-saffron-deep transition-colors group-hover:text-chilli-ink sm:text-[3.2rem]">
+                  <span className="font-deva shrink-0 text-[2.4rem] leading-none text-rani-ink transition-colors group-hover:text-cobalt-ink sm:text-[3rem]">
                     {r.step}
                   </span>
                   <span>
@@ -60,13 +71,15 @@ export default function Ritual() {
 
       {/* ── the platforms ── */}
       <section className="relative overflow-hidden bg-paper section">
-        <div className="shell">
+        <Backdrop field="crown" opacity={0.16} ornaments={false} />
+
+        <div className="shell relative">
           <div className="max-w-2xl" data-reveal="up">
             <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-chilli)", "--plaque-fg": "var(--color-paper)" }}>
               <Star className="w-3.5" />
-              Beyond the packet
+              Packet se aage
             </p>
-            <h2 className="h-editorial mt-5 text-ink">
+            <h2 className="h-editorial mt-4 text-ink">
               We do not wait for the event. We are the event.
             </h2>
           </div>

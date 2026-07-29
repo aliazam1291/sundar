@@ -2,72 +2,100 @@ import Logo from "@/components/logo";
 import { SpiceIcon, Sunburst, Star } from "@/components/spice-icons";
 
 /**
- * Vector pack mockup — a carton rebuilt from the brand creatives.
- * Split face: cream information panel + coloured sunburst panel.
+ * Vector pack mockup, drawn to the creative direction board: one saturated
+ * colour field, the illustration filling the front inside an arch, and the
+ * name locked bottom-left in Anton. No cream information panel — the pack
+ * is the poster.
  */
 export default function PackShot({ product, className = "", size = "md", tilt = true }) {
   const [c1, c2] = product.hue;
   const scale = {
-    sm: { pad: "p-3", name: "text-[1.05rem]", kind: "text-[0.5rem]", logo: "w-[56px]" },
-    md: { pad: "p-4 sm:p-5", name: "text-[1.5rem] sm:text-[1.75rem]", kind: "text-[0.58rem]", logo: "w-[76px]" },
-    lg: { pad: "p-5 sm:p-7", name: "text-[2rem] sm:text-[2.6rem]", kind: "text-[0.68rem]", logo: "w-[96px]" },
+    sm: {
+      pad: "p-[7%]",
+      name: "text-[1.1rem]",
+      kind: "text-[0.44rem]",
+      logo: "w-[42%]",
+      arch: "inset-x-[15%] top-[21%] h-[47%]",
+    },
+    md: {
+      pad: "p-[7%]",
+      name: "text-[1.5rem] sm:text-[1.8rem]",
+      kind: "text-[0.5rem]",
+      logo: "w-[42%]",
+      arch: "inset-x-[15%] top-[21%] h-[48%]",
+    },
+    lg: {
+      pad: "p-[7%]",
+      name: "text-[2.1rem] sm:text-[2.8rem]",
+      kind: "text-[0.62rem]",
+      logo: "w-[42%]",
+      arch: "inset-x-[15%] top-[20%] h-[49%]",
+    },
   }[size];
 
   return (
     <div
       className={`pack ${tilt ? "pack--tilt" : ""} ${className}`}
-      style={{ "--c1": c1, "--c2": c2 }}
+      style={{
+        "--c1": c1,
+        "--c2": c2,
+        "--pack-fg": product.packText,
+        "--pack-fg-mute": product.packMuted,
+      }}
     >
       <div className="pack__body">
         {/* right-hand side face, for depth */}
         <div className="pack__side" aria-hidden="true" />
 
-        <div className="pack__face">
-          {/* ── information panel ── */}
-          <div className={`pack__panel ${scale.pad}`}>
-            <Logo className={`${scale.logo} -ml-1 h-auto`} brand="#e01f26" type="#ffffff" />
+        <div className={`pack__face ${scale.pad}`}>
+          <Sunburst className="absolute inset-0 h-full w-full text-white" rays={44} opacity={0.1} />
 
-            <div className="mt-auto">
-              <p
-                className={`font-poster leading-[0.86] text-ink ${scale.name}`}
-                style={{ overflowWrap: "anywhere" }}
-              >
-                {product.name}
-              </p>
-              <p className={`mt-1.5 font-semibold uppercase tracking-[0.2em] text-ink-soft ${scale.kind}`}>
-                {product.kind}
-              </p>
+          {/* block-print trim, the way the pack fronts are framed */}
+          <div className="pack__trim" aria-hidden="true" />
 
-              <div className="mt-2.5 h-px w-full bg-ink/25" />
-
-              <p className={`mt-2 font-semibold uppercase tracking-[0.22em] text-ink-mute ${scale.kind}`}>
-                Premium Quality
-              </p>
-            </div>
+          {/* ── masthead ── */}
+          <div className="relative flex items-start justify-between gap-2">
+            <Logo className={`${scale.logo} h-auto`} brand="#e01f26" type="#ffffff" />
+            <Star className="w-2.5 shrink-0 opacity-70" style={{ color: "var(--pack-fg)" }} />
           </div>
 
-          {/* ── colour panel ── */}
-          <div className="pack__colour">
-            <Sunburst className="absolute inset-0 h-full w-full text-white" rays={40} opacity={0.14} />
-
-            {/* scattered ghost icons */}
-            <div className="absolute inset-0 overflow-hidden opacity-[0.22] text-white" aria-hidden="true">
-              <SpiceIcon mono name={product.icon} className="absolute -left-2 top-[8%] w-8" />
-              <SpiceIcon mono name="cardamom" className="absolute right-1 top-[26%] w-6" />
-              <SpiceIcon mono name="mustard" className="absolute left-3 top-[46%] w-5" />
-              <SpiceIcon mono name="cinnamon" className="absolute -right-1 bottom-[30%] w-7" />
-              <Star className="absolute right-4 top-[6%] w-3" />
-              <Star className="absolute left-1 bottom-[16%] w-2.5" />
-            </div>
-
-            {/* hero spice glyph */}
+          {/* ── the illustration, in its arch ──
+              Screen-printed in a single ink, like the tins: the drawing takes
+              the pack's foreground colour so it reads on any field. Its own
+              palette would be dark-on-dark here. */}
+          <div className={`pack__arch absolute ${scale.arch}`} aria-hidden="true">
             <SpiceIcon
+              ground={c1}
               name={product.icon}
-              className="absolute bottom-[6%] left-1/2 w-[62%] -translate-x-1/2 text-white/90"
-              strokeWidth={1.1}
+              className="h-full w-full"
+              style={{ color: "var(--pack-fg)" }}
             />
+          </div>
 
-            <span className="pack__weight">{product.size}</span>
+          {/* ── name lockup ── */}
+          <div className="relative mt-auto">
+            <div
+              className="mb-1.5 h-[3px] w-8 rounded-full"
+              style={{ background: "var(--pack-fg)", opacity: 0.8 }}
+            />
+            <p
+              className={`font-poster ${scale.name}`}
+              style={{ color: "var(--pack-fg)", overflowWrap: "anywhere" }}
+            >
+              {product.name}
+            </p>
+            <p
+              className={`mt-1 font-bold uppercase tracking-[0.2em] ${scale.kind}`}
+              style={{ color: "var(--pack-fg-mute)" }}
+            >
+              {product.kind}
+            </p>
+            <p
+              className={`mt-1.5 font-bold uppercase tracking-[0.16em] ${scale.kind}`}
+              style={{ color: "var(--pack-fg-mute)" }}
+            >
+              {product.size} · No additives
+            </p>
           </div>
         </div>
 

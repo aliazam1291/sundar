@@ -43,7 +43,7 @@ export default async function ShopPage({ searchParams }) {
             <span className="text-marigold">spice box.</span>
           </h1>
 
-          <p className="lede mt-6 max-w-xl text-ghee/72">
+          <p className="lede mt-5 max-w-xl text-ghee/72">
             {range ? range.blurb : "Slow-ground, cold-milled, single-origin. Nothing added, ever."}
           </p>
         </div>

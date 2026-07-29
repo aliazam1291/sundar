@@ -34,7 +34,7 @@ export default function StoryPage() {
             <span className="text-marigold">The story new.</span>
           </h1>
 
-          <p className="lede mt-7 max-w-xl text-paper/72">
+          <p className="lede mt-5 max-w-xl text-paper/72">
             {FOUNDER.name} left his shop at {FOUNDER.departure} with a bag of chillies strapped to a
             bicycle. Fifty years later the bicycle is a factory — and the recipe has not moved.
           </p>
@@ -57,7 +57,7 @@ export default function StoryPage() {
             </h2>
           </div>
 
-          <ol className="mt-16 space-y-3">
+          <ol className="section-body space-y-3">
             {TIMELINE.map((t, i) => (
               <li
                 key={t.year}

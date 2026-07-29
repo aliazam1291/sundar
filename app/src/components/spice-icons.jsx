@@ -19,12 +19,28 @@ const MONO = {
   "--io": "currentColor",
 };
 
-function Ico({ children, className = "", vars, mono = false, strokeWidth, ...rest }) {
+/**
+ * Single-ink screen print, the way the tins are printed: the drawing takes
+ * `currentColor` in three tonal steps and the *outline* becomes the ground
+ * colour, so the linework reads as the field knocked back through the ink.
+ * Keeps the internal detail that `mono` flattens away.
+ */
+const print = (ground) => ({
+  "--i1": "currentColor",
+  "--i2": "color-mix(in srgb, currentColor 70%, transparent)",
+  "--i3": "color-mix(in srgb, currentColor 42%, transparent)",
+  "--io": ground,
+});
+
+function Ico({ children, className = "", vars, mono = false, ground, strokeWidth, style, ...rest }) {
+  if (ground) vars = print(ground);
   return (
     <svg
       viewBox="0 0 48 48"
       className={className}
-      style={mono ? MONO : vars}
+      // Merge, never replace: callers pass their own custom properties
+      // (--dur, --r) and those must not knock out the palette.
+      style={{ ...(mono ? MONO : vars), ...style }}
       aria-hidden="true"
       focusable="false"
       {...rest}
@@ -41,10 +57,11 @@ function Ico({ children, className = "", vars, mono = false, strokeWidth, ...res
   );
 }
 
-/* Shorthands — i1 body, i2 secondary, i3 accent */
-const f1 = { fill: "var(--i1)" };
-const f2 = { fill: "var(--i2)" };
-const f3 = { fill: "var(--i3)" };
+/* Shorthands — i1 body, i2 secondary, i3 accent. The fallbacks matter: an
+   unset custom property makes `fill` invalid, which paints solid black. */
+const f1 = { fill: "var(--i1, currentColor)" };
+const f2 = { fill: "var(--i2, currentColor)" };
+const f3 = { fill: "var(--i3, currentColor)" };
 const line = { fill: "none" };
 
 /* ── Chilli ─────────────────────────────────────────────── */
@@ -157,7 +174,7 @@ export const Cumin = (p) => (
     <ellipse {...f1} cx="16" cy="17" rx="3.8" ry="9" transform="rotate(-24 16 17)" />
     <ellipse {...f2} cx="31" cy="22" rx="3.8" ry="9" transform="rotate(18 31 22)" />
     <ellipse {...f1} cx="21" cy="34" rx="3.8" ry="9" transform="rotate(-8 21 34)" />
-    <path {...line} stroke="var(--i3)" d="M16 10.5v13M31 15v13.5M21 27.5v13" />
+    <path {...line} stroke="var(--i3, currentColor)" d="M16 10.5v13M31 15v13.5M21 27.5v13" />
   </Ico>
 );
 
@@ -169,8 +186,8 @@ export const BayLeaf = (p) => (
   >
     <path {...f1} d="M39 7C25 8.4 12 18.4 10 33c-.4 3.2.8 5.8 3 6.8C26 42 39.6 27.4 39 7Z" />
     <path {...f2} d="M39 7C25 8.4 12 18.4 10 33c-.4 3.2.8 5.8 3 6.8Z" />
-    <path {...line} stroke="var(--i3)" d="M13 39.8C20.6 30.8 29.4 20.4 39 7" />
-    <path {...line} stroke="var(--i3)" d="M18 30.6c3.8.4 7.2-.6 10-3.2M23.6 22.4c3.6.6 6.8-.2 9.4-2.6" />
+    <path {...line} stroke="var(--i3, currentColor)" d="M13 39.8C20.6 30.8 29.4 20.4 39 7" />
+    <path {...line} stroke="var(--i3, currentColor)" d="M18 30.6c3.8.4 7.2-.6 10-3.2M23.6 22.4c3.6.6 6.8-.2 9.4-2.6" />
   </Ico>
 );
 

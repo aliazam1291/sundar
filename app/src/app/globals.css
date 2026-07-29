@@ -40,6 +40,26 @@
   --color-cobalt-2: #2f6fe0;
   --color-sky: #7fb2f0;
 
+  /* — Poster brights, from the reference palettes ——————
+     Saturated hoarding colours. These are FILL values: on a light
+     ground use the *-ink variants below for anything text-sized. */
+  --color-sun: #f9c10f;
+  --color-xanthous: #f5b32e;
+  --color-tangerine: #f13a59;
+  --color-sunset: #ff9646;
+  --color-carrot: #e8601c;
+  --color-tomato: #d5231a;
+  --color-dragonfruit: #da1c5c;
+  --color-raspberry: #ff50d4;
+  --color-cerise: #db3a8c;
+  --color-violet: #a8309c;
+  --color-kiwi: #7fa928;
+  --color-derbyshire: #1b542a;
+
+  --color-dragonfruit-ink: #a81246;
+  --color-carrot-ink: #b4470f;
+  --color-violet-ink: #832577;
+
   /* Accessible ink variants — the brights above are for FILLS.
      Use these when the accent is text on a light ground.
      *-ink clears 4.5:1 (body copy) · *-deep clears 3:1 (24px+ display). */
@@ -180,20 +200,20 @@ body {
 }
 
 .section {
-  padding-block: clamp(4rem, 7.5vw, 7rem);
+  padding-block: clamp(3.25rem, 5.5vw, 5.25rem);
 }
 
 .section-lg {
-  padding-block: clamp(5rem, 10vw, 9rem);
+  padding-block: clamp(4rem, 7.5vw, 7rem);
 }
 
 .section-sm {
-  padding-block: clamp(2.75rem, 5vw, 4.5rem);
+  padding-block: clamp(2.25rem, 4vw, 3.5rem);
 }
 
 /* Gap between a section header block and the grid beneath it. */
 .section-body {
-  margin-top: clamp(2.5rem, 5vw, 3.75rem);
+  margin-top: clamp(1.75rem, 3.2vw, 2.75rem);
 }
 
 /* Card padding — one step for feature cards, one for compact ones. */
@@ -209,11 +229,13 @@ body {
    TYPE UTILITIES
    ============================================================ */
 
+/* Anton's caps are nearly the full em box: anything under ~0.88 makes
+   wrapped lines collide. These are as tight as the face actually goes. */
 .font-poster {
   font-family: var(--font-poster);
   font-weight: 400;
   letter-spacing: 0.005em;
-  line-height: 0.84;
+  line-height: 0.92;
   text-transform: uppercase;
 }
 
@@ -241,23 +263,23 @@ body {
 .h-poster {
   font-family: var(--font-poster);
   text-transform: uppercase;
-  line-height: 0.82;
+  line-height: 0.88;
   letter-spacing: -0.005em;
-  font-size: clamp(2.9rem, 8.6vw, 8rem);
+  font-size: clamp(2.6rem, 7.4vw, 6.75rem);
 }
 
 .h-poster-sm {
   font-family: var(--font-poster);
   text-transform: uppercase;
-  line-height: 0.86;
-  font-size: clamp(2.15rem, 5.2vw, 4.25rem);
+  line-height: 0.9;
+  font-size: clamp(2rem, 4.6vw, 3.75rem);
 }
 
 .h-poster-xs {
   font-family: var(--font-poster);
   text-transform: uppercase;
-  line-height: 0.9;
-  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  line-height: 0.94;
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
 }
 
 /* Sub-headline — Hanken Grotesk, per the type spec */
@@ -437,29 +459,6 @@ body {
   background-position: center;
 }
 
-/* Postage-stamp scallop — for the Regions "stamp" cards */
-.frame-stamp {
-  --scallop: 9px;
-  -webkit-mask-image:
-    radial-gradient(var(--scallop) at var(--scallop) var(--scallop), #0000 99%, #000),
-    conic-gradient(#000 0 0);
-  -webkit-mask-composite: destination-in;
-  mask-image:
-    radial-gradient(var(--scallop) at var(--scallop) var(--scallop), #0000 99%, #000),
-    conic-gradient(#000 0 0);
-  mask-composite: intersect;
-  -webkit-mask-size: calc(2 * var(--scallop)) calc(2 * var(--scallop)), auto;
-  mask-size: calc(2 * var(--scallop)) calc(2 * var(--scallop)), auto;
-  -webkit-mask-repeat: round, no-repeat;
-  mask-repeat: round, no-repeat;
-}
-
-/* Mandir arch — the temple-poster silhouette */
-.arch-top {
-  border-start-start-radius: 50% 22%;
-  border-start-end-radius: 50% 22%;
-}
-
 /* Painted plaque — the "HORN OK PLEASE" panel */
 .plaque {
   position: relative;
@@ -478,6 +477,28 @@ body {
 }
 .tilt-tag-r {
   transform: rotate(2deg);
+}
+
+/* Painted panel divider — the beaded trim between lorry panels. Sections
+   stack like painted boards rather than sliding into one another. */
+.trim-band {
+  position: relative;
+  height: 0.85rem;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--trim-a, var(--color-tomato)) 0 12px,
+    var(--trim-b, var(--color-sun)) 12px 24px
+  );
+  border-block: 2px solid var(--color-ink);
+}
+.trim-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--trim-bead, var(--color-ink)) 2px, transparent 2.2px);
+  background-size: 24px 100%;
+  background-position: center;
+  opacity: 0.75;
 }
 
 /* Dotted divider rule */
@@ -648,6 +669,24 @@ body {
   box-shadow: 10px 10px 0 var(--card-shadow, var(--color-ink));
 }
 
+/* Mandir arch — the temple-poster silhouette. Declared after .card-poster
+   so the shorthand `border-radius` there cannot flatten the dome. */
+.arch-top {
+  border-start-start-radius: 46% 20%;
+  border-start-end-radius: 46% 20%;
+}
+
+/* A hard offset shadow traces the silhouette, so on a dome it crescents out
+   along the top-right and reads as a broken outline. Arched cards carry their
+   weight on the border and a plain lift instead. */
+.card-poster.arch-top,
+.card-poster.arch-top:hover {
+  box-shadow: none;
+}
+.card-poster.arch-top:hover {
+  transform: translateY(-7px);
+}
+
 /* ============================================================
    PACK SHOT — vector carton
    ============================================================ */
@@ -671,17 +710,50 @@ body {
   transform: rotateY(-4deg) rotateX(1deg) translateY(-8px);
 }
 
+/* One saturated colour field — the pack IS the poster. */
 .pack__face {
   position: absolute;
   inset: 0;
-  display: grid;
-  grid-template-columns: 1.18fr 1fr;
+  display: flex;
+  flex-direction: column;
   border-radius: 4px;
   overflow: hidden;
-  background: var(--color-paper);
-  box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.55) inset,
-    0 26px 46px -18px rgba(20, 16, 12, 0.5);
+  background: linear-gradient(158deg, var(--c1), var(--c2));
+  /* The pack has to read as an object even when its field lands on a ground
+     of the same hue — hence the outline, not just the drop shadow. */
+  outline: 2px solid rgba(20, 16, 12, 0.6);
+  outline-offset: -1px;
+  box-shadow: 0 26px 46px -18px rgba(20, 16, 12, 0.5);
+}
+
+/* Block-print border: a hairline rule with a dotted rule inside it. Sits
+   outside the padding box so the masthead never collides with it. */
+.pack__trim {
+  position: absolute;
+  inset: 3%;
+  border: 1px solid var(--pack-fg);
+  opacity: 0.45;
+  pointer-events: none;
+}
+.pack__trim::before {
+  content: "";
+  position: absolute;
+  inset: 3.5px;
+  border: 1px dotted var(--pack-fg);
+}
+
+/* The illustration sits in a mandir arch, as on the pack creatives. */
+.pack__arch {
+  display: grid;
+  place-items: center;
+  padding: 7%;
+  border: 2px solid var(--pack-fg);
+  border-start-start-radius: 50% 40%;
+  border-start-end-radius: 50% 40%;
+  border-end-start-radius: 6px;
+  border-end-end-radius: 6px;
+  background: rgba(253, 246, 232, 0.1);
+  box-shadow: 0 0 0 4px rgba(253, 246, 232, 0.12);
 }
 
 .pack__side {
@@ -696,63 +768,30 @@ body {
   transform-origin: left center;
 }
 
-.pack__panel {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(150deg, #fffdf7, var(--color-cream));
-}
-.pack__panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(20, 16, 12, 0.16) 0.6px, transparent 0.7px);
-  background-size: 7px 7px;
-  opacity: 0.35;
-  pointer-events: none;
-}
-
-.pack__colour {
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(155deg, var(--c1), var(--c2));
-}
-
-.pack__weight {
-  position: absolute;
-  top: 6%;
-  right: 0;
-  transform: rotate(90deg);
-  transform-origin: right top;
-  font-size: 0.5rem;
-  font-weight: 700;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-  white-space: nowrap;
-  padding-right: 0.9rem;
-}
-
+/* Sits mostly over the pack, not outside it — hanging off the corner got it
+   clipped by the section and left the type too small to read. */
 .pack__roundel {
   position: absolute;
-  top: -6%;
-  right: -7%;
+  top: 1%;
+  right: -5%;
   z-index: 2;
   display: grid;
   place-content: center;
-  width: 27%;
+  width: 30%;
   aspect-ratio: 1;
-  padding: 0.4rem;
+  padding: 0.5rem;
   border-radius: 999px;
-  background: var(--color-rani);
+  background: var(--color-dragonfruit);
   color: var(--color-paper);
-  font-size: clamp(0.44rem, 1.15vw, 0.66rem);
-  line-height: 1.05;
+  font-size: clamp(0.55rem, 1.5vw, 0.86rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
   text-align: center;
   text-transform: uppercase;
+  text-wrap: balance;
   transform: rotate(-11deg);
   box-shadow: 0 8px 16px -6px rgba(20, 16, 12, 0.55);
-  border: 2px solid var(--color-paper);
+  border: 3px solid var(--color-paper);
 }
 
 .pack__shadow {
@@ -866,22 +905,72 @@ body {
   animation: pulse-ring 2.6s ease-out infinite;
 }
 
+/* — Tailgate interactions ————————————————————————— */
+
+/* Bulb string along the top rail */
+@keyframes bulb {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.22; }
+}
+.anim-bulb {
+  animation: bulb 1.7s steps(2, end) infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* The whole panel jolts when the horn goes */
+@keyframes jolt {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  15%      { transform: translate(-5px, 2px) rotate(-0.7deg); }
+  35%      { transform: translate(4px, -3px) rotate(0.6deg); }
+  55%      { transform: translate(-3px, 2px) rotate(-0.4deg); }
+  75%      { transform: translate(2px, -1px) rotate(0.2deg); }
+}
+.anim-jolt {
+  animation: jolt 0.7s var(--ease-snap);
+}
+
+@keyframes pop {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  40%      { transform: scale(1.16) rotate(-8deg); }
+  70%      { transform: scale(0.96) rotate(4deg); }
+}
+.anim-pop {
+  animation: pop 0.7s var(--ease-snap);
+}
+
+@keyframes spin-fast {
+  to { transform: rotate(360deg); }
+}
+.anim-spin-fast {
+  animation: spin-fast 0.7s linear;
+}
+
+/* Slogan board flips to the next line */
+@keyframes flip-in {
+  from { opacity: 0; transform: translateY(-0.5em) scaleY(0.6); }
+  to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+.anim-flip {
+  animation: flip-in 0.45s var(--ease-spice) both;
+  transform-origin: center;
+}
+
+/* Sound arcs off the horn */
+@keyframes arc-out {
+  from { opacity: 0.95; transform: scale(0.72); }
+  to   { opacity: 0; transform: scale(1.12); }
+}
+.anim-arc {
+  animation: arc-out 0.7s ease-out both;
+  transform-origin: 320px 216px;
+}
+
 @keyframes rise-in {
   from { opacity: 0; transform: translateY(1.05em); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .anim-rise > * {
   animation: rise-in 0.9s var(--ease-spice) both;
-}
-
-/* Blinking bulb — the lorry-tail fairy lights */
-@keyframes bulb {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.25; }
-}
-.anim-bulb {
-  animation: bulb 1.6s steps(2, end) infinite;
-  animation-delay: var(--delay, 0s);
 }
 
 /* ============================================================

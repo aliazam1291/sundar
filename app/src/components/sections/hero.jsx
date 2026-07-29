@@ -31,11 +31,9 @@ export default function Hero() {
 
       {/* floating spice glyphs */}
       <div className="pointer-events-none absolute inset-0 text-marigold/25" aria-hidden="true">
-        <SpiceIcon mono name="starAnise" className="anim-float absolute left-[6%] top-[18%] w-14 md:w-20" style={{ "--dur": "8s", "--r": "-12deg" }} />
-        <SpiceIcon mono name="cardamom" className="anim-float absolute right-[8%] top-[12%] w-10 md:w-14" style={{ "--dur": "6.5s", "--delay": "1.2s", "--r": "14deg" }} />
-        <SpiceIcon mono name="chilli" className="anim-float absolute bottom-[16%] left-[11%] w-12 md:w-16" style={{ "--dur": "7.4s", "--delay": "0.6s", "--r": "8deg" }} />
-        <SpiceIcon mono name="cinnamon" className="anim-float absolute bottom-[26%] right-[5%] w-12 md:w-16" style={{ "--dur": "9s", "--delay": "2s", "--r": "-18deg" }} />
-      </div>
+        <SpiceIcon mono name="starAnise" className="anim-float absolute left-[2%] top-[6%] w-14 md:w-20" style={{ "--dur": "8s", "--r": "-12deg" }} />
+                <SpiceIcon mono name="chilli" className="anim-float absolute bottom-[6%] left-[3%] w-12 md:w-16" style={{ "--dur": "7.4s", "--delay": "0.6s", "--r": "8deg" }} />
+              </div>
 
       <div className="shell relative grid items-center gap-12 pb-16 pt-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-8 lg:pb-24 lg:pt-16">
         {/* ── copy ── */}
@@ -55,7 +53,7 @@ export default function Hero() {
           </h1>
 
           <p
-            className="lede mt-7 max-w-xl text-ghee/80"
+            className="lede mt-5 max-w-xl text-ghee/80"
             style={{ animationDelay: "240ms" }}
           >
             <strong className="font-semibold text-marigold">Kam masala, poora swaad.</strong>{" "}
@@ -96,7 +94,7 @@ export default function Hero() {
         </div>
 
         {/* ── pack stage ── */}
-        <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none">
+        <div className="relative mx-auto w-full max-w-[330px] sm:max-w-[380px] lg:max-w-[420px]">
           {/* halo */}
           <div className="absolute left-1/2 top-1/2 -z-10 h-[86%] w-[86%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-marigold/12 blur-3xl" />
 
@@ -126,7 +124,7 @@ export default function Hero() {
             ))}
           </div>
 
-          <div className="anim-float px-6 sm:px-10 lg:px-4" style={{ "--dur": "9s" }}>
+          <div className="anim-float" style={{ "--dur": "9s" }}>
             <PackShot product={hero} size="lg" />
           </div>
 

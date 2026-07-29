@@ -1,5 +1,6 @@
 import { PILLARS } from "@/lib/content";
 import { SpiceIcon, Star, Sunburst } from "@/components/spice-icons";
+import Backdrop from "@/components/backdrop";
 
 export default function Sourcing() {
   return (
@@ -10,20 +11,21 @@ export default function Sourcing() {
         opacity={0.09}
       />
       <div className="tex-grid pointer-events-none absolute inset-0 opacity-20" />
+      <Backdrop field="margins" tone="mono" opacity={0.1} ornamentClass="text-marigold/20" />
 
       <div className="relative shell">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.25fr] lg:gap-16">
           <div data-reveal="up">
             <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-marigold)", "--plaque-fg": "var(--color-ink)" }}>
               <Star className="w-3.5" />
-              Provenance is the flex
+              Zameen se seedha
             </p>
-            <h2 className="h-poster-sm mt-6 text-paper">
+            <h2 className="h-poster-sm mt-4 text-paper">
               We name the
               <br />
               <span className="text-marigold">district.</span>
             </h2>
-            <p className="lede mt-6 max-w-md text-paper/72">
+            <p className="lede mt-5 max-w-md text-paper/72">
               Spice is produce, not powder. Where it grew, when it was picked and how cool it was
               milled decide everything — so all three go on the pack.
             </p>

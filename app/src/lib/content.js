@@ -237,37 +237,42 @@ export const PILLARS = [
 /* The chutki ritual — the brand's core idea, as steps */
 export const RITUAL = [
   {
-    step: "01",
+    step: "१",
     title: "Heat the fat first",
     body: "Ghee or oil, until it shimmers. Cold fat mutes everything you are about to add.",
   },
   {
-    step: "02",
+    step: "२",
     title: "One chutki, not a fistful",
     body: "A pinch of the right blend beats a spoon of the wrong one. Restraint is the whole technique.",
   },
   {
-    step: "03",
+    step: "३",
     title: "Count to two",
     body: "Two seconds in hot fat wakes the oils. Five seconds burns them. This is the entire margin.",
   },
   {
-    step: "04",
+    step: "४",
     title: "Taste, then decide",
     body: "Season at the end, never at the start. You can always add. You can never take back.",
   },
 ];
 
 /* Marquee phrases — the brand's voice, on loop */
+/* Hinglish and Hindi alternate — the ticker should read like a lorry rail,
+   not a press release. */
 export const TICKER = [
   "Kam masala, poora swaad",
+  "कम मसाला, पूरा स्वाद",
   "Local hero masala",
+  "मसालों का सिकंदर",
   "Since 1975",
   "Ek chutki, full fire",
+  "एक चुटकी, फुल फायर",
   "Apna region, apni thali",
+  "अपना रीजन, अपनी थाली",
   "Single-origin, cold-milled",
   "Bland? Not on our watch",
-  "Masalon ka Sikandar",
 ];
 
 /* Journal / IP content */

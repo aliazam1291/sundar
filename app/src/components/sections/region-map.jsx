@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { REGIONS } from "@/lib/content";
 import { Star, SpiceIcon } from "@/components/spice-icons";
+import Backdrop from "@/components/backdrop";
+import { DevaWatermark } from "@/components/bilingual";
 
 /* Stylised silhouette — illustrative, not cartographic. */
 const INDIA =
@@ -9,13 +11,16 @@ const INDIA =
 export default function RegionMap() {
   return (
     <section id="regions" className="relative overflow-hidden bg-cobalt section text-paper">
-      <div className="shell">
+      <Backdrop field="margins" tone="mono" opacity={0.11} ornamentClass="text-marigold/25" />
+      <DevaWatermark word="भारत" className="text-sky" position="left" opacity={0.1} />
+
+      <div className="shell relative">
         <div className="max-w-2xl" data-reveal="up">
           <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-marigold)", "--plaque-fg": "var(--color-ink)" }}>
             <Star className="w-3.5" />
-            The regional map
+            Apna region, apni thali
           </p>
-          <h2 className="h-editorial mt-5 text-paper">
+          <h2 className="h-editorial mt-4 text-paper">
             Every region has a hero dish. Each one has a masala hiding behind it.
           </h2>
           <p className="lede mt-5 max-w-xl text-sky">

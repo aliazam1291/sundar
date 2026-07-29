@@ -32,7 +32,7 @@ export default function RegionsPage() {
             <span className="text-oxblood">apni thali.</span>
           </h1>
 
-          <p className="lede mt-7 max-w-xl text-ink-soft">
+          <p className="lede mt-5 max-w-xl text-ink-soft">
             A national masala is a compromise between everybody. These are not that. Each blend is
             learned in one city, from the people who will tell you exactly what the last shop got
             wrong.

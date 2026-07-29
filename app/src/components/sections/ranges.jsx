@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { RANGE_LIST, productsByRange } from "@/lib/products";
 import { SpiceIcon, Star, Sunburst } from "@/components/spice-icons";
+import Backdrop from "@/components/backdrop";
+import Bilingual, { DevaWatermark } from "@/components/bilingual";
 
 export default function Ranges() {
   return (
     <section id="ranges" className="relative overflow-hidden bg-turmeric section text-ink">
       <div className="tex-dots pointer-events-none absolute inset-0 text-oxblood" aria-hidden="true" />
+      <DevaWatermark word="मसाला" className="text-oxblood" position="right" opacity={0.09} />
+      <Backdrop field="margins" tone="mono" opacity={0.14} ornamentClass="text-oxblood/25" />
 
       <div className="shell relative">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -15,11 +19,15 @@ export default function Ranges() {
               style={{ "--plaque-bg": "var(--color-forest)", "--plaque-fg": "var(--color-marigold)" }}
             >
               <Star className="w-3.5" />
-              Three ranges, three appetites
+              Teen range, teen mizaaj
             </p>
-            <h2 className="h-editorial mt-5 max-w-2xl text-ink">
-              One spice box does not fit every night of the week.
-            </h2>
+            <Bilingual
+              className="mt-4 max-w-2xl text-ink"
+              size="editorial"
+              accent="text-oxblood"
+              hi="हर रात का मसाला अलग होता है।"
+              en="One spice box does not fit every night of the week."
+            />
           </div>
           <Link href="/shop" className="btn btn-rani shrink-0" data-reveal="up" style={{ "--reveal-delay": "100ms" }}>
             See all 22 blends

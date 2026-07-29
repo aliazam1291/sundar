@@ -62,7 +62,7 @@ export default function SiteFooter() {
           <div data-reveal="up">
             <Logo className="w-[150px]" card="transparent" brand="#ffc740" type="#0e3b2c" />
 
-            <p className="lede mt-6 max-w-sm text-ghee/75">
+            <p className="lede mt-5 max-w-sm text-ghee/75">
               Slow-ground, single-origin Indian spice from the heart of Madhya Pradesh. One recipe,
               carried fifty years.
             </p>
@@ -115,7 +115,7 @@ export default function SiteFooter() {
         </div>
 
         {/* range strip */}
-        <div className="mt-14 grid gap-3 border-t border-ghee/15 pt-10 sm:grid-cols-3">
+        <div className="section-body grid gap-3 border-t border-ghee/15 pt-10 sm:grid-cols-3">
           {RANGE_LIST.map((r, i) => (
             <div
               key={r.id}

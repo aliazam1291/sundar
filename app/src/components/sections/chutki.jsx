@@ -1,4 +1,6 @@
 import { Pinch, Star } from "@/components/spice-icons";
+import Backdrop from "@/components/backdrop";
+import Bilingual, { DevaWatermark } from "@/components/bilingual";
 
 /* deterministic scatter fields */
 const seeded = (n, seed) =>
@@ -14,26 +16,36 @@ const PINCH = seeded(11, 17);
 export default function Chutki() {
   return (
     <section id="chutki" className="tex-paper relative overflow-hidden bg-cream section">
-      <div className="shell">
+      <Backdrop field="margins" opacity={0.15} ornamentClass="text-rani/25" />
+      <DevaWatermark word="चुटकी" className="text-rani-ink" position="right" opacity={0.07} />
+
+      <div className="shell relative">
         <p
           className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
           data-reveal="up"
           style={{ "--plaque-bg": "var(--color-cobalt)", "--plaque-fg": "var(--color-paper)" }}
         >
           <Star className="w-3.5" />
-          The revelation
+          Ek chutki ki baat
         </p>
 
-        <h2 className="h-poster mt-6 max-w-5xl" data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
-          <span className="text-ink">It was never a fistful.</span>
-          <br />
-          <span className="text-drop text-rani-ink" style={{ "--drop": "var(--color-marigold)" }}>
-            It was one chutki.
-          </span>
-        </h2>
+        <Bilingual
+          className="mt-4 max-w-5xl"
+          data-reveal="up"
+          hi="मुट्ठी भर नहीं — बस एक चुटकी।"
+          en={
+            <>
+              <span className="text-ink">It was never a fistful.</span>
+              <br />
+              <span className="text-drop text-rani-ink" style={{ "--drop": "var(--color-marigold)" }}>
+                It was one chutki.
+              </span>
+            </>
+          }
+        />
 
         <p
-          className="lede mt-7 max-w-2xl text-ink-soft"
+          className="lede mt-5 max-w-2xl text-ink-soft"
           data-reveal="up"
           style={{ "--reveal-delay": "160ms" }}
         >
@@ -119,7 +131,7 @@ export default function Chutki() {
           className="card-poster card-pad dotty mt-5 flex flex-col items-start justify-between gap-5 bg-rani text-paper sm:flex-row sm:items-center" style={{ "--card-shadow": "var(--color-cobalt)" }}
           data-reveal="up"
         >
-          <p className="h-poster-sm max-w-2xl">
+          <p className="h-poster-xs max-w-md text-balance">
             That magic pinch had a name.
             <br />
             <span className="text-marigold">We just never read the label.</span>

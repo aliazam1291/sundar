@@ -3,7 +3,7 @@
  * Three ranges, three appetites (per the brand strategy deck).
  */
 
-import { fillFor, inkVariant } from "@/lib/color";
+import { fillFor, inkVariant, readableOn } from "@/lib/color";
 
 export const RANGES = {
   heritage: {
@@ -76,8 +76,8 @@ export const PRODUCTS = [
     origin: "Awadh × Malwa",
     harvest: "Rabi 2026",
     icon: "starAnise",
-    hue: ["#0e3b2c", "#16523c"],
-    swatch: "#7a4a12",
+    hue: ["#6f1a10", "#8b2517"],
+    swatch: "#6f1a10",
     notes: ["Black cardamom", "Cassia bark", "Mace", "Clove", "Shahi jeera"],
     pairs: ["Biryani", "Korma", "Nihari", "Festive gravies"],
     story:
@@ -455,7 +455,7 @@ export const PRODUCTS = [
     origin: "Idukki, Kerala",
     harvest: "2026 lot",
     icon: "peppercorn",
-    hue: ["#c9a97b", "#ebdcbd"],
+    hue: ["#7a6b4d", "#c9a97b"],
     swatch: "#8a7148",
     notes: ["Unbleached natural white pepper"],
     pairs: ["White gravies", "Soups", "Indo-Chinese"],
@@ -540,8 +540,9 @@ export const PRODUCTS = [
     origin: "Blended in Indore",
     harvest: "2026 lots",
     icon: "starAnise",
-    hue: ["#6f1a10", "#8b2517"],
-    swatch: "#6f1a10",
+    /* Hot pink, as the pack appears on the creative direction board. */
+    hue: ["#e11d74", "#ff4fa3"],
+    swatch: "#b0135a",
     notes: ["A unique blend of warm spices"],
     pairs: ["Curries", "Vegetables", "Dinner, most nights"],
     story:
@@ -558,6 +559,11 @@ for (const p of PRODUCTS) {
   p.hueInk = inkVariant(p.hue[0], 4.5);
   // Hero gradient, deepened so light type stays legible on the yellow blends.
   p.hueFill = [fillFor(p.hue[0], 4.6), fillFor(p.hue[1], 4.6)];
+  // The pack front keeps its true, unmuddied hue and flips the type instead —
+  // a bright haldi pack with ink type, not a darkened haldi pack with white.
+  p.packText = readableOn(p.hue[0]);
+  p.packMuted =
+    p.packText === "var(--color-ink)" ? "rgba(20,16,12,0.68)" : "rgba(253,246,232,0.78)";
 }
 
 /* ── Helpers ──────────────────────────────────────────── */

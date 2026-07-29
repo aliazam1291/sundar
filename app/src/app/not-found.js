@@ -31,7 +31,7 @@ export default function NotFound() {
           <span className="text-marigold">our watch.</span>
         </h1>
 
-        <p className="lede mt-7 max-w-lg text-ghee/72">
+        <p className="lede mt-5 max-w-lg text-ghee/72">
           This page has gone the way of an unlabelled jar at the back of the shelf. The spice box,
           however, is right where you left it.
         </p>

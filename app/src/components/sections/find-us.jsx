@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import Backdrop from "@/components/backdrop";
+import Bilingual from "@/components/bilingual";
 
 const CHANNELS = [
   {
@@ -42,16 +44,21 @@ export default function FindUs() {
         opacity={0.1}
       />
       <div className="tex-grid pointer-events-none absolute inset-0 opacity-25" />
+      <Backdrop field="margins" tone="mono" opacity={0.1} ornamentClass="text-marigold/20" />
 
       <div className="relative shell">
         <div className="max-w-2xl" data-reveal="up">
           <p className="plaque tilt-tag label-micro inline-flex items-center gap-2.5" style={{ "--plaque-bg": "var(--color-rani)", "--plaque-fg": "var(--color-paper)" }}>
             <Star className="w-3.5" />
-            Where to buy
+            Kahan milega
           </p>
-          <h2 className="h-editorial mt-5">
-            The moment you crave it, it should be one tap away.
-          </h2>
+          <Bilingual
+            className="mt-4"
+            size="editorial"
+            accent="text-marigold"
+            hi="मन किया, और मिल गया।"
+            en="The moment you crave it, it should be one tap away."
+          />
         </div>
 
         <div className="section-body grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
