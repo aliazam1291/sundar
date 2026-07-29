@@ -60,7 +60,7 @@ export default function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[1.35fr_2fr]">
           {/* brand + newsletter */}
           <div data-reveal="up">
-            <Logo className="w-[150px]" card="transparent" brand="#ffc740" type="#0e3b2c" />
+            <Logo className="h-auto w-[150px]" />
 
             <p className="lede mt-5 max-w-sm text-ghee/75">
               Slow-ground, single-origin Indian spice from the heart of Madhya Pradesh. One recipe,

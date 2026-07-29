@@ -90,7 +90,7 @@ export default function PackShot({
 
           {/* ── masthead ── */}
           <div className="relative flex items-start justify-between gap-2">
-            <Logo className={`${scale.logo} h-auto`} brand="#e01f26" type="#ffffff" />
+            <Logo className={`${scale.logo} h-auto`} />
             <Star className="w-2.5 shrink-0 opacity-70" style={{ color: "var(--pack-fg)" }} />
           </div>
 

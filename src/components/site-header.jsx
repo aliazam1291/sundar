@@ -88,9 +88,8 @@ export default function SiteHeader() {
             className={`shrink-0 transition-all duration-300 ${scrolled ? "py-2" : "py-3"}`}
           >
             <Logo
+              priority
               className={`w-auto transition-all duration-300 ${scrolled ? "h-10" : "h-12"}`}
-              brand="#e01f26"
-              type="#ffffff"
             />
           </Link>
 
