@@ -518,7 +518,8 @@ body {
 .dial {
   -webkit-appearance: none;
   appearance: none;
-  height: 1.5rem;
+  /* 2.5rem keeps a comfortable touch strip; the track stays visually thin */
+  height: 2.5rem;
   background: transparent;
   cursor: pointer;
 }
@@ -545,9 +546,9 @@ body {
 .dial::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-top: -0.43rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-top: -0.48rem;
   border: 2px solid var(--color-ink);
   border-radius: 999px;
   background: var(--color-paper);

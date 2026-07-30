@@ -63,9 +63,9 @@ export default async function ProductPage({ params }) {
         <div className="relative shell">
           {/* breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-9 flex items-center gap-2 text-micro font-semibold uppercase tracking-[0.16em] text-white/60">
-            <Link href="/shop" className="link-sweep hover:text-white">Shop</Link>
+            <Link href="/shop" className="link-sweep inline-block py-2.5 hover:text-white">Shop</Link>
             <span aria-hidden="true">/</span>
-            <Link href={`/shop?range=${range.id}`} className="link-sweep hover:text-white">{range.name}</Link>
+            <Link href={`/shop?range=${range.id}`} className="link-sweep inline-block py-2.5 hover:text-white">{range.name}</Link>
             <span aria-hidden="true">/</span>
             <span className="text-white/85">{product.name}</span>
           </nav>

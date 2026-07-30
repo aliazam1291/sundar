@@ -2,7 +2,7 @@ import Hero from "@/components/sections/hero";
 import Chutki from "@/components/sections/chutki";
 import Ranges from "@/components/sections/ranges";
 import Featured from "@/components/sections/featured";
-import Journey from "@/components/sections/journey";
+import StoryTeaser from "@/components/sections/story-teaser";
 import Sourcing from "@/components/sections/sourcing";
 import RegionMap from "@/components/sections/region-map";
 import Ritual from "@/components/sections/ritual";
@@ -56,8 +56,8 @@ export default function Home() {
       {/* the breather — loudest thing on the page, and the hinge into the film */}
       <HornOkPlease />
 
-      {/* the story */}
-      <Journey />
+      {/* the story — the trailer; the full reel is on /story */}
+      <StoryTeaser />
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-kiwi)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
 

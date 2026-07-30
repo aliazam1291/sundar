@@ -48,7 +48,7 @@ export default function RegionMap() {
                 <Link
                   key={r.id}
                   href={`/shop/${r.slug}`}
-                  className="group absolute z-10 -translate-x-1/2 -translate-y-1/2"
+                  className="group absolute z-10 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-content-center"
                   style={{ left: `${r.x}%`, top: `${r.y}%` }}
                   aria-label={`${r.city} — ${r.blend}`}
                 >

@@ -65,7 +65,7 @@ export default async function ShopPage({ searchParams }) {
                   href={f.id === "all" ? "/shop" : `/shop?range=${f.id}`}
                   scroll={false}
                   aria-current={on ? "page" : undefined}
-                  className={`chip shrink-0 border-2 transition-all ${
+                  className={`chip shrink-0 border-2 !py-3 transition-all ${
                     on
                       ? "border-ink bg-ink text-marigold"
                       : "border-ink/25 text-ink hover:border-ink hover:bg-ink/8"

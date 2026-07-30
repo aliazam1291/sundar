@@ -1,15 +1,145 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { JOURNEY, FOUNDER } from "@/lib/content";
 import { Star, SpiceIcon } from "@/components/spice-icons";
 
 /**
  * "A Heritage Film", as a scroll reel.
- * Pitch black, sepia, type-led — a deliberate tonal break from the poppy
- * sections either side of it.
+ *
+ * The reel is driven by scroll: a sprocketed film strip down the side tracks
+ * how far through you are and lights each chapter as it passes, so scrolling
+ * reads as running the projector rather than just revealing text.
+ *
+ * The score is a synthesised tanpura-ish drone — a tonic and fifth under a
+ * slow low-pass — so there is no audio file. It is opt-in and off by default:
+ * autoplayed background music is blocked by browsers anyway, and unwanted
+ * where it is not.
  */
 export default function Journey() {
+  const [progress, setProgress] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const sectionRef = useRef(null);
+  const audio = useRef(null);
+  const voices = useRef(null);
+
+  /* Scroll position through the reel, 0..1. rAF-throttled so the listener
+     never does layout work more than once a frame. */
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    let raf = 0;
+    const read = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const span = r.height - window.innerHeight;
+      const p = span > 0 ? (0 - r.top) / span : r.top < 0 ? 1 : 0;
+      setProgress(Math.min(1, Math.max(0, p)));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(read);
+    };
+    read();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  /* ── the score ── */
+  const stopScore = useCallback(() => {
+    const v = voices.current;
+    voices.current = null;
+    if (!v) return;
+    try {
+      const t = audio.current.currentTime;
+      v.master.gain.cancelScheduledValues(t);
+      v.master.gain.setValueAtTime(Math.max(0.0001, v.master.gain.value), t);
+      v.master.gain.exponentialRampToValueAtTime(0.0001, t + 1.1);
+      v.oscs.forEach((o) => o.stop(t + 1.2));
+    } catch {
+      /* context already gone */
+    }
+  }, []);
+
+  const startScore = useCallback(() => {
+    if (typeof window === "undefined") return;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    let ctx = audio.current;
+    if (!ctx) {
+      ctx = new Ctx();
+      audio.current = ctx;
+    }
+    if (ctx.state === "suspended") ctx.resume();
+    if (voices.current) return;
+
+    const t = ctx.currentTime;
+    const master = ctx.createGain();
+    master.gain.setValueAtTime(0.0001, t);
+    master.gain.exponentialRampToValueAtTime(0.09, t + 2.2);
+
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 900;
+    lp.Q.value = 0.5;
+    lp.connect(master);
+    master.connect(ctx.destination);
+
+    /* tonic, octave, fifth — a drone, not a tune */
+    const oscs = [110, 220, 164.81, 329.63].map((f, i) => {
+      const o = ctx.createOscillator();
+      o.type = i % 2 ? "sine" : "triangle";
+      o.frequency.value = f * (1 + (i - 1.5) * 0.0016); // slight detune to breathe
+      const g = ctx.createGain();
+      g.gain.value = [0.5, 0.22, 0.3, 0.12][i];
+      o.connect(g);
+      g.connect(lp);
+      o.start(t);
+      return o;
+    });
+
+    /* slow swell so it never sits perfectly still */
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 0.06;
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.value = 260;
+    lfo.connect(lfoGain);
+    lfoGain.connect(lp.frequency);
+    lfo.start(t);
+    oscs.push(lfo);
+
+    voices.current = { master, oscs };
+  }, []);
+
+  const toggleScore = () => {
+    if (playing) {
+      stopScore();
+      setPlaying(false);
+    } else {
+      startScore();
+      setPlaying(true);
+    }
+  };
+
+  useEffect(
+    () => () => {
+      stopScore();
+      audio.current?.close?.();
+    },
+    [stopScore]
+  );
+
   return (
-    <section id="journey" className="relative isolate overflow-hidden bg-reel text-ivory">
+    <section
+      id="journey"
+      ref={sectionRef}
+      className="relative isolate overflow-hidden bg-reel text-ivory"
+    >
       {/* film grain */}
       <svg className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.09] mix-blend-screen" aria-hidden="true" preserveAspectRatio="none">
         <filter id="reelGrain">
@@ -28,6 +158,52 @@ export default function Journey() {
       {/* letterbox */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-7 bg-black sm:h-9" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-7 bg-black sm:h-9" />
+
+      {/* ── the film strip: how far through the reel you are ── */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-2 z-30 hidden w-7 lg:block"
+        aria-hidden="true"
+      >
+        <div className="absolute inset-y-9 left-1/2 w-px -translate-x-1/2 bg-ivory/15" />
+        {/* sprocket holes */}
+        <div
+          className="absolute inset-y-9 left-1/2 w-3 -translate-x-1/2 opacity-30"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(to bottom, var(--color-ivory) 0 6px, transparent 6px 22px)",
+            maskImage: "linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent)",
+          }}
+        />
+        {/* the played portion */}
+        <div
+          className="absolute left-1/2 w-[3px] -translate-x-1/2 rounded-full bg-terracotta"
+          style={{ top: "2.25rem", height: `calc((100% - 4.5rem) * ${progress})` }}
+        />
+        {/* the playhead */}
+        <div
+          className="absolute left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full border-2 border-reel bg-sun shadow-[0_0_14px_var(--color-sun)]"
+          style={{ top: `calc(2.25rem + (100% - 4.5rem) * ${progress} - 0.4375rem)` }}
+        />
+      </div>
+
+      {/* ── projector controls ── */}
+      <div className="absolute right-3 top-12 z-30 flex flex-col items-end gap-2 sm:right-5">
+        <button
+          type="button"
+          onClick={toggleScore}
+          aria-pressed={playing}
+          className="flex items-center gap-2 rounded-full border-2 border-ivory/35 bg-reel/70 px-3.5 py-2 text-ivory/75 backdrop-blur transition-colors hover:border-terracotta hover:text-terracotta"
+        >
+          <svg viewBox="0 0 24 24" className="w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            {playing ? <path d="M10 5v14M14 5v14" /> : <path d="M8 5v14l11-7z" />}
+          </svg>
+          <span className="label-micro">{playing ? "Pause score" : "Play score"}</span>
+        </button>
+
+        <span className="label-micro rounded-full bg-reel/70 px-2.5 py-1 text-dune/60 backdrop-blur">
+          {Math.round(progress * 100)}%
+        </span>
+      </div>
 
       <div className="shell-narrow relative section-lg">
         {/* title card */}

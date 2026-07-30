@@ -13,6 +13,7 @@ const NAV = [
   { href: "/shop", label: "Shop" },
   { href: "/story", label: "Our Story" },
   { href: "/regions", label: "Regions" },
+  { href: "/recipes", label: "Rasoi" },
   { href: "/#ritual", label: "The Chutki" },
 ];
 

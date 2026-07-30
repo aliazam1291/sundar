@@ -27,6 +27,7 @@ const COLUMNS = [
   {
     title: "Help",
     links: [
+      { href: "/recipes", label: "Rasoi · recipes" },
       { href: "/#contact", label: "Contact" },
       { href: "/#stockists", label: "Stockists" },
       { href: "/#trade", label: "Wholesale & HoReCa" },
@@ -103,7 +104,7 @@ export default function SiteFooter() {
                 <ul className="mt-5 space-y-3">
                   {col.links.map((l) => (
                     <li key={l.label}>
-                      <Link href={l.href} className="link-sweep text-copy text-ghee/75 hover:text-ghee">
+                      <Link href={l.href} className="link-sweep inline-block py-1.5 text-copy text-ghee/75 hover:text-ghee">
                         {l.label}
                       </Link>
                     </li>
