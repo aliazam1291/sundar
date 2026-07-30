@@ -20,6 +20,7 @@ const COLUMNS = [
     links: [
       { href: "/story", label: "Our story" },
       { href: "/regions", label: "Regional map" },
+      { href: "/recipes", label: "Rasoi · recipes" },
       { href: "/#ritual", label: "The chutki ritual" },
       { href: "/#sourcing", label: "Sourcing" },
     ],
@@ -27,7 +28,6 @@ const COLUMNS = [
   {
     title: "Help",
     links: [
-      { href: "/recipes", label: "Rasoi · recipes" },
       { href: "/#contact", label: "Contact" },
       { href: "/#stockists", label: "Stockists" },
       { href: "/#trade", label: "Wholesale & HoReCa" },
@@ -58,18 +58,18 @@ export default function SiteFooter() {
       </div>
 
       <div className="shell relative section">
-        <div className="grid gap-12 lg:grid-cols-[1.35fr_2fr]">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
           {/* brand + newsletter */}
           <div data-reveal="up">
             <Logo className="h-auto w-[150px]" />
 
-            <p className="lede mt-5 max-w-sm text-ghee/75">
+            <p className="lede mt-5 text-ghee/75">
               Slow-ground, single-origin Indian spice from the heart of Madhya Pradesh. One recipe,
               carried fifty years.
             </p>
 
             <form
-              className="mt-8 max-w-sm"
+              className="mt-8"
               aria-label="Newsletter signup"
             >
               <label
@@ -97,7 +97,7 @@ export default function SiteFooter() {
           </div>
 
           {/* link columns */}
-          <div className="grid gap-10 sm:grid-cols-3" data-reveal="up" style={{ "--reveal-delay": "120ms" }}>
+          <div className="grid gap-8 sm:grid-cols-3 lg:gap-10" data-reveal="up" style={{ "--reveal-delay": "120ms" }}>
             {COLUMNS.map((col) => (
               <div key={col.title}>
                 <h3 className="eyebrow text-marigold">{col.title}</h3>
