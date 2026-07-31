@@ -296,7 +296,7 @@ export default function Journey() {
               {/* the years strip */}
               {ch.marks ? (
                 <div
-                  className="no-scrollbar mt-12 flex gap-8 overflow-x-auto border-y border-ivory/12 py-6"
+                  className="no-scrollbar edge-fade-r mt-12 flex gap-8 overflow-x-auto border-y border-ivory/12 py-6 pe-8 sm:pe-0"
                   data-reveal="up"
                 >
                   {ch.marks.map((m, i) => (

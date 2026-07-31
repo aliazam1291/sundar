@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "shot": "node scripts/shot.mjs",
+    "walk": "node scripts/walk-recipes.mjs",
+    "audit": "node scripts/audit-layout.mjs"
   },
   "dependencies": {
     "next": "16.2.12",
@@ -14,9 +17,11 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@playwright/mcp": "^0.0.78",
     "@tailwindcss/postcss": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
+    "playwright": "^1.62.1",
     "tailwindcss": "^4"
   }
 }

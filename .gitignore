@@ -42,3 +42,7 @@ yarn-error.log*
 
 # brand source decks (large, client-confidential — keep local)
 *.pdf
+
+# playwright screenshots from scripts/shot.mjs
+shots/
+test-results/

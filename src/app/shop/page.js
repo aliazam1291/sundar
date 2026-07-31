@@ -56,7 +56,11 @@ export default async function ShopPage({ searchParams }) {
         style={{ top: "var(--header-h, 4.6rem)" }}
       >
         <div className="shell">
-          <div className="no-scrollbar flex gap-2.5 overflow-x-auto py-3.5">
+          {/* The chips are wider than a phone, so this scrolls. Without the
+              fade the last one is just sliced flat at the gutter and reads as
+              a bug rather than "there is more this way"; the trailing padding
+              keeps the final chip clear of the fade once you reach the end. */}
+          <div className="no-scrollbar edge-fade-r flex gap-2.5 overflow-x-auto py-3.5 pe-8 sm:pe-0">
             {FILTERS.map((f) => {
               const on = active === f.id;
               return (

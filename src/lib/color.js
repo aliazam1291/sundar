@@ -23,6 +23,14 @@ export function hexToRgb(hex) {
 export const rgbToHex = (rgb) =>
   "#" + rgb.map((v) => Math.round(Math.min(255, Math.max(0, v))).toString(16).padStart(2, "0")).join("");
 
+/** Blend two hexes. `t` of 0 is all `a`, 1 is all `b`. */
+export function mix(a, b, t) {
+  const from = hexToRgb(a);
+  const to = hexToRgb(b);
+  const k = Math.min(1, Math.max(0, t));
+  return rgbToHex(from.map((v, i) => v + (to[i] - v) * k));
+}
+
 const channel = (v) => {
   const s = v / 255;
   return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);

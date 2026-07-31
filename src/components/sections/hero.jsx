@@ -147,9 +147,13 @@ export default function Hero() {
             <p className="font-deva mt-1 text-copy text-marigold" lang="hi">{hero.hindi}</p>
           </div>
 
-          {/* ── the switcher ── */}
+          {/* ── the switcher ──
+              Must wrap. Three chips come to ~395px, and a grid item defaults
+              to min-width:auto — so an unwrapped row does not just overflow
+              itself, it widens the whole stage column past the viewport and
+              takes the rotating seal off the right edge with it. */}
           <div
-            className="relative mt-5 flex justify-center gap-2"
+            className="relative mt-5 flex flex-wrap justify-center gap-2"
             role="tablist"
             aria-label="Choose a range"
           >

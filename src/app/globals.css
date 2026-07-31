@@ -1057,6 +1057,192 @@ body {
   transform-origin: 320px 216px;
 }
 
+/* — The kitchen ————————————————————————————————————
+   Everything Sunder ji's rasoi does while he cooks. All of it is applied to
+   SVG groups, which take CSS transforms about a `transformOrigin` given in
+   user units — the same trick the tailgate wheels use. */
+
+/* The loose effects — steam, sparks, spice, bubbles, chips — are single
+   shapes that must turn and scale about themselves. Without this they inherit
+   `transform-box: view-box` and pivot around the centre of the whole drawing,
+   which throws them clear across the kitchen. Anything with a transformOrigin
+   given in user units (the arms, the flame, the cooker weight) must NOT be in
+   this list — fill-box would re-base those coordinates onto the shape. */
+.anim-k-steam,
+.anim-k-spark,
+.anim-k-dust,
+.anim-k-bubble,
+.anim-k-chip {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Gas flame — never still, never regular */
+@keyframes k-flame {
+  0%, 100% { transform: scaleY(1) scaleX(1) skewX(0deg); }
+  22%      { transform: scaleY(1.16) scaleX(0.93) skewX(-3deg); }
+  47%      { transform: scaleY(0.9) scaleX(1.06) skewX(2.5deg); }
+  71%      { transform: scaleY(1.1) scaleX(0.96) skewX(-1.5deg); }
+}
+.anim-k-flame {
+  animation: k-flame 0.62s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Steam rising off a hot vessel */
+@keyframes k-steam {
+  0%   { opacity: 0; transform: translateY(10px) scaleX(0.7); }
+  25%  { opacity: 0.85; }
+  100% { opacity: 0; transform: translateY(-46px) scaleX(1.25); }
+}
+.anim-k-steam {
+  animation: k-steam var(--dur, 3s) ease-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Seeds going off in hot ghee */
+@keyframes k-spark {
+  0%   { opacity: 0; transform: translateY(0) scale(0.5); }
+  18%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(var(--rise, -40px)) scale(1); }
+}
+.anim-k-spark {
+  animation: k-spark 1.05s ease-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* A chutki of masala on its way down */
+@keyframes k-dust {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  15%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(46px) rotate(150deg); }
+}
+.anim-k-dust {
+  animation: k-dust 1.1s ease-in infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Bubbles breaking the surface */
+@keyframes k-bubble {
+  0%   { opacity: 0; transform: translateY(4px) scale(0.4); }
+  30%  { opacity: 0.9; }
+  100% { opacity: 0; transform: translateY(-16px) scale(1.1); }
+}
+.anim-k-bubble {
+  animation: k-bubble 1.4s ease-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+/* Chips of onion leaving the board */
+@keyframes k-chip {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  30%      { opacity: 1; transform: translate(-6px, -10px); }
+  60%      { opacity: 0.6; transform: translate(-12px, 2px); }
+}
+.anim-k-chip {
+  animation: k-chip 0.72s ease-out infinite;
+}
+
+/* — What the arm is doing ——————————————————————— */
+
+/* Round and round the kadhai */
+@keyframes k-stir {
+  0%, 100% { transform: rotate(-4.5deg); }
+  50%      { transform: rotate(4.5deg); }
+}
+.anim-k-stir {
+  animation: k-stir 1.5s ease-in-out infinite;
+}
+
+/* Knife work — fast, and it stops dead at the bottom */
+@keyframes k-chop {
+  0%, 100% { transform: rotate(-11deg); }
+  55%      { transform: rotate(1deg); }
+  70%      { transform: rotate(0deg); }
+}
+.anim-k-chop {
+  animation: k-chop 0.44s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Leaning on the masher */
+@keyframes k-mash {
+  0%, 100% { transform: translateY(-7px) rotate(-2deg); }
+  50%      { transform: translateY(3px) rotate(1.5deg); }
+}
+.anim-k-mash {
+  animation: k-mash 0.72s ease-in-out infinite;
+}
+
+/* The little tadka pan, jittering over the flame */
+@keyframes k-shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%      { transform: translate(-1.5px, 1px) rotate(-1deg); }
+  50%      { transform: translate(1.5px, -1px) rotate(0.8deg); }
+  75%      { transform: translate(-1px, -1.5px) rotate(-0.5deg); }
+}
+.anim-k-shake {
+  animation: k-shake 0.18s linear infinite;
+}
+
+/* Fingers rubbing the masala loose */
+@keyframes k-pinch {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-2.5deg); }
+}
+.anim-k-pinch {
+  animation: k-pinch 0.42s ease-in-out infinite;
+}
+
+/* "There you are" */
+@keyframes k-present {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-3.5deg) translateY(-3px); }
+}
+.anim-k-present {
+  animation: k-present 2.4s ease-in-out infinite;
+}
+
+/* The pressure cooker weight, going round */
+@keyframes k-weight {
+  0%, 100% { transform: rotate(-9deg); }
+  50%      { transform: rotate(9deg); }
+}
+.anim-k-weight {
+  animation: k-weight 0.3s ease-in-out infinite;
+}
+
+/* Tadka going into the dal */
+@keyframes k-pour {
+  0%   { opacity: 0; transform: scaleY(0.3); }
+  25%  { opacity: 1; transform: scaleY(1); }
+  100% { opacity: 0; transform: scaleY(1.1); }
+}
+.anim-k-pour {
+  animation: k-pour 1.3s ease-in infinite;
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+
+/* Spoon coming up to be tasted */
+@keyframes k-sip {
+  0%   { transform: rotate(11deg) translateY(16px); }
+  40%  { transform: rotate(0deg) translateY(0); }
+  62%  { transform: rotate(-2deg) translateY(-3px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+.anim-k-sip {
+  animation: k-sip 0.75s var(--ease-spice) both;
+}
+
+/* The current step, ringed in chalk */
+@keyframes k-glow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.62; }
+}
+.anim-k-glow {
+  animation: k-glow 1.8s ease-in-out infinite;
+}
+
 /* Pack swap on the hero switcher */
 @keyframes swap-in {
   from { opacity: 0; transform: translateY(14px) scale(0.97); }
@@ -1081,8 +1267,14 @@ body {
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
 
-.edge-fade-r {
-  mask-image: linear-gradient(90deg, #000 82%, transparent);
+/* Softens the right edge of a horizontal scroll strip so the cut reads as
+   "there is more this way" rather than as a clipping bug. Only below the
+   breakpoint where these strips actually overflow — above it the content
+   fits, and fading a live edge for no reason is worse than not fading. */
+@media (max-width: 639px) {
+  .edge-fade-r {
+    mask-image: linear-gradient(90deg, #000 88%, transparent);
+  }
 }
 
 /* Section rule with a diamond, like the deck footers */
