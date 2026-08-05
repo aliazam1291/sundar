@@ -105,12 +105,21 @@ export default function Hero() {
 
         {/* ── the stage ── */}
         <div className="relative">
+          {/* The plinth encloses the pack and its caption and nothing else.
+              Sizing it off the whole column instead meant that once the
+              switcher chips wrapped — which they do below ~640px — the arch's
+              bottom edge came to rest straight through the chip row. */}
+          <div className="relative">
           {/* plinth: a lit arch the pack stands on, so it is somewhere */}
-          <div className="pointer-events-none absolute inset-x-[4%] top-[3%] bottom-[15%] arch-top rounded-b-2xl border-2 border-marigold/40 bg-linear-to-b from-marigold/[0.14] to-transparent" aria-hidden="true" />
+          <div className="pointer-events-none absolute inset-x-[4%] top-[3%] -bottom-1 arch-top rounded-b-2xl border-2 border-marigold/40 bg-linear-to-b from-marigold/[0.14] to-transparent" aria-hidden="true" />
           <div className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[62%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-marigold/15 blur-3xl" aria-hidden="true" />
 
-          {/* rotating seal */}
-          <div className="anim-spin-slow absolute right-[3%] top-[2%] z-20 w-16 sm:w-20" style={{ "--dur": "34s" }}>
+          {/* Rotating seal. Hidden on the narrowest screens: the pack is
+              centred while the seal hugs the column's right edge, so once the
+              column drops under ~640px the two converge and the seal's ring
+              runs straight through the pack's roundel, costing both. The
+              roundel carries the actual claim, so the flourish gives way. */}
+          <div className="anim-spin-slow absolute right-[3%] top-[2%] z-20 hidden w-16 sm:block sm:w-20" style={{ "--dur": "34s" }}>
             <svg viewBox="0 0 120 120" className="w-full text-marigold" aria-hidden="true">
               <defs>
                 <path id="seal-path" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none" />
@@ -142,9 +151,10 @@ export default function Hero() {
           </div>
 
           {/* caption */}
-          <div key={`${hero.slug}-cap`} className="anim-swap relative mt-5 text-center">
+          <div key={`${hero.slug}-cap`} className="anim-swap relative mt-5 pb-5 text-center">
             <p className="h-card text-ghee">{hero.tagline}</p>
             <p className="font-deva mt-1 text-copy text-marigold" lang="hi">{hero.hindi}</p>
+          </div>
           </div>
 
           {/* ── the switcher ──

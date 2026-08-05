@@ -32,6 +32,40 @@ export default function Bilingual({
 }
 
 /**
+ * A Devanagari run sitting inside a Latin label.
+ *
+ * The uppercase label styles carry heavy letter-spacing, and letter-spacing
+ * applied to Devanagari pushes the matras off the consonants they belong to —
+ * "संस्थापक" comes out as "सं स्था प क". `uppercase` does nothing for the
+ * script either. Reset both and set it in its own face.
+ */
+export function Deva({ children, className = "" }) {
+  return (
+    <span lang="hi" className={`font-deva normal-case tracking-normal ${className}`}>
+      {children}
+    </span>
+  );
+}
+
+/* A run of Devanagari, plus any spaces holding two such words together. */
+const DEVA_RUN = /([ऀ-ॿ]+(?:\s+[ऀ-ॿ]+)*)/;
+
+/**
+ * A label whose own string mixes scripts — "Indore · भारत", "वर्ष · years".
+ * The content keeps them as one string because they read as one line, so
+ * split the Devanagari runs back out here and set each one properly. Without
+ * this the surrounding tracked label shreds the Hindi; see [Deva].
+ */
+export function MixedLabel({ text }) {
+  return text
+    .split(DEVA_RUN)
+    .filter(Boolean)
+    .map((part, i) =>
+      DEVA_RUN.test(part) ? <Deva key={i}>{part}</Deva> : <span key={i}>{part}</span>,
+    );
+}
+
+/**
  * Huge Devanagari set as a background wash — one word, bleeding off the edge,
  * barely there. Depth without another illustration.
  */

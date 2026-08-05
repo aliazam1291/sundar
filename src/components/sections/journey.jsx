@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { JOURNEY, FOUNDER } from "@/lib/content";
 import { Star, SpiceIcon } from "@/components/spice-icons";
+import { Deva, MixedLabel } from "@/components/bilingual";
 
 /**
  * "A Heritage Film", as a scroll reel.
@@ -217,7 +218,7 @@ export default function Journey() {
           </h2>
 
           <p className="font-body mt-5 text-micro uppercase tracking-[0.42em] text-ivory/50">
-            भारत · India
+            <Deva>भारत</Deva> · India
           </p>
 
           <div className="mx-auto mt-12 max-w-md">
@@ -228,7 +229,7 @@ export default function Journey() {
               {FOUNDER.name}
             </p>
             <p className="font-body mt-3 text-micro uppercase tracking-[0.34em] text-terracotta-2">
-              {FOUNDER.role} · {FOUNDER.roleHi}
+              {FOUNDER.role} · <Deva>{FOUNDER.roleHi}</Deva>
             </p>
           </div>
         </header>
@@ -288,7 +289,7 @@ export default function Journey() {
                   )}
 
                   <p className="font-body mt-6 text-micro uppercase tracking-[0.34em] text-terracotta-2/80">
-                    {ch.meta}
+                    <MixedLabel text={ch.meta} />
                   </p>
                 </div>
               </div>
