@@ -75,7 +75,7 @@ export const PRODUCTS = [
     icon: "pinch",
     hue: ["#6f1a10", "#8b2517"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-shahi-hing.png",
+    image: "/packs/sunder-shahi-hing.webp",
     imagePlate: true,
     story:
       "Shahi Hing from the Sunder range — processed and packed in a hygienic plant, with no artificial colours or preservatives.",
@@ -95,7 +95,7 @@ export const PRODUCTS = [
     icon: "jar",
     hue: ["#8b2517", "#b4301c"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/asafoetida-hing.png",
+    image: "/packs/asafoetida-hing.webp",
     story:
       "Sunder The purest Hing Available in the market as 99% of companies are selling compounded Hing containing a mixture of wheat flour and gum. A very littel quantity of sunder hing gives best teste to your food. 100% Pure Highly Aromatic",
   },
@@ -113,7 +113,7 @@ export const PRODUCTS = [
     icon: "fenugreek",
     hue: ["#b36d14", "#f2b30a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-dal-masala.png",
+    image: "/packs/sunder-dal-masala.webp",
     story:
       "Make every bite aromatic and full of flavor with its rich taste. Sourced from the best of farms, the spices contain naturally rich flavors.",
     uses: "It can be used for making chana dal, tuar dal, dal mahni",
@@ -132,7 +132,7 @@ export const PRODUCTS = [
     icon: "cumin",
     hue: ["#4b5d22", "#7fa928"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-jaljira.png",
+    image: "/packs/sunder-jaljira.webp",
     story:
       "Sunder Jaljeera Masala is a unique blend of fresh",
     uses: "Sprinkle on fruits, salad, soup, raita, tikka, chaat, barbeque, popcorn, fried snacks, chutneys, fruit juices, sugarcane juice, Pani puri, etc.",
@@ -151,7 +151,7 @@ export const PRODUCTS = [
     icon: "chilli",
     hue: ["#d5231a", "#f13a59"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-achar-masala.png",
+    image: "/packs/sunder-achar-masala.webp",
     story:
       "Sunder achar masala is made of purely natural",
     uses: "Mango Aam ka achar, Lemon achar, Mirch achar, Mix Vegetables achar etc. Ready to Use Instant Achar Masala No Need to Mix Any Other Spices.",
@@ -170,7 +170,7 @@ export const PRODUCTS = [
     icon: "fenugreek",
     hue: ["#b36d14", "#e58c1a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-sambar-masala.png",
+    image: "/packs/sunder-sambar-masala.webp",
     story:
       "With our Sunder Sambhar Masala, you can enhance the flavor of your go-to side dish for Idlis, Dosas, and Appams.",
   },
@@ -188,7 +188,7 @@ export const PRODUCTS = [
     icon: "chilli",
     hue: ["#d5231a", "#e8563a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-pav-bhaji-masala.png",
+    image: "/packs/sunder-pav-bhaji-masala.webp",
     story:
       "Sunder pav bhaji masala is 100% natural, with no added preservatives.",
     uses: "Best for the pav bhaji but you can also use it in Aalu, Gobhi, palak, Shimla Mirch, sabzi masala, etc.",
@@ -207,7 +207,7 @@ export const PRODUCTS = [
     icon: "mustard",
     hue: ["#7a6b4d", "#c9a97b"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-chaat-masala.png",
+    image: "/packs/sunder-chaat-masala.webp",
     story:
       "A perfect blend of premium",
     uses: "It h as the ability to transform the flavor profile of any fruit, vegetable, juice, appetizer, or entrée.",
@@ -226,7 +226,7 @@ export const PRODUCTS = [
     icon: "starAnise",
     hue: ["#6f1a10", "#8b2517"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-chole-masala-chana-masala.png",
+    image: "/packs/sunder-chole-masala-chana-masala.webp",
     story:
       "Sunder Chole masala has an authentic taste and flavor. Chhole masala is a perfect blend of all spices and enhances the taste of your dish. Lip-smacking taste, super convenient & cooks in minutes.",
     uses: "I t is rich in spices which makes food tasty and delicious.",
@@ -246,7 +246,7 @@ export const PRODUCTS = [
     icon: "cumin",
     hue: ["#e58c1a", "#f2b30a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-jeeravan-poha-masala.png",
+    image: "/packs/sunder-jeeravan-poha-masala.webp",
     story:
       "Sunder Poha Masala is 100% natural and best suitable for chatpata dishes. Just a Pinch is Enough to add Rich Flavour & Aroma to your food dishes.",
     uses: "Sprinkle the Jeeravan on sandwiches, fruits, salads, sprouts, Chaat papdi, Poha & many more and enjoy the tongue-smacking taste.",
@@ -265,7 +265,7 @@ export const PRODUCTS = [
     icon: "fenugreek",
     hue: ["#7a6b4d", "#b36d14"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-methi-dana-fenu-greek.png",
+    image: "/packs/sunder-methi-dana-fenu-greek.webp",
     story:
       "Sunder Organic Methi dana is a common ingredient in vegetables, pickles, and different types of masalas. It is a good source of soluble fiber and is excellent for digestion. It also aids in curing heartburn, fever, and sore throat.",
     uses: "Used in boosting the immune system and ensuring good health as well. Processed & Packed in Hygienic Environment.",
@@ -284,7 +284,7 @@ export const PRODUCTS = [
     icon: "mustard",
     hue: ["#b36d14", "#f2b30a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-rai-mustard-seeds.png",
+    image: "/packs/sunder-rai-mustard-seeds.webp",
     story:
       "Sunder mustard seeds contain a higher proportion of the volatile mustard oil and the strongest flavor. Mustard seed, one of the oldest old spices, adds warmth and heat to your dishes.",
     uses: "Used as a health-benefiting spice, exotica mustard seeds are indeed very rich in a phytonutrient, minerals, vitamins, and antioxidants. Processed & Packed in Hygienic Environment.",
@@ -303,7 +303,7 @@ export const PRODUCTS = [
     icon: "cumin",
     hue: ["#4b5d22", "#7a6b4d"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-ajwain-carom-seeds.png",
+    image: "/packs/sunder-ajwain-carom-seeds.webp",
     story:
       "Sunder Ajwain has a unique texture and adds a pleasing & distinct aroma when added in Tadkaa.",
     uses: "Used for gastritis and indigestion, this seed is perfect for those that want to improve their digestion. Processed & Packed in Hygienic Environment.",
@@ -322,7 +322,7 @@ export const PRODUCTS = [
     icon: "coriander",
     hue: ["#4b5d22", "#7fa928"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-fennel-seeds-sauf.png",
+    image: "/packs/sunder-fennel-seeds-sauf.webp",
     story:
       "Sunder fennel seeds have an a uthentic aroma and flavor that enhances the taste of your dishes.",
     uses: "Ideal for traditional dishes like curries, sweets, and other veg or non- veg dishes; can also be used as a mouth freshener",
@@ -341,7 +341,7 @@ export const PRODUCTS = [
     icon: "cumin",
     hue: ["#6b3e2e", "#b36d14"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-cumin-seeds-jeera.png",
+    image: "/packs/sunder-cumin-seeds-jeera.webp",
     story:
       "Consistency In Taste, Aroma, And",
     uses: "It Helps You To Add An Earthy And Warming To Food, Making It A Staple In Certain Stews And Soups.",
@@ -360,7 +360,7 @@ export const PRODUCTS = [
     icon: "clove",
     hue: ["#6b3e2e", "#8b2517"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-laung-cloves.png",
+    image: "/packs/sunder-laung-cloves.webp",
     story:
       "It has a strong Taste and the Right aroma. We provide High-",
     uses: "Cloves offer many health benefits, some of which include providing aid in digestion and having antimicrobial properties.",
@@ -379,7 +379,7 @@ export const PRODUCTS = [
     icon: "peppercorn",
     hue: ["#241b13", "#4a3a29"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-kali-mirch-black-pepper.png",
+    image: "/packs/sunder-kali-mirch-black-pepper.webp",
     story:
       "Naturally & Sustainably grown and Processed. High in Essential Oil, Piperine. Dark peppercorns signify a Flavorful Taste & Peppery Heat.",
     uses: "Black Pepper can be used in Curries, Soups & all types of vegetarian and non-vegetarian dishes.",
@@ -398,7 +398,7 @@ export const PRODUCTS = [
     icon: "cardamom",
     hue: ["#4b5d22", "#7fa928"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-elaichi-green-cardamom.png",
+    image: "/packs/sunder-elaichi-green-cardamom.webp",
     story:
       "Sunder Cardamom is 100% Pure & Natural. Elaichi or cardamom is one of the most common spices seen in an Indian household.",
     uses: "It has a sweet taste and unique flavor to your dishes, it is also widely used as a natural mouth freshener.",
@@ -417,7 +417,7 @@ export const PRODUCTS = [
     icon: "jar",
     hue: ["#0e3b2c", "#1e6b4c"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-kitchen-king-masala.png",
+    image: "/packs/sunder-kitchen-king-masala.webp",
     story:
       "Rich in taste and aroma. An exotic blend made from the choicest of",
     uses: "Can be used while cooking to enhance the taste. Ideal for vegetable dishes with soft curry.",
@@ -437,7 +437,7 @@ export const PRODUCTS = [
     icon: "cumin",
     hue: ["#7a6b4d", "#c9a97b"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-raita-masala.png",
+    image: "/packs/sunder-raita-masala.webp",
     story:
       "Fresh, Healthy, and 100% Natural product. Tasty and Good for Your Health.",
     uses: "An Essential Condiment for all Indian kitchens.",
@@ -456,7 +456,7 @@ export const PRODUCTS = [
     icon: "fenugreek",
     hue: ["#4b5d22", "#7fa928"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-kasuri-methi.png",
+    image: "/packs/sunder-kasuri-methi.webp",
     story:
       "Fine",
     uses: "Flavorsome dishes with Kasuri Methi.",
@@ -475,7 +475,7 @@ export const PRODUCTS = [
     icon: "cardamom",
     hue: ["#16523c", "#1e6b4c"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-shahi-paneer-masala.png",
+    image: "/packs/sunder-shahi-paneer-masala.webp",
     story:
       "Sunder Shahi Paneer masala is an Instant premix with Cashews. Add an amazing taste, color, and flavor to the dish. To make food tasty and delicious. An exquisite blend of rich and premium spices.",
   },
@@ -494,7 +494,7 @@ export const PRODUCTS = [
     icon: "starAnise",
     hue: ["#6f1a10", "#8b2517"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-garam-masala.png",
+    image: "/packs/sunder-garam-masala.webp",
     story:
       "Sunder Garam masala is the perfect spice mix for all your Indian cooking needs. Sunder Garam Masala is a unique blend of spices that has been carefully crafted over centuries. Our Garam masala is deeper in color and spicier in taste. It's the perfect addition to any dinner or curry and is nice on everything from vegetables to salads. This Garam Masala adds the perfect burst of flavor to your everyday meals.",
     uses: "This spice blend is a vital ingredient found in almost all Indian kitchens and used in daily cooking.",
@@ -515,7 +515,7 @@ export const PRODUCTS = [
     icon: "flame",
     hue: ["#8b2517", "#d5231a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-kuti-teja-mirch-powder.png",
+    image: "/packs/sunder-kuti-teja-mirch-powder.webp",
     story:
       "Fresh, Healthy, and 100% Natural organic red Kuti Teja Mirchi has a unique flavor give yourself something with a naturally rich and smooth taste, featuring a perfectly balanced flavor, and a nice texture.",
     uses: "It is used to add heat or spice to dishes. Prepare the most authentic and flavourful dishes with our Kuta Teja Mirchi powder.",
@@ -534,7 +534,7 @@ export const PRODUCTS = [
     icon: "sprig",
     hue: ["#b36d14", "#e58c1a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-dry-ginger-powder-sunth-powder.png",
+    image: "/packs/sunder-dry-ginger-powder-sunth-powder.webp",
     story:
       "100% Certified Organic Product. Every Pure Tree Organic product can be traced back to its origin.",
     uses: "Use it as a seasoning agent while preparing gingerbreads, cakes, cookies, and ginger beer.",
@@ -553,7 +553,7 @@ export const PRODUCTS = [
     icon: "peppercorn",
     hue: ["#241b13", "#4a3a29"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-black-pepper-powder-kali-mirch-powder.png",
+    image: "/packs/sunder-black-pepper-powder-kali-mirch-powder.webp",
     story:
       "Black pepper powder in the sprinkler is a staple dinner-table condiment. 100% Pure Black peppercorns ground. Made from the best",
     uses: "It is also helpful in medicinal aspects since it is a basis of manganese, iron, vitamin C, potassium, and dietary fiber.",
@@ -572,7 +572,7 @@ export const PRODUCTS = [
     icon: "peppercorn",
     hue: ["#7a6b4d", "#c9a97b"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-white-pepper-powder-safed-mirch-powder.png",
+    image: "/packs/sunder-white-pepper-powder-safed-mirch-powder.webp",
     story:
       "Unbleached Natural White Pepper. Sunder white pepper is sourced directly from the farmers and then is washed, dried, dehydrated, and then controlled for humidity and temperature before packaging.",
     uses: "Use as per taste or as directed in various recipes.",
@@ -591,7 +591,7 @@ export const PRODUCTS = [
     icon: "chilli",
     hue: ["#b4301c", "#d03821"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-kashmiri-mirchi-powder.png",
+    image: "/packs/sunder-kashmiri-mirchi-powder.webp",
     story:
       "Sunder Kashmiri Chilli Powder has negligible pungency and is rich in flavor. Our Kashmiri Chilly Powder gives a deep red color to the dishes and can complement cuisines.",
     uses: "It is used for its color and does not add much heat to the dish. Prepare the most authentic and flavourful dishes with our Kashmiri Laal Mirchi powder.",
@@ -610,7 +610,7 @@ export const PRODUCTS = [
     icon: "jar",
     hue: ["#e58c1a", "#f2b30a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-amchur-powder.png",
+    image: "/packs/sunder-amchur-powder.webp",
     story:
       "Veg and non-veg dishes are also enhanced with the help of Amchur Powder. It has Tenderising Qualities, similar to lime and lemon juice.",
     uses: "U sed to Add More Flavour to Curries, Chutneys, Soups & Marinades.",
@@ -629,7 +629,7 @@ export const PRODUCTS = [
     icon: "coriander",
     hue: ["#4b5d22", "#1e6b4c"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-coriander-powder-dhaniya-powder.png",
+    image: "/packs/sunder-coriander-powder-dhaniya-powder.webp",
     story:
       "Sunder Coriander Powder is rich in flavor and taste, a must-have ingredient. Our Coriander Powder gives a distinct aroma and color to dishes.",
     uses: "Very Soft Textured Powder that has high nutritional value.",
@@ -649,7 +649,7 @@ export const PRODUCTS = [
     icon: "turmeric",
     hue: ["#f2b30a", "#ffc740"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-turmeric-powder-haldi-powder.png",
+    image: "/packs/sunder-turmeric-powder-haldi-powder.webp",
     story:
       "Enjoy the rich taste of Sunder Turmeric Powder in all your favorite dishes. 100% Natural, Pure & Healthy Turmeric Powder.",
     uses: "Very Soft Textured Powder that has high nutritional value and also boosts Immune System.",
@@ -670,7 +670,7 @@ export const PRODUCTS = [
     icon: "chilli",
     hue: ["#d5231a", "#e8563a"],
     /* real packaging shot, from sundermasala.com */
-    image: "/packs/sunder-red-chilli-powder-lal-mirch-powder.png",
+    image: "/packs/sunder-red-chilli-powder-lal-mirch-powder.webp",
     story:
       "Natural red chili powder. Sunder red chili powder has made from top-notch",
     uses: "You can use it in the dal, vegetables, meat preparation, and other delicacies in the kitchen.",

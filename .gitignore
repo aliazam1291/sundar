@@ -46,3 +46,10 @@ yarn-error.log*
 # playwright screenshots from scripts/shot.mjs
 shots/
 test-results/
+
+# pack-shot intermediates — originals pulled from the live store by
+# scripts/fetch-packs.mjs, and the pre-upgrade cutouts. Only the finished
+# public/packs/*.webp belong in the repo.
+public/packs-src/
+public/packs-backup/
+sunder-images.json

@@ -93,6 +93,24 @@ for (const sel of opts.clicks) {
   await page.waitForTimeout(450);
 }
 
+/* Scroll reveals are progressive enhancement, so an element shot without
+   scrolling captures a section that is still at opacity 0 — which reads as a
+   mysterious gap rather than "the observer never fired". Walk the page for
+   --sel too, not just --full. */
+if (opts.sel && !opts.scroll) {
+  await page.evaluate(async () => {
+    const root = document.documentElement;
+    root.style.scrollBehavior = "auto";
+    const step = Math.round(window.innerHeight * 0.7);
+    for (let y = 0; y < root.scrollHeight; y += step) {
+      window.scrollTo({ top: y, behavior: "instant" });
+      await new Promise((r) => setTimeout(r, 110));
+    }
+    window.scrollTo({ top: 0, behavior: "instant" });
+  });
+  await page.waitForTimeout(600);
+}
+
 /* A viewport slice at a given offset — full-page shots of this site are far
    too tall to actually read. */
 if (opts.scroll) {

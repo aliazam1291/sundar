@@ -749,6 +749,16 @@ body {
   transform: translateY(-7px);
 }
 
+/* The dome eats both top corners, and the card clips its overflow — so the
+   first row of content (a range chip on the left, its icon on the right)
+   lands outside the curve and gets sliced. On a narrow card it vanishes
+   completely. Start the content below the widest part of the arch instead;
+   the padding has to grow with the viewport because the horizontal radius is
+   a percentage of the card's own width. */
+.card-poster.arch-top {
+  padding-top: clamp(4rem, 12vw, 5.5rem);
+}
+
 /* ============================================================
    PACK SHOT — vector carton
    ============================================================ */
