@@ -84,26 +84,34 @@ export default function Ritual() {
             </h2>
           </div>
 
+          {/* min-h + justify-between stranded the body: a two-line paragraph
+              left ~110px of dead air under the title. A lower floor, with the
+              body pushed down by mt-auto instead, keeps the cards level
+              without the hole. */}
           <div className="section-body grid gap-5 lg:grid-cols-3">
             {JOURNAL.map((j, i) => (
               <article
                 key={j.title}
                 data-reveal="up"
                 style={{ "--reveal-delay": `${i * 110}ms` }}
-                className={`card-lift group relative isolate flex min-h-[19rem] flex-col justify-between overflow-hidden rounded-[1.6rem] border-2 border-ink p-7 ${TONE[j.tone]}`}
+                className={`card-lift group relative isolate flex min-h-[15rem] flex-col overflow-hidden rounded-[1.6rem] border-2 border-ink p-7 ${TONE[j.tone]}`}
               >
-                <Sunburst className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] w-full" rays={36} opacity={0.12} />
+                <Sunburst className="pointer-events-none absolute inset-0 h-full w-full" rays={36} opacity={0.12} />
                 <SpiceIcon
                   name={j.icon}
                   className="pointer-events-none absolute -bottom-6 -right-4 w-40 opacity-[0.16] transition-transform duration-700 group-hover:rotate-6"
                 />
 
+                {/* opacity used to fade this inherited currentColor toward
+                    the card's own background — on tomato it measured 3.19,
+                    on saffron 3.39. The border can still fade; the text
+                    cannot. */}
                 <div className="relative">
-                  <span className="chip border-current/40 opacity-75">{j.kicker}</span>
+                  <span className="chip border-current/40">{j.kicker}</span>
                   <h3 className="font-poster mt-6 text-[2.1rem] leading-[0.9]">{j.title}</h3>
                 </div>
 
-                <p className="relative mt-8 max-w-xs text-copy leading-relaxed opacity-82">
+                <p className="relative mt-auto pt-8 max-w-xs text-copy leading-relaxed">
                   {j.body}
                 </p>
               </article>

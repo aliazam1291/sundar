@@ -93,11 +93,14 @@ export default function Hero() {
             </Link>
           </div>
 
+          {/* The number reads above its label, but a dl has to be dt-then-dd
+              in the markup — so the source order is correct and the visual
+              order is flipped in CSS. */}
           <dl className="mt-8 flex flex-wrap gap-x-9 gap-y-4 border-t border-ghee/20 pt-5">
             {STATS.map((s) => (
-              <div key={s.label}>
+              <div key={s.label} className="flex flex-col-reverse">
+                <dt className="label-micro mt-1.5 text-ghee/75">{s.label}</dt>
                 <dd className="font-poster text-[1.8rem] leading-none text-marigold">{s.n}</dd>
-                <dt className="label-micro mt-1.5 text-ghee/65">{s.label}</dt>
               </div>
             ))}
           </dl>

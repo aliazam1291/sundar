@@ -9,7 +9,11 @@
     "lint": "eslint",
     "shot": "node scripts/shot.mjs",
     "walk": "node scripts/walk-recipes.mjs",
-    "audit": "node scripts/audit-layout.mjs"
+    "audit": "node scripts/audit-layout.mjs",
+    "search-check": "node scripts/walk-search.mjs",
+    "packs": "node scripts/fetch-packs.mjs && node scripts/process-packs.mjs && node scripts/optimise-packs.mjs && node scripts/qa-packs.mjs",
+    "a11y": "node scripts/check-a11y.mjs",
+    "seo": "node scripts/check-seo.mjs"
   },
   "dependencies": {
     "next": "16.2.12",
@@ -19,6 +23,7 @@
   "devDependencies": {
     "@playwright/mcp": "^0.0.78",
     "@tailwindcss/postcss": "^4",
+    "axe-core": "^4.13.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "playwright": "^1.62.1",

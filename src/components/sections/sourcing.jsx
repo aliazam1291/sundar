@@ -46,25 +46,29 @@ export default function Sourcing() {
                 style={{ "--reveal-delay": `${i * 90}ms` }}
                 className="group rounded-[1.4rem] border border-paper/18 bg-paper/[0.055] p-6 transition-colors hover:border-marigold/55 hover:bg-paper/10"
               >
-                <div className="flex items-start justify-between gap-4">
-                  <SpiceIcon
-                    name={p.icon}
-                    className="w-9 text-marigold transition-transform duration-500 group-hover:-rotate-12"
-                  />
-                  <div className="text-right">
-                    <span className="font-poster block text-[1.8rem] leading-none text-paper">
-                      {p.stat}
+                {/* Inside a <dl>, a wrapping div may contain nothing but dt
+                    and dd — so the icon and stat live inside the term rather
+                    than as a third sibling. */}
+                <dt className="block">
+                  <span className="flex items-start justify-between gap-4">
+                    <SpiceIcon
+                      name={p.icon}
+                      className="w-9 text-marigold transition-transform duration-500 group-hover:-rotate-12"
+                    />
+                    <span className="text-right">
+                      <span className="font-poster block text-[1.8rem] leading-none text-paper">
+                        {p.stat}
+                      </span>
+                      <span className="mt-1 block text-micro uppercase tracking-[0.15em] text-paper/65">
+                        {p.statLabel}
+                      </span>
                     </span>
-                    <span className="mt-1 block text-micro uppercase tracking-[0.15em] text-paper/50">
-                      {p.statLabel}
-                    </span>
-                  </div>
-                </div>
-
-                <dt className="font-editorial mt-6 text-[1.24rem] leading-tight text-paper">
-                  {p.title}
+                  </span>
+                  <span className="font-editorial mt-6 block text-[1.24rem] leading-tight text-paper">
+                    {p.title}
+                  </span>
                 </dt>
-                <dd className="mt-2.5 text-copy leading-relaxed text-paper/65">{p.body}</dd>
+                <dd className="mt-2.5 text-copy leading-relaxed text-paper/75">{p.body}</dd>
               </div>
             ))}
           </dl>

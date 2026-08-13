@@ -18,6 +18,9 @@ export const RANGES = {
     bg: "var(--color-forest)",
     ink: "var(--color-ghee)",
     accent: "var(--color-marigold)",
+    // The real hex behind `accent`, for JS-side contrast math (readableOn) —
+    // a CSS var reference can't be measured, only a colour can.
+    accentHex: "#ffc740",
     tw: { bg: "bg-forest", text: "text-ghee", accent: "text-marigold" },
     /* accent type, per the brand font spec */
     font: "font-heritage",
@@ -35,6 +38,7 @@ export const RANGES = {
     bg: "var(--color-saffron)",
     ink: "var(--color-ink)",
     accent: "var(--color-oxblood)",
+    accentHex: "#6f1a10",
     tw: { bg: "bg-saffron", text: "text-ink", accent: "text-oxblood" },
     font: "font-regional",
     icon: "thela",
@@ -51,6 +55,7 @@ export const RANGES = {
     bg: "var(--color-chilli)",
     ink: "var(--color-paper)",
     accent: "var(--color-marigold)",
+    accentHex: "#ffc740",
     tw: { bg: "bg-chilli", text: "text-paper", accent: "text-marigold" },
     font: "font-poster",
     icon: "pinch",
@@ -79,6 +84,7 @@ export const PRODUCTS = [
     imagePlate: true,
     story:
       "Shahi Hing from the Sunder range — processed and packed in a hygienic plant, with no artificial colours or preservatives.",
+    featured: true,
   },
   {
     slug: "asafoetida-hing",
@@ -701,6 +707,12 @@ export const productsByRange = (range) =>
   range === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.range === range);
 
 export const featuredProducts = () => PRODUCTS.filter((p) => p.featured);
+
+/* The shop's "start here" row. Named explicitly rather than taken off the top
+   of `featured`, which is in catalogue order and leads with a ₹410 hing — the
+   last thing to hand someone who has never bought from us. */
+export const starterProducts = () =>
+  ["garam-masala", "haldi-powder", "lal-mirch-powder"].map(getProduct).filter(Boolean);
 
 export const relatedProducts = (product, limit = 3) =>
   PRODUCTS.filter((p) => p.range === product.range && p.slug !== product.slug).slice(0, limit);

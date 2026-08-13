@@ -10,6 +10,10 @@ export default function Bilingual({
   en,
   accent = "text-rani-ink",
   size = "poster",
+  /* Defaults to h2 because most uses are section headings. A page masthead
+     has to pass as="h1" — a page with no h1 is a real accessibility and
+     search problem, and this component is the masthead on several of them. */
+  as: Heading = "h2",
   className = "",
   children,
   ...rest
@@ -25,7 +29,7 @@ export default function Bilingual({
       >
         {hi}
       </p>
-      <h2 className={`${head} mt-1.5`}>{en}</h2>
+      <Heading className={`${head} mt-1.5`}>{en}</Heading>
       {children}
     </div>
   );

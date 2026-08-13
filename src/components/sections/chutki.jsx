@@ -126,9 +126,12 @@ export default function Chutki() {
           </figure>
         </div>
 
-        {/* payoff band */}
+        {/* payoff band. rani-deep, not rani: paper-on-rani measures 4.22 and
+            marigold-on-rani 2.91, both below 4.5 — nothing in the light
+            palette clears it against the brighter rani. rani-deep passes
+            with both (6.75 / 4.67). */}
         <div
-          className="card-poster card-pad dotty mt-5 flex flex-col items-start justify-between gap-5 bg-rani text-paper sm:flex-row sm:items-center" style={{ "--card-shadow": "var(--color-cobalt)" }}
+          className="card-poster card-pad dotty mt-5 flex flex-col items-start justify-between gap-5 bg-rani-deep text-paper sm:flex-row sm:items-center" style={{ "--card-shadow": "var(--color-cobalt)" }}
           data-reveal="up"
         >
           <p className="h-poster-xs max-w-md text-balance">

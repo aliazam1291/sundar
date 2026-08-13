@@ -17,8 +17,12 @@ import { chromium } from "playwright";
 const BASE = process.env.BASE_URL ?? "http://localhost:3000";
 const OUT = "shots/audit";
 
-const PAGES = ["/", "/shop", "/shop/dal-masala", "/story", "/regions", "/recipes"];
-const WIDTHS = [390, 768, 1440];
+const PAGES = ["/", "/shop", "/shop/dal-masala", "/story", "/regions", "/recipes", "/faq"];
+
+/* Real device widths, not round numbers. 320 is the narrowest phone still in
+   use (SE 1st gen); 360 covers most budget Android; 390/430 the current
+   iPhones; 768/1024 iPad portrait and landscape; 1920 a desktop monitor. */
+const WIDTHS = [320, 360, 390, 430, 768, 1024, 1440, 1920];
 
 await mkdir(OUT, { recursive: true });
 

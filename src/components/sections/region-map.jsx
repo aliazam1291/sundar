@@ -23,7 +23,7 @@ export default function RegionMap() {
           <h2 className="h-editorial mt-4 text-paper">
             Every region has a hero dish. Each one has a masala hiding behind it.
           </h2>
-          <p className="lede mt-5 max-w-xl text-sky">
+          <p className="lede mt-5 max-w-xl text-paper/90">
             We go to the city, learn the blend from the people who argue about it, and put their
             proportions on the shelf. Eight so far.
           </p>
@@ -72,7 +72,7 @@ export default function RegionMap() {
               ))}
             </div>
 
-            <p className="label-micro mt-4 text-center text-sky">
+            <p className="label-micro mt-4 text-center text-paper/90">
               Stylised · not to scale
             </p>
           </div>

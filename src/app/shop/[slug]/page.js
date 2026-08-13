@@ -11,6 +11,7 @@ import {
   relatedProducts,
   formatPrice,
 } from "@/lib/products";
+import { JsonLd, productJsonLd } from "@/lib/seo";
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ slug: p.slug }));
@@ -60,6 +61,10 @@ export default async function ProductPage({ params }) {
           className="pointer-events-none absolute -right-16 top-6 w-[26rem] text-white opacity-[0.07]"
         />
 
+        {/* Product + breadcrumb markup, generated from the same record the
+            page renders, so price and availability can never disagree. */}
+        <JsonLd data={productJsonLd(product)} />
+
         <div className="relative shell">
           {/* breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-9 flex items-center gap-2 text-micro font-semibold uppercase tracking-[0.16em] text-white/60">
@@ -75,7 +80,10 @@ export default async function ProductPage({ params }) {
             <div className="relative mx-auto w-full max-w-[330px] lg:max-w-none">
               <div className="absolute left-1/2 top-1/2 -z-10 h-[80%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/12 blur-3xl" />
               <div className="anim-float" style={{ "--dur": "8s" }}>
-                <PackShot product={product} size="lg" />
+                {/* This pack is the largest paint above the fold on every
+                    product page — without priority it is discovered late and
+                    becomes the LCP that Next warns about. */}
+                <PackShot product={product} size="lg" priority />
               </div>
             </div>
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import ProductCard from "@/components/product-card";
 import TastingBench from "@/components/sections/tasting-bench";
 import Marquee from "@/components/marquee";
-import { PRODUCTS, RANGES, RANGE_LIST, productsByRange } from "@/lib/products";
+import { PRODUCTS, RANGES, RANGE_LIST, productsByRange, starterProducts } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
 export const metadata = {
@@ -20,6 +20,7 @@ export default async function ShopPage({ searchParams }) {
 
   const items = productsByRange(active);
   const range = RANGES[active];
+  const starters = starterProducts();
 
   return (
     <>
@@ -84,13 +85,46 @@ export default async function ShopPage({ searchParams }) {
         </div>
       </div>
 
+      {/* Thirty-two packs with no way in is a wall, not a shelf. On the
+          unfiltered view the bestsellers go first as the "start here" —
+          once a range is chosen the shopper has already narrowed, and
+          repeating picks from another range would just undo that. */}
+      {active === "all" && (
+        <section className="tex-paper border-b-2 border-ink/10 bg-paper section-sm">
+          <div className="shell">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="eyebrow flex items-center gap-2.5 text-chilli-ink">
+                  <Star className="w-3.5" />
+                  Start here
+                </p>
+                <h2 className="h-editorial mt-3 text-ink">Three to begin with.</h2>
+              </div>
+              <p className="max-w-sm text-copy text-ink-soft">
+                Thirty-two is a lot to meet at once. These three cover most of what a
+                kitchen actually cooks in a week.
+              </p>
+            </div>
+
+            <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {starters.map((p, i) => (
+                <ProductCard key={p.slug} product={p} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* grid */}
       <section className="tex-paper bg-cream section">
         <div className="shell">
-          <p className="mb-8 text-label font-semibold uppercase tracking-[0.2em] text-ink-soft">
+          {/* The cards carry h3, so without a level-2 here the outline jumps
+              h1 -> h3. Reads as a plain count on screen, announces as the
+              heading for the grid. */}
+          <h2 className="mb-8 text-label font-semibold uppercase tracking-[0.2em] text-ink-soft">
             Showing {items.length} {items.length === 1 ? "blend" : "blends"}
             {range ? ` · ${range.full}` : ""}
-          </p>
+          </h2>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {items.map((p, i) => (

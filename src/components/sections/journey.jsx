@@ -294,11 +294,18 @@ export default function Journey() {
                 </div>
               </div>
 
-              {/* the years strip */}
+              {/* The years strip. It scrolls sideways on a phone, and its
+                  children are plain spans — nothing focusable — so a keyboard
+                  user could never reach the years past the fold. tabIndex
+                  makes the region itself scrollable by arrow key, which needs
+                  a role and a name to go with it. */}
               {ch.marks ? (
                 <div
                   className="no-scrollbar edge-fade-r mt-12 flex gap-8 overflow-x-auto border-y border-ivory/12 py-6 pe-8 sm:pe-0"
                   data-reveal="up"
+                  tabIndex={0}
+                  role="group"
+                  aria-label={`${ch.title} — timeline`}
                 >
                   {ch.marks.map((m, i) => (
                     <span

@@ -2,6 +2,7 @@ import { Anton, Hanken_Grotesk, Cinzel, Baloo_2 } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
+import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 /* Brand fonts, per the Sunder Masala type spec:
    Anton = display · Hanken Grotesk = everything else
@@ -40,15 +41,31 @@ export const metadata = {
   },
   description:
     "Kam masala, poora swaad. Fifty years of slow-ground, single-origin Indian spice blends from the heart of Madhya Pradesh — Heritage, Regions and Everyday Essentials.",
+  /* Google has ignored meta keywords since 2009 — these are here for the
+     handful of other engines and internal tooling that still read them. What
+     actually earns the category traffic is the Product / Recipe / FAQPage
+     markup in lib/seo.js and the comparison answers in the FAQ. */
   keywords: [
     "Sunder Masala",
-    "Indian spices",
-    "masala",
+    "Indian spices online",
+    "masala brand India",
     "garam masala",
-    "Indori Jeeravan",
+    "Indori jeeravan",
+    "pav bhaji masala",
+    "chole masala",
+    "sambhar masala",
+    "kashmiri mirchi powder",
+    "asafoetida hing",
     "single origin spices",
-    "Madhya Pradesh",
+    "no added preservatives masala",
+    "Indore Madhya Pradesh",
   ],
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
     title: "Sunder Masala — Local Hero Masala",
     description:
@@ -78,6 +95,10 @@ export default function RootLayout({ children }) {
       className={`${anton.variable} ${hanken.variable} ${cinzel.variable} ${baloo.variable} h-full`}
     >
       <body className="grain min-h-full flex flex-col bg-paper text-ink">
+        {/* Claimed once for the whole site rather than per page. */}
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
+
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:btn focus:btn-gold"

@@ -11,6 +11,7 @@ export default function sitemap() {
     { url: "/story", priority: 0.7, changeFrequency: "monthly" },
     { url: "/regions", priority: 0.7, changeFrequency: "monthly" },
     { url: "/recipes", priority: 0.8, changeFrequency: "monthly" },
+    { url: "/faq", priority: 0.6, changeFrequency: "monthly" },
   ].map((r) => ({
     url: `${BASE}${r.url}`,
     lastModified: now,

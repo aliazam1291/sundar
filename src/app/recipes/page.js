@@ -16,6 +16,7 @@ import {
   spellOut,
 } from "@/lib/recipes";
 import { getProduct } from "@/lib/products";
+import { JsonLd, recipeCollectionJsonLd } from "@/lib/seo";
 
 /* Everything that states a number counts the list, so adding a recipe can
    never leave the page claiming there are six of them. */
@@ -56,6 +57,10 @@ export default function RecipesPage() {
 
   return (
     <>
+      {/* Every dish as a Recipe, built from the same steps the page prints —
+          ingredients, cook time and method all come from lib/recipes. */}
+      <JsonLd data={recipeCollectionJsonLd()} />
+
       {/* ── masthead ── */}
       <section className="relative isolate overflow-hidden bg-oxblood section text-paper">
         <Sunburst
@@ -76,6 +81,7 @@ export default function RecipesPage() {
             </p>
 
             <Bilingual
+              as="h1"
               className="mt-4"
               accent="text-marigold"
               hi="रसोई से, सीधे आपकी थाली तक।"
@@ -97,7 +103,7 @@ export default function RecipesPage() {
       <ChefMenu />
 
       {/* ── the cover story ── */}
-      <section className="tex-paper relative overflow-hidden bg-cream section">
+      <section id={hero.slug} className="tex-paper relative overflow-hidden bg-cream section">
         <Backdrop field="margins" opacity={0.14} ornamentClass="text-oxblood/20" />
 
         <div className="shell relative grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
@@ -227,6 +233,7 @@ export default function RecipesPage() {
               return (
                 <article
                   key={r.slug}
+                  id={r.slug}
                   data-reveal="up"
                   style={{ "--reveal-delay": `${(i % 3) * 90}ms` }}
                   className={`card-poster card-pad flex flex-col ${tone.bg} ${tone.text}`}
@@ -236,20 +243,20 @@ export default function RecipesPage() {
                     <HeatScale level={r.heat} showLabel={false} size="w-3.5" className={tone.accent} />
                   </div>
 
-                  <p className="font-deva mt-4 text-[1.35rem] leading-tight opacity-90" lang="hi">
+                  <p className="font-deva mt-4 text-[1.35rem] leading-tight" lang="hi">
                     {r.hi}
                   </p>
                   <h3 className="h-poster-xs mt-1">{r.title}</h3>
-                  <p className="font-editorial mt-2 text-copy italic opacity-85">{r.dish}</p>
+                  <p className="font-editorial mt-2 text-copy italic">{r.dish}</p>
 
-                  <p className="mt-4 text-copy opacity-85">{r.blurb}</p>
+                  <p className="mt-4 text-copy">{r.blurb}</p>
 
                   <div className="rule-dots mt-5 opacity-40" aria-hidden="true" />
 
-                  <p className="label-micro mt-4 opacity-70">
+                  <p className="label-micro mt-4">
                     Sāmagrī · {r.ingredients.length} things
                   </p>
-                  <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-copy opacity-80">
+                  <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-copy">
                     {r.ingredients.map((item, n) => (
                       <li key={item}>
                         {item}
@@ -264,8 +271,8 @@ export default function RecipesPage() {
 
                   <ol className="mt-4 space-y-2.5">
                     {r.steps.map((s, n) => (
-                      <li key={n} className="flex gap-3 text-copy opacity-90">
-                        <span className="font-deva shrink-0 opacity-70" lang="hi">
+                      <li key={n} className="flex gap-3 text-copy">
+                        <span className="font-deva shrink-0" lang="hi">
                           {DEVA_NUM[n]}
                         </span>
                         <span>
@@ -278,23 +285,23 @@ export default function RecipesPage() {
                     ))}
                   </ol>
 
-                  <p className="mt-5 text-copy italic opacity-90">
+                  <p className="mt-5 text-copy italic">
                     <span className={`label-micro not-italic ${tone.accent}`}>The one thing · </span>
                     {r.tip}
                   </p>
 
-                  <p className="mt-3 text-copy italic opacity-80">
+                  <p className="mt-3 text-copy italic">
                     <span className={`label-micro not-italic ${tone.accent}`}>Serve with · </span>
                     {r.serveWith}
                   </p>
 
                   <div className="mt-auto pt-6">
-                    <p className="label-micro opacity-70">Plus these off the shelf</p>
+                    <p className="label-micro">Plus these off the shelf</p>
                     <Uses slugs={r.uses} className="mt-2.5" />
                   </div>
 
                   <div className="mt-5 flex items-center justify-between gap-4 border-t border-current/25 pt-4">
-                    <span className="label-micro opacity-75">
+                    <span className="label-micro">
                       {r.time} · serves {r.serves} · {r.difficulty}
                     </span>
                     <Link href="/shop" className="label-micro inline-block py-3 underline underline-offset-4">

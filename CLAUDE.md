@@ -28,7 +28,13 @@ npm run shot -- / --width 390 --scroll 620         # a readable mobile slice
 npm run shot -- /recipes --click "text=Dal Tadka" --click "text=Next step"
 npm run walk                                       # every kitchen pose at once
 npm run audit                                      # every page at 390/768/1440
+npm run search-check                               # drive the navbar search
+npm run packs                                      # re-pull + cut the pack shots
+npm run a11y                                       # axe, every page + the menus
+npm run seo                                        # structured data + head tags
 ```
+
+`a11y` and `seo` need a production server (see below), not `next dev`.
 
 Full-page shots of this site are 15–20k pixels tall and unreadable once scaled.
 For layout review use `--width 390 --scroll <y>` and step down the page in
@@ -37,6 +43,19 @@ viewport-sized slices instead.
 `scripts/shot.mjs` also reports console errors and page errors — a silent
 screenshot with a clean console is the actual pass condition. Output goes to
 `shots/`, which is gitignored.
+
+### Verify navigation against a production build, not `next dev`
+
+Fast Refresh rebuilds mid-test and silently swallows `router.push`, so a
+client-side navigation check will fail intermittently in dev and send you
+hunting a bug that is not there. It cost several wrong diagnoses once already.
+
+```bash
+npm run build && npx next start -p 3100
+BASE_URL=http://localhost:3100 npm run search-check
+```
+
+Everything visual is fine in dev. Only routing needs the production server.
 
 `scripts/walk-recipes.mjs` drives both interactive pieces on `/recipes` — nine
 cooking poses at the stove, then three bowls and the verdicts at the tasting
@@ -66,6 +85,27 @@ The trap that produced the one real fault so far: **a grid item defaults to
 overflow itself — it widens the whole grid track past the viewport and drags
 its absolutely-positioned siblings out with it. If something unrelated is
 hanging off the right edge, look for an unwrapped row nearby.
+
+### Colour — never fade text with `opacity`
+
+This is the single biggest source of accessibility failures this design has
+had, by a wide margin. `opacity-85` on text over a saturated card blends the
+text *toward its own background*, so a pairing that measures fine at full
+strength quietly drops under 4.5:1. `text-paper` on carrot measured **2.54**
+at 80%. The colour was never the problem; the fade was.
+
+- Text: no `opacity-*`. Pick a colour that already passes.
+- Decoration (dividers, watermark icons, `rule-dots`): fade freely.
+
+The palette carries `*-ink` and `*-deep` variants precisely for this. The
+bright fills are for *fills* — `rani`, `carrot`, `dragonfruit`, `violet` and
+`tomato` cannot carry `text-paper` (paper on rani is 4.22, on carrot 3.19), so
+anything with text on it uses `rani-deep`, `carrot-ink`, `dragonfruit-ink`,
+`violet-ink`, `chilli-ink` instead. `RECIPE_TONE` in `lib/recipes.js` lists
+the measured ratio beside every pairing; keep that up to date if you add one.
+
+`lib/color.js` has `contrast()` and `readableOn()` — use them rather than
+guessing which of ink/paper to put on a given accent.
 
 ### SVG transforms — the trap
 
@@ -100,6 +140,27 @@ mute control on anything that makes noise.
 To check sound in a headless browser, instrument the constructor rather than
 listening for it — patch `window.AudioContext` in `page.addInitScript` and
 count `createOscillator` / `createBufferSource` calls.
+
+## Pack shots
+
+`public/packs/*.webp` are cutouts derived from the live Shopify store, not
+hand-made assets. `npm run packs` rebuilds them end to end; the intermediates
+in `packs-src/` and `packs-backup/` are gitignored.
+
+Two things that already went wrong and will again if the pipeline is edited
+carelessly:
+
+- **Do not pick the biggest image.** Most SKUs carry the flat back-of-pack
+  recipe artwork at a higher resolution than the actual product shot. They are
+  told apart by border whiteness — a real pack shot sits on white (100%), flat
+  artwork fills the frame (~32%).
+- **The knockout tolerance is tight for a reason.** The studio background is
+  exactly 255; a carton's own white panel is 247 and its highlight 240. A
+  generous tolerance floods through the pack and deletes its white face. The
+  contact shadow is taken by a second, distance-capped pass instead.
+
+`npm run packs` ends with a magenta contact sheet in `shots/packs-qa/` —
+white-on-white hides both failures, magenta shows them instantly.
 
 ## Content lives in `src/lib`
 

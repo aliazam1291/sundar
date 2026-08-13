@@ -178,6 +178,15 @@ body {
   }
 }
 
+/* Everything below is a COMPONENT LAYER.
+ *
+ * It has to be, or Tailwind cannot override any of it. Unlayered CSS beats
+ * layered CSS no matter the specificity, and Tailwind v4 emits its utilities
+ * into @layer utilities — so while these rules sat outside a layer, .btn beat
+ * .hidden, .plaque beat .inline-flex, and every responsive display utility on
+ * a component class was silently doing nothing.
+ */
+@layer components {
 /* ============================================================
    LAYOUT RHYTHM
    One container, one vertical scale. Nothing sets its own
@@ -668,7 +677,9 @@ body {
   --btn-shadow: var(--color-oxblood);
 }
 .btn-rani {
-  --btn-bg: var(--color-rani);
+  /* rani-deep, not rani: paper on rani measures 4.22, just under the 4.5 a
+     button label needs. rani-deep clears 6.75. */
+  --btn-bg: var(--color-rani-deep);
   --btn-fg: var(--color-paper);
   --btn-shadow: var(--color-ink);
 }
@@ -733,9 +744,21 @@ body {
 
 /* Mandir arch — the temple-poster silhouette. Declared after .card-poster
    so the shorthand `border-radius` there cannot flatten the dome. */
+/* Mandir arch — the temple-poster silhouette.
+ *
+ * Two things were wrong with `46% 20%`. The horizontal radii summed to 92% of
+ * the width, so the two elliptical corners never met: they left a flat span
+ * at the apex with a visible kink either side of it, which read as a bent
+ * shape rather than an arch. And because *both* axes were percentages, the
+ * dome depth tracked the card's own height — a taller card on mobile got a
+ * noticeably deeper arch than the same card on desktop.
+ *
+ * 50% makes the corners meet exactly at the centre, so the curve is
+ * continuous. A length rather than a percentage on the vertical axis fixes
+ * the depth, so every arched card wears the same dome whatever its height. */
 .arch-top {
-  border-start-start-radius: 46% 20%;
-  border-start-end-radius: 46% 20%;
+  border-start-start-radius: 50% 7rem;
+  border-start-end-radius: 50% 7rem;
 }
 
 /* A hard offset shadow traces the silhouette, so on a dome it crescents out
@@ -751,12 +774,14 @@ body {
 
 /* The dome eats both top corners, and the card clips its overflow — so the
    first row of content (a range chip on the left, its icon on the right)
-   lands outside the curve and gets sliced. On a narrow card it vanishes
-   completely. Start the content below the widest part of the arch instead;
-   the padding has to grow with the viewport because the horizontal radius is
-   a percentage of the card's own width. */
+   lands outside the curve and gets sliced. On a narrow card it vanished
+   completely.
+   Measured at the inset where content actually starts, the arch intrudes at
+   most 58px (390px viewport — the widest card relative to its gutter). One
+   fixed value clears every breakpoint now that the dome has a fixed depth;
+   it no longer has to scale with the viewport. */
 .card-poster.arch-top {
-  padding-top: clamp(4rem, 12vw, 5.5rem);
+  padding-top: 4.5rem;
 }
 
 /* ============================================================
@@ -1312,6 +1337,8 @@ body {
   background: currentColor;
   opacity: 0.35;
 }
+
+} /* end @layer components */
 
 @media (prefers-reduced-motion: reduce) {
   *,

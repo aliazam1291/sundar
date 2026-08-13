@@ -259,7 +259,7 @@ export const RECIPES = [
     ],
     tip: "Kashmiri mirchi for the red, lal mirch for the heat. They are two different jobs.",
     serveWith: "Pav toasted in butter, and raw onion with lemon.",
-    tone: "carrot",
+    tone: "derbyshire",
   },
   {
     slug: "sambhar",
@@ -544,19 +544,37 @@ export const COOK_ACTIONS = {
 
 export const getAction = (act) => COOK_ACTIONS[act] ?? COOK_ACTIONS.stir;
 
-/* Tailwind-safe tone map — these class strings must appear literally so the
-   compiler keeps them. One per recipe, so the grid never repeats a colour. */
+/**
+ * Tailwind-safe tone map — these class strings must appear literally so the
+ * compiler keeps them. One per recipe, so the grid never repeats a colour.
+ *
+ * Every pairing below clears 4.5:1, measured, not eyeballed. The bright
+ * fills (rani, dragonfruit, violet, tomato, carrot) do NOT: paper on rani is
+ * 4.22 and paper on carrot is 3.19, so those cards use the palette's darker
+ * `-deep` / `-ink` variants as the ground instead. That is exactly what those
+ * variants exist for.
+ *
+ * The other half of the rule lives in the card markup: never fade this text
+ * with `opacity-*`. Opacity blends toward the background, so `text-paper` at
+ * 80% on carrot measured 2.54 even though the colour itself is fine.
+ */
 export const RECIPE_TONE = {
-  marigold: { bg: "bg-marigold", text: "text-ink", accent: "text-oxblood" },
-  kiwi: { bg: "bg-kiwi", text: "text-ink", accent: "text-forest" },
-  oxblood: { bg: "bg-oxblood", text: "text-paper", accent: "text-marigold" },
-  tomato: { bg: "bg-tomato", text: "text-paper", accent: "text-sun" },
-  brown: { bg: "bg-brown", text: "text-ivory", accent: "text-sun" },
-  cobalt: { bg: "bg-cobalt", text: "text-paper", accent: "text-sun" },
-  rani: { bg: "bg-rani", text: "text-paper", accent: "text-sun" },
-  carrot: { bg: "bg-carrot", text: "text-paper", accent: "text-sun" },
-  forest: { bg: "bg-forest", text: "text-ghee", accent: "text-marigold" },
-  sun: { bg: "bg-sun", text: "text-ink", accent: "text-oxblood" },
-  violet: { bg: "bg-violet", text: "text-paper", accent: "text-sun" },
-  dragonfruit: { bg: "bg-dragonfruit", text: "text-paper", accent: "text-sun" },
+  /* light grounds — dark text */
+  marigold: { bg: "bg-marigold", text: "text-ink", accent: "text-oxblood" }, // 12.17 / 7.37
+  sun: { bg: "bg-sun", text: "text-ink", accent: "text-oxblood" }, //            11.42 / 6.92
+  kiwi: { bg: "bg-kiwi", text: "text-ink", accent: "text-forest" }, //            6.86 / 4.53
+
+  /* dark grounds — light text */
+  forest: { bg: "bg-forest", text: "text-ghee", accent: "text-marigold" }, //    9.63 / 8.03
+  oxblood: { bg: "bg-oxblood", text: "text-paper", accent: "text-marigold" }, // 10.66 / 7.37
+  brown: { bg: "bg-brown", text: "text-ivory", accent: "text-sun" }, //           8.30 / 5.38
+  cobalt: { bg: "bg-cobalt", text: "text-paper", accent: "text-sun" }, //         7.12 / 4.62
+  violet: { bg: "bg-violet-ink", text: "text-paper", accent: "text-marigold" }, // 7.82 / 5.41
+  dragonfruit: { bg: "bg-dragonfruit-ink", text: "text-paper", accent: "text-marigold" }, // 6.87 / 4.75
+  rani: { bg: "bg-rani-deep", text: "text-paper", accent: "text-marigold" }, //   6.75 / 4.67
+  tomato: { bg: "bg-chilli-ink", text: "text-paper", accent: "text-ghee" }, //    5.78 / 4.79
+  /* Was carrot. Every orange in the palette fails as a ground for a light
+     accent — carrot-ink tops out at 4.21 with ghee — so the twelfth card
+     takes the deep green instead. */
+  derbyshire: { bg: "bg-derbyshire", text: "text-paper", accent: "text-marigold" }, // 8.31 / 5.75
 };

@@ -45,7 +45,7 @@ export default function FindUs() {
         <div className="max-w-2xl" data-reveal="up">
           <p
             className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
-            style={{ "--plaque-bg": "var(--color-rani)", "--plaque-fg": "var(--color-paper)" }}
+            style={{ "--plaque-bg": "var(--color-rani-deep)", "--plaque-fg": "var(--color-paper)" }}
           >
             <Star className="w-3.5" />
             Kahan milega

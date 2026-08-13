@@ -5,6 +5,7 @@ import Link from "next/link";
 import PackShot from "@/components/pack-shot";
 import { Star, SpiceIcon } from "@/components/spice-icons";
 import { PRODUCTS, RANGES, formatPrice } from "@/lib/products";
+import { readableOn } from "@/lib/color";
 
 /**
  * The tasting bench — build a chutki, get a real blend back.
@@ -90,7 +91,7 @@ export default function TastingBench() {
             अपनी चुटकी बनाइए।
           </p>
           <h2 className="h-editorial mt-1.5">Build a chutki. We will name it.</h2>
-          <p className="lede mt-4 text-sky">
+          <p className="lede mt-4 text-paper/90">
             Turn the three dials to the plate you have in your head. Every blend on the shelf is
             scored the same way, so whatever you land on is a real one.
           </p>
@@ -156,7 +157,7 @@ export default function TastingBench() {
               <div className="min-w-0">
                 <span
                   className="chip chip-solid"
-                  style={{ "--chip-bg": range.accent, "--chip-fg": "var(--color-ink)" }}
+                  style={{ "--chip-bg": range.accent, "--chip-fg": readableOn(range.accentHex) }}
                 >
                   {range.name}
                 </span>

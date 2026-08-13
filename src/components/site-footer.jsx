@@ -10,6 +10,7 @@ const COLUMNS = [
     title: "Shop",
     links: [
       { href: "/shop", label: "All blends" },
+      { href: "/#featured", label: "Start here" },
       { href: "/shop?range=heritage", label: "Heritage" },
       { href: "/shop?range=regions", label: "Regions" },
       { href: "/shop?range=essentials", label: "Essentials" },
@@ -28,6 +29,7 @@ const COLUMNS = [
   {
     title: "Help",
     links: [
+      { href: "/faq", label: "FAQs" },
       { href: "/#contact", label: "Contact" },
       { href: "/#stockists", label: "Stockists" },
       { href: "/#trade", label: "Wholesale & HoReCa" },
@@ -78,7 +80,7 @@ export default function SiteFooter() {
               >
                 The Chutki Letter
               </label>
-              <p className="mt-2 text-sm text-ghee/60">
+              <p className="mt-2 text-sm text-ghee/70">
                 One recipe, one region, one spice note. Monthly, never more.
               </p>
               <div className="mt-4 flex gap-2">
@@ -127,7 +129,7 @@ export default function SiteFooter() {
               <SpiceIcon name={r.icon} className="mt-0.5 w-7 shrink-0 text-marigold" />
               <div>
                 <p className="font-poster text-lg leading-none">{r.name}</p>
-                <p className="mt-1.5 text-label text-ghee/60">{r.who}</p>
+                <p className="mt-1.5 text-label text-ghee/70">{r.who}</p>
               </div>
             </div>
           ))}
