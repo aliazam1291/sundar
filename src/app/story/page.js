@@ -2,13 +2,14 @@ import Link from "next/link";
 import Journey from "@/components/sections/journey";
 import Sourcing from "@/components/sections/sourcing";
 import ChakkiMill from "@/components/sections/chakki-mill";
+import { Journal } from "@/components/sections/ritual";
 import { TIMELINE, FOUNDER } from "@/lib/content";
+import { PRODUCTS } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
 export const metadata = {
   title: "Our story — a boy, a bicycle, 1975",
-  description:
-    "Fifty years from one stone chakki in Indore to a range of thirty-two blends. The taste the same, the story new.",
+  description: `Fifty years from one stone chakki in Indore to a range of ${PRODUCTS.length} blends. The taste the same, the story new.`,
 };
 
 export default function StoryPage() {
@@ -94,6 +95,10 @@ export default function StoryPage() {
 
       <Sourcing />
 
+      {/* moved off the home page — brand marketing that links nowhere
+          belongs with the rest of the narrative, not ahead of checkout */}
+      <Journal />
+
       {/* closing */}
       <section className="relative overflow-hidden bg-forest section text-ghee">
         <Sunburst className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold" rays={44} opacity={0.1} />
@@ -104,7 +109,7 @@ export default function StoryPage() {
             <span className="text-marigold">back to your plate.</span>
           </h2>
           <p className="lede mx-auto mt-6 max-w-lg text-ghee/70" data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
-            Eighteen blends, three ranges, one promise that has held for fifty years.
+            {PRODUCTS.length} blends, three ranges, one promise that has held for fifty years.
           </p>
           <Link href="/shop" className="btn btn-gold mt-9" data-reveal="up" style={{ "--reveal-delay": "160ms" }}>
             <SpiceIcon mono name="jar" className="w-4" />

@@ -3,10 +3,8 @@ import { REGIONS } from "@/lib/content";
 import { Star, SpiceIcon } from "@/components/spice-icons";
 import Backdrop from "@/components/backdrop";
 import { DevaWatermark } from "@/components/bilingual";
+import { INDIA_PATH, INDIA_VIEWBOX, INDIA_TRANSFORM } from "@/lib/india-map";
 
-/* Stylised silhouette — illustrative, not cartographic. */
-const INDIA =
-  "M31 6C25 10 22 15 24 19c-6 3-12 7-14 13-4 4-6 9-3 13 4 5 9 7 13 11 4 6 6 14 10 22 4 10 8 19 13 27 2 3 4 3 6-1 4-10 7-20 9-30 2-8 4-14 6-19 4-5 6-9 4-13 4-2 10-2 14-6 4-3 6-6 3-9-5-2-11 0-15-1-6-1-12-2-18-3-6-2-12-5-16-10-2-4-3-7-5-7Z";
 
 export default function RegionMap() {
   return (
@@ -32,15 +30,22 @@ export default function RegionMap() {
         <div className="section-body grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
           {/* map */}
           <div className="relative mx-auto w-full max-w-[380px] lg:max-w-none" data-reveal="scale">
-            <div className="relative aspect-[100/120] w-full">
-              <svg viewBox="0 0 100 120" className="absolute inset-0 h-full w-full" aria-hidden="true">
+            <div className="relative aspect-square w-full">
+              <svg viewBox={INDIA_VIEWBOX} className="absolute inset-0 h-full w-full" aria-hidden="true">
                 <defs>
-                  <pattern id="mapDots" width="3.2" height="3.2" patternUnits="userSpaceOnUse">
-                    <circle cx="1.6" cy="1.6" r="0.42" fill="var(--color-marigold)" opacity="0.8" />
+                  {/* Sized in the transformed group's space, which is 10x the
+                      viewBox because of the 0.1 scale — a 26-unit tile here
+                      would come out 2.6px on screen. */}
+                  <pattern id="mapDots" width="260" height="260" patternUnits="userSpaceOnUse">
+                    <circle cx="130" cy="130" r="34" fill="var(--color-marigold)" opacity="0.8" />
                   </pattern>
                 </defs>
-                <path d={INDIA} fill="var(--color-cobalt-2)" stroke="var(--color-marigold)" strokeWidth="1" strokeLinejoin="round" />
-                <path d={INDIA} fill="url(#mapDots)" />
+                {/* Two passes of the same real outline: the filled country,
+                    then the dot texture clipped to it. */}
+                <g transform={INDIA_TRANSFORM}>
+                  <path d={INDIA_PATH} fill="var(--color-cobalt-2)" stroke="var(--color-marigold)" strokeWidth="90" strokeLinejoin="round" />
+                  <path d={INDIA_PATH} fill="url(#mapDots)" />
+                </g>
               </svg>
 
               {/* pins */}

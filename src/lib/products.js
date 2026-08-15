@@ -62,14 +62,17 @@ export const RANGES = {
   },
 };
 
-export const RANGE_LIST = [RANGES.heritage, RANGES.regions, RANGES.essentials];
+/* Stocked first. Essentials is the only range with anything in it today, so
+   leading with Heritage put two "coming soon" panels — and two dead filter
+   chips — ahead of the first thing anyone can actually buy. */
+export const RANGE_LIST = [RANGES.essentials, RANGES.regions, RANGES.heritage];
 
 export const PRODUCTS = [
   {
     slug: "shahi-hing",
     name: "Shahi Hing",
     kind: "Asafoetida (Hing)",
-    range: "heritage",
+    range: "essentials",
     tagline: "The pinch that runs the kitchen.",
     hindi: "एक चुटकी, पूरा तड़का।",
     badge: "Purest grade",
@@ -90,7 +93,7 @@ export const PRODUCTS = [
     slug: "asafoetida-hing",
     name: "Asafoetida",
     kind: "Asafoetida (Hing)",
-    range: "heritage",
+    range: "essentials",
     tagline: "Ninety-nine percent sell compound. We do not.",
     hindi: "असली हींग, बिना मिलावट।",
     badge: "Bulk pack",
@@ -109,7 +112,7 @@ export const PRODUCTS = [
     slug: "dal-masala",
     name: "Dal Masala",
     kind: "Dal Masala",
-    range: "regions",
+    range: "essentials",
     tagline: "Chana, tuar, makhani — all three.",
     hindi: "हर दाल का अपना मसाला।",
     price: 40,
@@ -128,7 +131,7 @@ export const PRODUCTS = [
     slug: "jaljira",
     name: "Jaljira",
     kind: "Jaljira",
-    range: "regions",
+    range: "essentials",
     tagline: "Relief, for the heat of summer.",
     hindi: "गर्मी का इलाज, एक गिलास में।",
     price: 50,
@@ -147,7 +150,7 @@ export const PRODUCTS = [
     slug: "achar-masala",
     name: "Achar",
     kind: "Achar Masala",
-    range: "regions",
+    range: "essentials",
     tagline: "Ready to use. No mixing required.",
     hindi: "दादी वाला अचार, बिना मेहनत।",
     price: 56,
@@ -166,7 +169,7 @@ export const PRODUCTS = [
     slug: "sambhar-masala",
     name: "Sambhar",
     kind: "Sambhar Masala",
-    range: "regions",
+    range: "essentials",
     tagline: "Idli, dosa, appam — all of it.",
     hindi: "दक्षिण का असली स्वाद।",
     price: 36,
@@ -184,7 +187,7 @@ export const PRODUCTS = [
     slug: "pav-bhaji-masala",
     name: "Pav Bhaji",
     kind: "Pav Bhaji Masala",
-    range: "regions",
+    range: "essentials",
     tagline: "Chowpatty, on your tawa.",
     hindi: "मुंबई का स्वाद, घर पर।",
     price: 40,
@@ -203,7 +206,7 @@ export const PRODUCTS = [
     slug: "chaat-masala",
     name: "Chaat",
     kind: "Chaat Masala",
-    range: "regions",
+    range: "essentials",
     tagline: "The sprinkle that fixes anything.",
     hindi: "ऊपर से छिड़का, बात बन गई।",
     price: 34,
@@ -222,7 +225,7 @@ export const PRODUCTS = [
     slug: "chole-masala",
     name: "Chole",
     kind: "Chole Masala",
-    range: "regions",
+    range: "essentials",
     tagline: "Purani Dilli, under pressure.",
     hindi: "छोले ऐसे, जैसे दिल्ली में।",
     price: 40,
@@ -241,7 +244,7 @@ export const PRODUCTS = [
     slug: "jeeravan-poha-masala",
     name: "Jeeravan",
     kind: "Jeeravan",
-    range: "regions",
+    range: "essentials",
     tagline: "Indori poha ki jaan.",
     hindi: "इंदौर, अब हर थाली में।",
     badge: "MP special",
@@ -705,6 +708,12 @@ export const getProduct = (slug) => PRODUCTS.find((p) => p.slug === slug);
 
 export const productsByRange = (range) =>
   range === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.range === range);
+
+/* Regions and Heritage are announced but not yet stocked — the whole
+   catalogue currently ships as Essentials. Anything that renders a range
+   asks this rather than assuming a non-empty list, so the day a Heritage
+   SKU is added the "coming soon" states disappear on their own. */
+export const isComingSoon = (range) => productsByRange(range).length === 0;
 
 export const featuredProducts = () => PRODUCTS.filter((p) => p.featured);
 

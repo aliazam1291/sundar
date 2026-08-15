@@ -52,12 +52,15 @@ export default function StoryTeaser() {
 
         <div data-reveal="up" style={{ "--reveal-delay": "120ms" }}>
           <p className="font-editorial text-[clamp(1.6rem,3.6vw,2.75rem)] italic leading-[1.1] text-ivory">
-            A boy. A bicycle. A bag of chillies.
+            Purani recipe. Nayi pehchaan.
           </p>
 
           <p className="mt-5 max-w-md text-copy-lg text-ivory/65">
-            He left the shop at {FOUNDER.departure}, before the city had decided to wake — and
-            fifty years later the recipe has not moved.
+            1975, Indore — a cycle shop, and then a life in masala. {FOUNDER.name} started Sunder
+            on one belief: the masala that reaches other homes should be the one used in his own.
+            Fifty years and three generations on, that belief hasn&rsquo;t moved — real
+            ingredients, no fillers, no shortcuts, still hand-pounded and slow-ground the way the
+            family always has.
           </p>
 
           <div className="rule-dots mt-7 max-w-xs text-terracotta/50" aria-hidden="true" />

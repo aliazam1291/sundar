@@ -1067,6 +1067,16 @@ body {
   animation: jolt 0.7s var(--ease-snap);
 }
 
+/* "Tap the truck" — the cue that the tailgate is pressable. Bobs until the
+   first honk, then the element is removed entirely. */
+@keyframes nudge {
+  0%, 100% { transform: translate(-50%, 0); }
+  50%      { transform: translate(-50%, -6px); }
+}
+.anim-nudge {
+  animation: nudge 1.6s var(--ease-spice) infinite;
+}
+
 @keyframes pop {
   0%, 100% { transform: scale(1) rotate(0deg); }
   40%      { transform: scale(1.16) rotate(-8deg); }

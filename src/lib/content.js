@@ -2,7 +2,15 @@
  * Editorial content — regions, provenance, timeline, rituals.
  */
 
-/* Regional heroes, plotted on a stylised India. x/y are % of the map box. */
+/**
+ * Regional heroes, plotted on the real India outline in lib/india-map.js.
+ *
+ * x/y are % of the (square) map box, derived from each city's actual
+ * latitude/longitude against India's bounding box — lon 68.1–97.4E,
+ * lat 8.0–37.1N — rather than eyeballed. Recompute them the same way if the
+ * outline is ever swapped; every pin is checked against the path with
+ * isPointInFill, so a wrong one shows up as a dot floating in the sea.
+ */
 export const REGIONS = [
   {
     id: "indore",
@@ -12,8 +20,8 @@ export const REGIONS = [
     blend: "Jeeravan",
     slug: "jeeravan-poha-masala",
     note: "Fifty-six shops, one breakfast, zero consensus.",
-    x: 33,
-    y: 47,
+    x: 27.8,
+    y: 47.4,
     home: true,
   },
   {
@@ -24,8 +32,8 @@ export const REGIONS = [
     blend: "Pav Bhaji Masala",
     slug: "pav-bhaji-masala",
     note: "Chowpatty on a tawa, seasoned last.",
-    x: 22,
-    y: 60,
+    x: 18.3,
+    y: 59.4,
   },
   {
     id: "delhi",
@@ -35,8 +43,8 @@ export const REGIONS = [
     blend: "Chole Masala",
     slug: "chole-masala",
     note: "Lip-smacking, and cooked in minutes.",
-    x: 33,
-    y: 26,
+    x: 32.2,
+    y: 27.8,
   },
   {
     id: "chennai",
@@ -46,8 +54,8 @@ export const REGIONS = [
     blend: "Sambhar Masala",
     slug: "sambhar-masala",
     note: "Fenugreek, hing and chilli — the go-to side.",
-    x: 45,
-    y: 88,
+    x: 42,
+    y: 79.1,
   },
   {
     id: "varanasi",
@@ -57,8 +65,8 @@ export const REGIONS = [
     blend: "Chaat Masala",
     slug: "chaat-masala",
     note: "It transforms any fruit, vegetable or plate.",
-    x: 52,
-    y: 37,
+    x: 50.8,
+    y: 38.8,
   },
   {
     id: "jaipur",
@@ -68,8 +76,8 @@ export const REGIONS = [
     blend: "Achar Masala",
     slug: "achar-masala",
     note: "Ready to use. No other spices needed.",
-    x: 28,
-    y: 30,
+    x: 27.7,
+    y: 33.5,
   },
   {
     id: "amritsar",
@@ -79,8 +87,8 @@ export const REGIONS = [
     blend: "Dal Masala",
     slug: "dal-masala",
     note: "Chana, tuar or makhani — one tin covers it.",
-    x: 28,
-    y: 16,
+    x: 24.6,
+    y: 18,
   },
   {
     id: "ahmedabad",
@@ -90,8 +98,8 @@ export const REGIONS = [
     blend: "Jaljira",
     slug: "jaljira",
     note: "Relief in a glass, through a long hot May.",
-    x: 18,
-    y: 45,
+    x: 17.3,
+    y: 46.4,
   },
 ];;
 
@@ -273,6 +281,43 @@ export const TICKER = [
   "अपना रीजन, अपनी थाली",
   "Single-origin, cold-milled",
   "Bland? Not on our watch",
+];
+
+/**
+ * Customer reviews.
+ *
+ * These four are the real testimonials published on sundermasala.com — names
+ * and wording as written, lightly punctuated only. Nothing here is invented.
+ *
+ * Deliberately absent: star ratings, and the purchase platform (Amazon,
+ * Blinkit, Instamart). The source site publishes neither, so putting them on
+ * screen would be fabricating review metadata — the kind of thing Google
+ * penalises as fake-review markup and shoppers are right to distrust. Add
+ * `stars` and `via` here once there are verified reviews that carry them,
+ * and the card will render them.
+ *
+ * `product` is a slug so the card can link into the shop; it is only set
+ * where the reviewer actually named the blend.
+ */
+export const REVIEWS = [
+  {
+    name: "Vibhyanshu Pandey",
+    body: "The taste of food is really good after using garam masala. It is far better than other spices available in the market.",
+    product: "garam-masala",
+  },
+  {
+    name: "Kareena Yadav",
+    body: "The flavor, freshness, purity and packaging is very excellent. I like it much better than other traditional brands of spices.",
+  },
+  {
+    name: "Isha Devade",
+    body: "Very authentic spices, must try. Aroma that you get after cooking is just incomparable — go for it.",
+  },
+  {
+    name: "Aditya Tripathi",
+    body: "Spice taste was redefined, and I loved the aroma of achaar masala. Good taste, must try to see the difference.",
+    product: "achar-masala",
+  },
 ];
 
 /* Journal / IP content */

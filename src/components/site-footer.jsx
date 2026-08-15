@@ -10,7 +10,7 @@ const COLUMNS = [
     title: "Shop",
     links: [
       { href: "/shop", label: "All blends" },
-      { href: "/#featured", label: "Start here" },
+      { href: "/#categories", label: "Shop by category" },
       { href: "/shop?range=heritage", label: "Heritage" },
       { href: "/shop?range=regions", label: "Regions" },
       { href: "/shop?range=essentials", label: "Essentials" },
@@ -23,17 +23,21 @@ const COLUMNS = [
       { href: "/regions", label: "Regional map" },
       { href: "/recipes", label: "Rasoi · recipes" },
       { href: "/#ritual", label: "The chutki ritual" },
-      { href: "/#sourcing", label: "Sourcing" },
+      { href: "/story#sourcing", label: "Sourcing" },
     ],
   },
   {
     title: "Help",
     links: [
+      /* These four used to be /#contact, /#stockists, /#trade and /#shipping —
+         anchors into the last section of the home page, so every one of them
+         dropped you at the bottom of a nine-screen page. They point at the
+         dedicated page now. */
       { href: "/faq", label: "FAQs" },
-      { href: "/#contact", label: "Contact" },
-      { href: "/#stockists", label: "Stockists" },
-      { href: "/#trade", label: "Wholesale & HoReCa" },
-      { href: "/#shipping", label: "Shipping" },
+      { href: "/where-to-buy", label: "Where to buy" },
+      { href: "/where-to-buy#stockists", label: "Stockists" },
+      { href: "/where-to-buy#trade", label: "Wholesale & HoReCa" },
+      { href: "/where-to-buy#contact", label: "Contact" },
     ],
   },
 ];
@@ -43,8 +47,12 @@ export default function SiteFooter() {
     <footer className="relative isolate overflow-hidden bg-forest text-ghee">
       <RevealRoot />
 
+      {/* inset-0, not a partial height. The rays are anchored bottom-centre
+          by the SVG's own preserveAspectRatio, so a box shorter than the
+          footer leaves the top flat and draws a hard seam straight across
+          it — the same trap already noted in ranges/categories. */}
       <Sunburst
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-[70%] w-full text-marigold"
+        className="pointer-events-none absolute inset-0 h-full w-full text-marigold"
         rays={52}
         opacity={0.1}
       />

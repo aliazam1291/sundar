@@ -122,7 +122,7 @@ export default async function ProductPage({ params }) {
               </div>
 
               <div className="mt-9 flex flex-wrap gap-3" style={{ animationDelay: "420ms" }}>
-                <Link href="/#stockists" className="btn btn-gold">
+                <Link href="/where-to-buy" className="btn btn-gold">
                   <SpiceIcon mono name="jar" className="w-4" />
                   Where to buy
                 </Link>

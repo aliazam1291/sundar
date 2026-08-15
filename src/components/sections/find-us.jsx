@@ -98,14 +98,14 @@ export default function FindUs() {
             </ul>
 
             <p className="mt-5 text-copy text-ink-soft">
-              Dispatched within 24 hours of the mill, sealed the day it was ground. Thirty-two
-              blends, from {formatPrice(entry.price)}.
+              Dispatched within 24 hours of the mill, sealed the day it was ground.{" "}
+              {PRODUCTS.length} blends, from {formatPrice(entry.price)}.
             </p>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <Link href="/shop" className="btn btn-hot">
                 <SpiceIcon mono name="jar" className="w-4" />
-                Shop all 32 blends
+                Shop all {PRODUCTS.length} blends
               </Link>
               <Link href="/shop?range=essentials" className="btn btn-ghost btn-sm text-ink">
                 Start with Essentials
@@ -171,12 +171,13 @@ export default function FindUs() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="label-micro text-marigold">Wholesale &amp; HoReCa</p>
-                <h3 className="h-card mt-2">Kitchens &amp; kirana</h3>
+                <h3 className="h-card mt-2">Distributor ya retailer hain?</h3>
               </div>
               <SpiceIcon name="thela" className="w-10 shrink-0" />
             </div>
             <p className="mt-3 text-copy text-paper/80">
-              Bulk formats, distributor terms and private label. Tell us your city and volume.
+              Bulk formats, distribution opportunities and business enquiries. Bataiye aapka city,
+              volume, aur zaroorat.
             </p>
             <a href={TRADE_MAIL} className="btn btn-gold btn-sm mt-5">
               Become a distributor

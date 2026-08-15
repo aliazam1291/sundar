@@ -174,6 +174,20 @@ export default function HornOkPlease() {
 
         {/* ── the tailgate ── */}
         <div className="relative" data-reveal="scale">
+          {/* Nothing on the artwork said it was pressable, so most people
+              never found the horn. This is the affordance: it pulses over
+              the tailgate until the first honk lands, then never returns.
+              aria-hidden — the button it points at is already labelled. */}
+          {honks === 0 ? (
+            <span
+              aria-hidden="true"
+              className="anim-nudge pointer-events-none absolute -top-3 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full border-2 border-ink bg-sun px-4 py-2 text-ink shadow-[3px_3px_0_var(--color-ink)]"
+            >
+              <SpiceIcon mono name="truck" className="w-4" />
+              <span className="label-micro">Tap the truck</span>
+            </span>
+          ) : null}
+
           <button
             type="button"
             onClick={honk}

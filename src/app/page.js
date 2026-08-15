@@ -1,16 +1,24 @@
 import Hero from "@/components/sections/hero";
-import Chutki from "@/components/sections/chutki";
-import Ranges from "@/components/sections/ranges";
-import Featured from "@/components/sections/featured";
+import Categories from "@/components/sections/categories";
 import StoryTeaser from "@/components/sections/story-teaser";
-import Sourcing from "@/components/sections/sourcing";
-import RegionMap from "@/components/sections/region-map";
-import Ritual from "@/components/sections/ritual";
+import RecipeTeaser from "@/components/sections/recipe-teaser";
+import Reviews from "@/components/sections/reviews";
 import HornOkPlease from "@/components/sections/horn-ok-please";
+import Ritual from "@/components/sections/ritual";
 import FindUs from "@/components/sections/find-us";
 import Marquee from "@/components/marquee";
 import { TICKER } from "@/lib/content";
 
+/**
+ * The page reads: the promise → what we sell → who we are → what to cook →
+ * who says so → how to use it → where to buy.
+ *
+ * Sections that used to sit here and no longer do: the sourcing pillars and
+ * the region map (both render in full on /story and /regions — they were
+ * being scrolled past twice), the brand-platform cards (now on /story), and
+ * the chutki essay, the horn and the separate featured shelf, which the
+ * category section now covers. Their components are all still in the repo.
+ */
 export default function Home() {
   return (
     <>
@@ -36,41 +44,31 @@ export default function Home() {
         />
       </div>
 
-      {/* The page reads: the idea → the range → the shelf → a breather →
-          the story → the proof → where to buy. Sections also alternate
-          light and dark so each one lands as its own painted panel. */}
-
-      {/* the idea — light, straight after the dark hero */}
-      <Chutki />
+      {/* what we sell */}
+      <Categories />
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-dragonfruit)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
-
-      {/* the three ranges — pays off the switcher in the hero */}
-      <Ranges />
-
-      {/* the shelf */}
-      <Featured />
-
-      <div className="trim-band" style={{ "--trim-a": "var(--color-tomato)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
 
       {/* the breather — loudest thing on the page, and the hinge into the film */}
       <HornOkPlease />
 
-      {/* the story — the trailer; the full reel is on /story */}
+      {/* who we are — the trailer; the full reel is on /story */}
       <StoryTeaser />
 
-      <div className="trim-band" style={{ "--trim-a": "var(--color-kiwi)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
+      {/* what to cook */}
+      <RecipeTeaser />
 
-      {/* the proof */}
-      <Sourcing />
-      <RegionMap />
+      <div className="trim-band" style={{ "--trim-a": "var(--color-tomato)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
+
+      {/* who says so */}
+      <Reviews />
 
       {/* how to actually use it */}
       <Ritual />
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-cobalt)", "--trim-b": "var(--color-raspberry)" }} aria-hidden="true" />
 
-      {/* where to buy */}
+      {/* where to buy, and the trade enquiry */}
       <FindUs />
     </>
   );

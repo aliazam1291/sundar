@@ -8,7 +8,7 @@ import Marquee from "@/components/marquee";
 import SiteSearch from "@/components/site-search";
 import { Star, SpiceIcon } from "@/components/spice-icons";
 import { TICKER } from "@/lib/content";
-import { RANGE_LIST, productsByRange, featuredProducts, PRODUCTS } from "@/lib/products";
+import { RANGE_LIST, productsByRange, isComingSoon, PRODUCTS } from "@/lib/products";
 import { RECIPES } from "@/lib/recipes";
 
 /**
@@ -314,7 +314,7 @@ export default function SiteHeader() {
                       <span className="label-micro mt-0.5 block text-ghee/55">{r.who}</span>
                     </span>
                     <span className="label-micro shrink-0 text-marigold">
-                      {productsByRange(r.id).length}
+                      {isComingSoon(r.id) ? "Soon" : productsByRange(r.id).length}
                     </span>
                   </Link>
                 </li>
@@ -323,7 +323,7 @@ export default function SiteHeader() {
 
             <ul className="mt-7 divide-y divide-ghee/15 border-y border-ghee/15">
               {[
-                { href: "/#featured", label: "Start here", count: featuredProducts().length },
+                { href: "/#categories", label: "Categories" },
                 { href: "/shop", label: "All blends", count: PRODUCTS.length },
                 { href: "/recipes", label: "Rasoi", count: RECIPES.length },
                 { href: "/story", label: "Our Story" },
@@ -360,13 +360,12 @@ function RangeMenu({ onPick }) {
   return (
     <>
       <Link
-        href="/#featured"
+        href="/#categories"
         onClick={onPick}
         className="flex items-center gap-3 rounded-[0.9rem] px-3 py-2.5 transition-colors hover:bg-cream"
       >
         <SpiceIcon mono name="flame" className="w-5 shrink-0 text-chilli-ink" />
-        <span className="h-card flex-1 text-ink">Start here</span>
-        <span className="label-micro text-ink-mute">{featuredProducts().length}</span>
+        <span className="h-card flex-1 text-ink">Shop by category</span>
       </Link>
 
       <Link
@@ -397,7 +396,9 @@ function RangeMenu({ onPick }) {
           <span className="min-w-0 flex-1">
             <span className="flex items-baseline justify-between gap-3">
               <span className="h-card text-ink">{r.name}</span>
-              <span className="label-micro text-ink-mute">{productsByRange(r.id).length}</span>
+              <span className="label-micro shrink-0 text-ink-mute">
+                {isComingSoon(r.id) ? "Soon" : productsByRange(r.id).length}
+              </span>
             </span>
             <span className="mt-0.5 block text-meta text-ink-mute">{r.who}</span>
           </span>

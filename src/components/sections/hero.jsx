@@ -1,32 +1,33 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import PackShot from "@/components/pack-shot";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
-import { RANGE_LIST, getProduct, productsByRange, PRODUCTS } from "@/lib/products";
+import { getProduct } from "@/lib/products";
 
 /**
- * Landing hero — an interactive range switcher.
+ * Landing hero.
  *
- * One pack on a void said nothing about a three-range brand, so the stage is
- * the control: pick a range and the pack, the line and the accent all change.
- * The pack sits on a lit plinth rather than floating.
+ * This used to be a three-way range switcher. It stopped making sense once
+ * the whole catalogue moved under Essentials — two of its three tabs would
+ * have switched to an empty range and a pack that is not actually sold in
+ * it. One flagship pack on the lit plinth, one CTA, and the claims that
+ * earn the click.
  */
 
-const STATS = [
-  { n: "50", label: "years" },
-  { n: String(PRODUCTS.length), label: "blends" },
-  { n: "12", label: "districts" },
-  { n: "0", label: "additives" },
+/* The claims that used to only live in Sourcing, restated short enough to
+   fit under the fold — the first screen a visitor sees should carry at
+   least one reason to trust the pack, not just the brand line. */
+const HERO_CLAIMS = [
+  "100% Pure Spices",
+  "No Artificial Colour",
+  "Hygienically Packed",
+  "Cold-milled Under 40°C",
 ];
 
-/* One hero pack per range. */
-const HERO_FOR = {
-  heritage: "shahi-hing",
-  regions: "jeeravan-poha-masala",
-  essentials: "lal-mirch-powder",
-};
+/* Garam masala rather than lal mirch: the red chilli cutout is a composite
+   that carries its own "RED CHILLI POWDER" banner and a 500g flash, so at
+   hero size it fought the headline and got clipped by the plinth. The jar
+   is a clean single object, and it is the blend most people arrive for. */
+const HERO_PACK = "garam-masala";
 
 /* deterministic sprinkle field — no hydration mismatch */
 const SPRINKLES = [
@@ -35,10 +36,7 @@ const SPRINKLES = [
 ];
 
 export default function Hero() {
-  const [rangeId, setRangeId] = useState("essentials");
-  const range = RANGE_LIST.find((r) => r.id === rangeId);
-  const hero = getProduct(HERO_FOR[rangeId]);
-  const count = productsByRange(rangeId).length;
+  const hero = getProduct(HERO_PACK);
 
   return (
     <section className="relative isolate overflow-hidden bg-linear-to-b from-forest-2 via-forest to-forest text-ghee">
@@ -65,64 +63,56 @@ export default function Hero() {
             Since 1975 · Indore, Madhya Pradesh
           </p>
 
-          <p className="font-deva mt-4 text-[clamp(1.15rem,2vw,1.6rem)] leading-tight text-marigold" lang="hi">
-            अपना रीजन, अपनी थाली।
-          </p>
-
           <h1
-            className="font-poster text-drop mt-1.5 text-[clamp(2.4rem,5vw,4.4rem)] leading-[0.94] text-ghee"
+            className="font-poster text-drop mt-4 text-[clamp(2.6rem,5.6vw,4.8rem)] leading-[0.94] text-ghee"
             style={{ "--drop": "var(--color-oxblood)" }}
           >
-            Bring your region
+            Kam Masala,
             <br />
-            <span className="text-marigold">back to your plate.</span>
+            <span className="text-marigold">Poora Swaad.</span>
           </h1>
 
           <p className="lede mt-4 max-w-lg text-ghee/80">
-            <strong className="font-semibold text-marigold">Kam masala, poora swaad.</strong>{" "}
-            Fifty years of slow-ground, single-origin blends — three ranges, one recipe book.
+            50 saal se har khane mein.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Link href={`/shop?range=${rangeId}`} className="btn btn-gold">
+            <Link href="/shop" className="btn btn-gold">
               <SpiceIcon mono name="jar" className="w-4" />
-              Shop {range.name}
+              Shop Now
             </Link>
             <Link href="/story" className="btn btn-ghost text-marigold">
               A boy, a bicycle, 1975
             </Link>
           </div>
 
-          {/* The number reads above its label, but a dl has to be dt-then-dd
-              in the markup — so the source order is correct and the visual
-              order is flipped in CSS. */}
-          <dl className="mt-8 flex flex-wrap gap-x-9 gap-y-4 border-t border-ghee/20 pt-5">
-            {STATS.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse">
-                <dt className="label-micro mt-1.5 text-ghee/75">{s.label}</dt>
-                <dd className="font-poster text-[1.8rem] leading-none text-marigold">{s.n}</dd>
-              </div>
+          <ul className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ghee/20 pt-5">
+            {HERO_CLAIMS.map((claim) => (
+              <li key={claim} className="label-micro text-ghee/75">
+                {claim}
+              </li>
             ))}
-          </dl>
+          </ul>
         </div>
 
         {/* ── the stage ── */}
         <div className="relative">
           {/* The plinth encloses the pack and its caption and nothing else.
-              Sizing it off the whole column instead meant that once the
-              switcher chips wrapped — which they do below ~640px — the arch's
-              bottom edge came to rest straight through the chip row. */}
-          <div className="relative">
+              Capped and centred: the stage column is far wider than the pack,
+              so an arch sized off the column left a huge empty green field
+              with a 310px jar marooned in the middle of it. */}
+          <div className="relative mx-auto w-full max-w-108">
           {/* plinth: a lit arch the pack stands on, so it is somewhere */}
           <div className="pointer-events-none absolute inset-x-[4%] top-[3%] -bottom-1 arch-top rounded-b-2xl border-2 border-marigold/40 bg-linear-to-b from-marigold/[0.14] to-transparent" aria-hidden="true" />
           <div className="pointer-events-none absolute left-1/2 top-[42%] -z-10 h-[62%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-marigold/15 blur-3xl" aria-hidden="true" />
 
-          {/* Rotating seal. Hidden on the narrowest screens: the pack is
-              centred while the seal hugs the column's right edge, so once the
-              column drops under ~640px the two converge and the seal's ring
-              runs straight through the pack's roundel, costing both. The
-              roundel carries the actual claim, so the flourish gives way. */}
-          <div className="anim-spin-slow absolute right-[3%] top-[2%] z-20 hidden w-16 sm:block sm:w-20" style={{ "--dur": "34s" }}>
+          {/* Rotating seal, parked top-LEFT. The pack's own "Best seller"
+              roundel sits top-right, and once the stage was capped to 27rem
+              the two overlapped and shredded each other's type. Opposite
+              corners is the only arrangement where both stay readable.
+              Still hidden on the narrowest screens, where there is no room
+              for either flourish beside the jar. */}
+          <div className="anim-spin-slow absolute -left-4 top-[6%] z-20 hidden w-16 sm:block sm:w-20" style={{ "--dur": "34s" }}>
             <svg viewBox="0 0 120 120" className="w-full text-marigold" aria-hidden="true">
               <defs>
                 <path id="seal-path" d="M60,60 m-42,0 a42,42 0 1,1 84,0 a42,42 0 1,1 -84,0" fill="none" />
@@ -146,55 +136,19 @@ export default function Hero() {
             ))}
           </div>
 
-          {/* the pack — keyed so each switch replays the entrance */}
+          {/* the pack */}
           <div className="relative mx-auto w-full max-w-[268px] px-2 pt-7 sm:max-w-[310px]">
-            <div key={hero.slug} className="anim-swap">
-              <PackShot product={hero} size="lg" />
+            <div className="anim-swap">
+              <PackShot product={hero} size="lg" priority />
             </div>
           </div>
 
           {/* caption */}
-          <div key={`${hero.slug}-cap`} className="anim-swap relative mt-5 pb-5 text-center">
+          <div className="anim-swap relative mt-5 pb-5 text-center">
             <p className="h-card text-ghee">{hero.tagline}</p>
             <p className="font-deva mt-1 text-copy text-marigold" lang="hi">{hero.hindi}</p>
           </div>
           </div>
-
-          {/* ── the switcher ──
-              Must wrap. Three chips come to ~395px, and a grid item defaults
-              to min-width:auto — so an unwrapped row does not just overflow
-              itself, it widens the whole stage column past the viewport and
-              takes the rotating seal off the right edge with it. */}
-          <div
-            className="relative mt-5 flex flex-wrap justify-center gap-2"
-            role="tablist"
-            aria-label="Choose a range"
-          >
-            {RANGE_LIST.map((r) => {
-              const on = r.id === rangeId;
-              return (
-                <button
-                  key={r.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={on}
-                  onClick={() => setRangeId(r.id)}
-                  className={`label-micro flex items-center gap-2 rounded-full border-2 px-3.5 py-2.5 transition-all duration-300 ${
-                    on
-                      ? "border-marigold bg-marigold text-ink shadow-[3px_3px_0_var(--color-oxblood)]"
-                      : "border-ghee/30 text-ghee/70 hover:border-marigold hover:text-marigold"
-                  }`}
-                >
-                  <SpiceIcon mono name={r.icon} className="w-4 shrink-0" />
-                  {r.name}
-                </button>
-              );
-            })}
-          </div>
-
-          <p className="label-micro mt-3 text-center text-ghee/55" aria-live="polite">
-            {range.who} · {count} blends
-          </p>
         </div>
       </div>
 

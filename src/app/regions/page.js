@@ -1,7 +1,7 @@
 import Link from "next/link";
 import RegionMap from "@/components/sections/region-map";
 import ProductCard from "@/components/product-card";
-import { productsByRange } from "@/lib/products";
+import { productsByRange, PRODUCTS } from "@/lib/products";
 import { REGIONS } from "@/lib/content";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
@@ -49,15 +49,30 @@ export default function RegionsPage() {
               The Regions range
             </h2>
             <Link href="/shop" className="btn shrink-0" data-reveal="up">
-              All 32 blends
+              All {PRODUCTS.length} blends
             </Link>
           </div>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((p, i) => (
-              <ProductCard key={p.slug} product={p} index={i} />
-            ))}
-          </div>
+          {items.length === 0 ? (
+            <div className="mt-12 rounded-[1.4rem] border-2 border-dashed border-ink/25 bg-paper/60 px-6 py-14 text-center">
+              <SpiceIcon mono name="thela" className="mx-auto w-12 text-ink-mute" />
+              <p className="h-poster-xs mt-5 text-ink">Abhi ban raha hai.</p>
+              <p className="mx-auto mt-3 max-w-md text-copy text-ink-soft">
+                The Regions range is still being blended. The city blends above already exist —
+                they ship today as part of Essentials.
+              </p>
+              <Link href="/shop" className="btn btn-hot mt-6">
+                <SpiceIcon mono name="jar" className="w-4" />
+                Shop all {PRODUCTS.length} blends
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {items.map((p, i) => (
+                <ProductCard key={p.slug} product={p} index={i} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

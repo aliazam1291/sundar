@@ -5,10 +5,11 @@ import Marquee from "@/components/marquee";
 import { PRODUCTS, RANGES, RANGE_LIST, productsByRange, starterProducts } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
+/* Counted, not typed: the description said "Eighteen" long after the
+   catalogue reached 32, contradicting the "32 blends" on the page itself. */
 export const metadata = {
   title: "Shop the range",
-  description:
-    "Eighteen slow-ground, single-origin blends across three ranges — Heritage, Regions and Everyday Essentials.",
+  description: `${PRODUCTS.length} slow-ground, single-origin blends across three ranges — Heritage, Regions and Everyday Essentials.`,
 };
 
 const FILTERS = [{ id: "all", name: "Everything", icon: "jar" }, ...RANGE_LIST];
@@ -101,7 +102,7 @@ export default async function ShopPage({ searchParams }) {
                 <h2 className="h-editorial mt-3 text-ink">Three to begin with.</h2>
               </div>
               <p className="max-w-sm text-copy text-ink-soft">
-                Thirty-two is a lot to meet at once. These three cover most of what a
+                {PRODUCTS.length} is a lot to meet at once. These three cover most of what a
                 kitchen actually cooks in a week.
               </p>
             </div>
@@ -122,15 +123,33 @@ export default async function ShopPage({ searchParams }) {
               h1 -> h3. Reads as a plain count on screen, announces as the
               heading for the grid. */}
           <h2 className="mb-8 text-label font-semibold uppercase tracking-[0.2em] text-ink-soft">
-            Showing {items.length} {items.length === 1 ? "blend" : "blends"}
-            {range ? ` · ${range.full}` : ""}
+            {items.length === 0
+              ? `${range?.full ?? "This range"} · coming soon`
+              : `Showing ${items.length} ${items.length === 1 ? "blend" : "blends"}${range ? ` · ${range.full}` : ""}`}
           </h2>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {items.map((p, i) => (
-              <ProductCard key={p.slug} product={p} index={i} />
-            ))}
-          </div>
+          {/* A filter that lands on an announced-but-unstocked range has to
+              say so. An empty grid reads as a broken page. */}
+          {items.length === 0 ? (
+            <div className="rounded-[1.4rem] border-2 border-dashed border-ink/25 bg-paper/60 px-6 py-14 text-center">
+              <SpiceIcon mono name={range?.icon ?? "jar"} className="mx-auto w-12 text-ink-mute" />
+              <p className="h-poster-xs mt-5 text-ink">Abhi ban raha hai.</p>
+              <p className="mx-auto mt-3 max-w-md text-copy text-ink-soft">
+                {range?.name} is still being blended. Every Sunder blend we make today sits under
+                Essentials — {PRODUCTS.length} of them.
+              </p>
+              <Link href="/shop" className="btn btn-hot mt-6">
+                <SpiceIcon mono name="jar" className="w-4" />
+                Shop all {PRODUCTS.length} blends
+              </Link>
+            </div>
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {items.map((p, i) => (
+                <ProductCard key={p.slug} product={p} index={i} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

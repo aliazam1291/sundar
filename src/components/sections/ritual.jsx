@@ -9,11 +9,17 @@ const TONE = {
   saffron: "bg-saffron text-ink",
 };
 
+/**
+ * Two separate sections, deliberately not one fragment any more.
+ *
+ * `Ritual` is instructional and earns its place on the home page — it is how
+ * you actually use the product. `Journal` is brand marketing that links
+ * nowhere, so it now sits on /story with the rest of the brand narrative
+ * rather than adding a screen to the longest page on the site.
+ */
 export default function Ritual() {
   return (
-    <>
-      {/* ── the ritual ── */}
-      <section id="ritual" className="tex-paper relative overflow-hidden bg-sand/60 section">
+    <section id="ritual" className="tex-paper relative overflow-hidden bg-sand/60 section">
         <Backdrop field="margins" opacity={0.16} ornamentClass="text-oxblood/20" />
         <DevaWatermark word="स्वाद" className="text-oxblood" position="right" opacity={0.06} />
 
@@ -68,9 +74,13 @@ export default function Ritual() {
           </div>
         </div>
       </section>
+  );
+}
 
-      {/* ── the platforms ── */}
-      <section className="relative overflow-hidden bg-paper section">
+/** The brand platforms — films, the thela, the documentary. */
+export function Journal() {
+  return (
+    <section className="relative overflow-hidden bg-paper section">
         <Backdrop field="crown" opacity={0.16} ornaments={false} />
 
         <div className="shell relative">
@@ -119,6 +129,5 @@ export default function Ritual() {
           </div>
         </div>
       </section>
-    </>
   );
 }
