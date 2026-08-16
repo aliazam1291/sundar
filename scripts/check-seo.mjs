@@ -13,7 +13,23 @@
 import { chromium } from "playwright";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:3100";
-const PAGES = ["/", "/shop", "/shop/dal-masala", "/recipes", "/faq", "/story", "/regions"];
+/* Sample every page *type*, not every page. The two templated routes are
+   represented twice on purpose: /shop/kasuri-methi and /recipes/masala-chai
+   are the thinnest records in each set, so if a template only holds up for
+   its best-filled entry, these are what catch it. */
+const PAGES = [
+  "/",
+  "/shop",
+  "/shop/dal-masala",
+  "/shop/kasuri-methi",
+  "/recipes",
+  "/recipes/indori-poha",
+  "/recipes/masala-chai",
+  "/faq",
+  "/story",
+  "/regions",
+  "/where-to-buy",
+];
 
 /* type -> fields that must be present and non-empty */
 const REQUIRED = {
@@ -24,6 +40,19 @@ const REQUIRED = {
   FAQPage: ["mainEntity"],
   BreadcrumbList: ["itemListElement"],
   ItemList: ["itemListElement"],
+};
+
+/**
+ * Required by Google for the rich result, but blocked on something other than
+ * code — so it is reported and does not fail the run. A suite that is red for
+ * a reason nobody can action today is a suite people stop reading.
+ *
+ * Recipe.image must be a photograph of the finished dish. There is none in the
+ * repo, and a pack shot is not a substitute. Until real food photography
+ * exists, the recipe pages are correctly marked up and still ineligible.
+ */
+const ADVISORY = {
+  Recipe: { image: "needs a photo of the finished dish — no rich result without it" },
 };
 
 const browser = await chromium.launch();
@@ -43,10 +72,13 @@ for (const path of PAGES) {
   }));
 
   const notes = [];
+  const advisories = [];
   if (res.status() !== 200) notes.push(`status ${res.status()}`);
   if (!head.title) notes.push("no <title>");
   if (head.desc.length < 60) notes.push(`thin description (${head.desc.length} chars)`);
   if (head.h1 !== 1) notes.push(`${head.h1} <h1> (want exactly 1)`);
+
+  const isEmpty = (v) => v == null || (Array.isArray(v) && v.length === 0) || v === "";
 
   /* Walk every graph, including nested ItemList items. */
   const seen = new Set();
@@ -57,9 +89,12 @@ for (const path of PAGES) {
     if (type && REQUIRED[type]) {
       seen.add(type);
       for (const field of REQUIRED[type]) {
-        const v = node[field];
-        const empty = v == null || (Array.isArray(v) && v.length === 0) || v === "";
-        if (empty) notes.push(`${type} missing ${field}`);
+        if (isEmpty(node[field])) notes.push(`${type} missing ${field}`);
+      }
+    }
+    if (type && ADVISORY[type]) {
+      for (const [field, why] of Object.entries(ADVISORY[type])) {
+        if (isEmpty(node[field])) advisories.push(`${type}.${field} — ${why}`);
       }
     }
     Object.values(node).forEach(visit);
@@ -74,12 +109,15 @@ for (const path of PAGES) {
   }
 
   const types = [...seen].join(", ") || "none";
+  const advice = [...new Set(advisories)];
   if (notes.length) {
     failures += 1;
     console.log(`\n${path}\n  schema: ${types}`);
     notes.forEach((n) => console.log(`  ! ${n}`));
+    advice.forEach((a) => console.log(`  ~ ${a}`));
   } else {
-    console.log(`${path.padEnd(20)} ok   schema: ${types}`);
+    console.log(`${path.padEnd(24)} ok   schema: ${types}`);
+    advice.forEach((a) => console.log(`${" ".repeat(24)} ~ ${a}`));
   }
 
   await page.close();

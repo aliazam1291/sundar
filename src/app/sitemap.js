@@ -1,4 +1,5 @@
 import { PRODUCTS } from "@/lib/products";
+import { RECIPES } from "@/lib/recipes";
 
 const BASE = "https://sundermasala.com";
 
@@ -27,5 +28,14 @@ export default function sitemap() {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  /* One entry per dish. These are the pages that bring people who have never
+     heard of the brand, so they are worth as much as a product page. */
+  const recipeRoutes = RECIPES.map((r) => ({
+    url: `${BASE}/recipes/${r.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...recipeRoutes];
 }

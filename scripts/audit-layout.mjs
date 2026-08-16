@@ -17,7 +17,17 @@ import { chromium } from "playwright";
 const BASE = process.env.BASE_URL ?? "http://localhost:3000";
 const OUT = "shots/audit";
 
-const PAGES = ["/", "/shop", "/shop/dal-masala", "/story", "/regions", "/recipes", "/faq"];
+const PAGES = [
+  "/",
+  "/shop",
+  "/shop/dal-masala",
+  "/story",
+  "/regions",
+  "/recipes",
+  "/recipes/indori-poha",
+  "/faq",
+  "/where-to-buy",
+];
 
 /* Real device widths, not round numbers. 320 is the narrowest phone still in
    use (SE 1st gen); 360 covers most budget Android; 390/430 the current

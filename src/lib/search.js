@@ -109,7 +109,7 @@ function buildIndex() {
       hindi: r.hi,
       icon: PRODUCTS.find((p) => p.slug === r.uses[0])?.icon ?? "starAnise",
       meta: `${kickerOf(r)} · ${r.time}`,
-      href: `/recipes#${r.slug}`,
+      href: `/recipes/${r.slug}`,
       terms: norm(
         [
           r.title,

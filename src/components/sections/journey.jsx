@@ -261,7 +261,13 @@ export default function Journey() {
                       key={i}
                       data-reveal="up"
                       style={{ "--reveal-delay": `${i * 170}ms` }}
-                      className={`font-editorial italic leading-[1.04] ${
+                      /* 1.04 was borrowed from the poster headings, but those
+                         are uppercase Anton with nothing below the baseline.
+                         These lines are lowercase italic — at 1.04 the "y" of
+                         "A boy." sat on the cap of "A bicycle." underneath it.
+                         1.16 clears the descenders and still reads as tight
+                         film-title stacking. */
+                      className={`font-editorial italic leading-[1.16] ${
                         ch.negative ? "text-ivory/55" : "text-ivory"
                       } ${
                         ch.lines.length > 2

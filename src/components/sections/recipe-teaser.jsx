@@ -50,7 +50,7 @@ export default function RecipeTeaser() {
             return (
               <Link
                 key={r.slug}
-                href={`/recipes#${r.slug}`}
+                href={`/recipes/${r.slug}`}
                 data-reveal="up"
                 style={{ "--reveal-delay": `${(i % 4) * 80}ms` }}
                 className={`card-lift group flex flex-col overflow-hidden rounded-[1.4rem] border-2 border-ink ${tone.bg} ${tone.text}`}

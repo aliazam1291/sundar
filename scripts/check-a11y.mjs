@@ -24,7 +24,17 @@ const require = createRequire(import.meta.url);
 const axePath = require.resolve("axe-core/axe.min.js");
 
 const BASE = process.env.BASE_URL ?? "http://localhost:3100";
-const PAGES = ["/", "/shop", "/shop/dal-masala", "/recipes", "/faq", "/story", "/regions"];
+const PAGES = [
+  "/",
+  "/shop",
+  "/shop/dal-masala",
+  "/recipes",
+  "/recipes/indori-poha",
+  "/faq",
+  "/story",
+  "/regions",
+  "/where-to-buy",
+];
 const WIDTHS = [390, 1440];
 
 /* Rules we judge rather than obey blindly are listed here with a reason.

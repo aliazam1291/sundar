@@ -466,9 +466,13 @@ export const PRODUCTS = [
     hue: ["#4b5d22", "#7fa928"],
     /* real packaging shot, from sundermasala.com */
     image: "/packs/sunder-kasuri-methi.webp",
+    /* The scraped copy for this one arrived as the single word "Fine", which
+       is what the product page and its description both printed. Rewritten
+       from what kasuri methi actually is — no claims added that the pack
+       does not make. Ten more products still carry truncated stories. */
     story:
-      "Fine",
-    uses: "Flavorsome dishes with Kasuri Methi.",
+      "Dried fenugreek leaves, left whole so they keep their aroma until you want it. Crushed between the palms straight over the pan, they give the deep, faintly bitter note that makes a dal or a paneer gravy taste finished instead of flat.",
+    uses: "Crush a pinch between your palms and add it at the end — to dal, methi malai paneer, butter gravies, or worked into paratha dough.",
   },
   {
     slug: "shahi-paneer-masala",
