@@ -50,19 +50,34 @@ export default function Reviews() {
                 style={{ "--reveal-delay": `${(i % 2) * 90}ms` }}
                 className="card-poster card-pad flex flex-col bg-paper text-ink"
               >
-                <SpiceIcon
-                  mono
-                  name="pinch"
-                  className="w-8 shrink-0 text-chilli-ink"
-                  aria-hidden="true"
-                />
+                {r.stars ? (
+                  <p
+                    className="text-[1.05rem] leading-none tracking-[0.12em] text-chilli"
+                    aria-label={`${r.stars} out of 5`}
+                  >
+                    <span aria-hidden="true">
+                      {"★".repeat(r.stars)}
+                      <span className="text-ink/25">{"★".repeat(5 - r.stars)}</span>
+                    </span>
+                  </p>
+                ) : (
+                  <SpiceIcon
+                    mono
+                    name="pinch"
+                    className="w-8 shrink-0 text-chilli-ink"
+                    aria-hidden="true"
+                  />
+                )}
 
                 <p className="mt-4 font-editorial text-copy-lg italic leading-relaxed text-ink">
                   &ldquo;{r.body}&rdquo;
                 </p>
 
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-6">
-                  <p className="label-micro text-ink-soft">{r.name}</p>
+                  <p className="label-micro text-ink-soft">
+                    {r.name}
+                    {r.via ? <span className="text-ink-mute"> · bought on {r.via}</span> : null}
+                  </p>
 
                   {pack ? (
                     <Link

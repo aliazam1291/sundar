@@ -291,11 +291,16 @@ body {
   font-size: clamp(1.55rem, 3vw, 2.35rem);
 }
 
-/* Sub-headline — Hanken Grotesk, per the type spec */
+/* Sub-headline — Hanken Grotesk, per the type spec.
+   1.06 was borrowed from the poster sizes, but those are Anton in caps with
+   nothing below the baseline. Hanken's glyphs occupy 1.286em, so a 1.06 line
+   box left the ink standing ~5px proud of the element at the top — which ate
+   that much off every margin above a heading and read as a cropped line.
+   1.2 keeps it tight and puts the ascenders back inside the box. */
 .h-editorial {
   font-family: var(--font-body);
   font-weight: 700;
-  line-height: 1.06;
+  line-height: 1.2;
   letter-spacing: -0.025em;
   font-size: clamp(1.75rem, 3.8vw, 3rem);
 }

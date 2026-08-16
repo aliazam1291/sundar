@@ -40,9 +40,16 @@ const DONE = { hi: "लीजिए! बन गया।", en: "There you are �
 /* How long the autoplay lingers on a step before moving on. */
 const WATCH_MS = 4600;
 
-export default function ChefMenu() {
-  const [slug, setSlug] = useState(null);
-  const [step, setStep] = useState(-1); // -1 = menu, 0..n-1 = steps, n = done
+/**
+ * @param {string} [dish] — a recipe slug. Given one, the chef skips his own
+ *   menu and cooks that dish, and "back to the menu" becomes "start again".
+ *   That is how he is used on a recipe page: the dish is already chosen, and
+ *   offering a second list of twelve there would just compete with the page
+ *   the reader is already on.
+ */
+export default function ChefMenu({ dish = null }) {
+  const [slug, setSlug] = useState(dish);
+  const [step, setStep] = useState(dish ? 0 : -1); // -1 = menu, 0..n-1 = steps, n = done
   const [course, setCourse] = useState(null); // null = the whole menu
   const [muted, setMuted] = useState(false);
   const [watching, setWatching] = useState(false);
@@ -99,11 +106,12 @@ export default function ChefMenu() {
     setStep(0);
   };
 
+  /* Locked to one dish, there is no menu to go back to — it restarts instead. */
   const backToMenu = () => {
     kitchen.stop();
     setWatching(false);
-    setSlug(null);
-    setStep(-1);
+    setSlug(dish);
+    setStep(dish ? 0 : -1);
   };
 
   const go = (delta) => {
@@ -141,12 +149,14 @@ export default function ChefMenu() {
             style={{ "--plaque-bg": "var(--color-sun)", "--plaque-fg": "var(--color-ink)" }}
           >
             <Star className="w-3.5" />
-            Sunder ji ka menu
+            {dish ? "Saath mein banaate hain" : "Sunder ji ka menu"}
           </p>
           <p className="font-deva mt-4 text-[clamp(1.15rem,2vw,1.6rem)] leading-tight text-marigold" lang="hi">
             आइए, साथ में बनाते हैं।
           </p>
-          <h2 className="h-editorial mt-1.5">Pick a dish. He will cook it with you.</h2>
+          <h2 className="h-editorial mt-1.5">
+            {dish ? "Cook it with him, step by step." : "Pick a dish. He will cook it with you."}
+          </h2>
           <p className="lede mt-4 max-w-xl text-ghee/80">
             He works a real chulha — the vessel changes with the step, the flame comes up for a
             tadka, and you can hear the whole thing. Sound on.
@@ -314,7 +324,7 @@ export default function ChefMenu() {
                     onClick={backToMenu}
                     className="label-micro shrink-0 rounded-full border-2 border-ink px-3.5 py-2 transition-colors hover:bg-ink hover:text-paper"
                   >
-                    ← Menu
+                    {dish ? "↻ Start again" : "← Menu"}
                   </button>
                 </div>
 

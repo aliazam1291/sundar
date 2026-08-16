@@ -44,10 +44,16 @@ export default function Categories() {
             hi="मसाला सिर्फ़ मसाला नहीं होता।"
             en="Masala sirf masala nahi hota."
           />
-          <p className="mt-4 max-w-xl text-copy text-ink-soft">
-            Kabhi ghar ka swaad. Kabhi sheher ki yaad. Aur kabhi, poori recipe ka raaz. Sunder
-            jaanta hai.
+          {/* Three beats then the turn — set as separate lines because that
+              rhythm is the line, not a paragraph that happens to have commas. */}
+          <p className="mt-5 max-w-xl text-copy-lg leading-relaxed text-ink-soft">
+            Kabhi ghar ka swaad.
+            <br />
+            Kabhi sheher ki yaad.
+            <br />
+            Aur kabhi, poori recipe ka raaz.
           </p>
+          <p className="mt-4 font-editorial text-copy-lg italic text-ink">Sunder jaanta hai.</p>
         </div>
 
         <div className="section-body space-y-14">

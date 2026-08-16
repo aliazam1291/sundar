@@ -13,14 +13,19 @@ import { getProduct } from "@/lib/products";
  * earn the click.
  */
 
-/* The claims that used to only live in Sourcing, restated short enough to
-   fit under the fold — the first screen a visitor sees should carry at
-   least one reason to trust the pack, not just the brand line. */
-const HERO_CLAIMS = [
-  "100% Pure Spices",
-  "No Artificial Colour",
-  "Hygienically Packed",
-  "Cold-milled Under 40°C",
+/**
+ * The four reasons to trust the pack.
+ *
+ * These were a row of faint micro-labels tucked under the buttons, which at
+ * 390px wrapped onto two ragged lines and read as legal small print. They are
+ * the only reasons-to-believe above the fold, so they get their own band under
+ * the hero: four equal panels, each one a claim, in the brand's own voice.
+ */
+const TRUST = [
+  { title: "100% Pure Spices", note: "The spice, and nothing bulking it out", icon: "sprig" },
+  { title: "No Artificial Colour", note: "The red is the chilli. Nothing else.", icon: "chilli" },
+  { title: "Hygienically Packed", note: "Sealed the day it is ground", icon: "jar" },
+  { title: "Cold-milled Under 40°C", note: "Slow and cool, so the oil stays in the spice", icon: "chakki" },
 ];
 
 /* Garam masala rather than lal mirch: the red chilli cutout is a composite
@@ -86,13 +91,6 @@ export default function Hero() {
             </Link>
           </div>
 
-          <ul className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-ghee/20 pt-5">
-            {HERO_CLAIMS.map((claim) => (
-              <li key={claim} className="label-micro text-ghee/75">
-                {claim}
-              </li>
-            ))}
-          </ul>
         </div>
 
         {/* ── the stage ── */}
@@ -153,6 +151,31 @@ export default function Hero() {
       </div>
 
       <div className="beads relative h-3 w-full text-marigold/50" aria-hidden="true" />
+
+      {/* ── the four reasons ──
+          Its own band rather than a line of small print: equal panels, real
+          contrast, and each claim carrying the sentence that backs it up. */}
+      <div className="relative border-t-2 border-marigold/25 bg-forest-2">
+        <div className="shell">
+          {/* One rule between panels, drawn by the grid's own gap showing the
+              band colour through — simpler and less breakable than per-item
+              border classes that have to know their own position. */}
+          <ul className="grid gap-px bg-marigold/20 sm:grid-cols-2 lg:grid-cols-4">
+            {TRUST.map((t) => (
+              <li
+                key={t.title}
+                className="flex items-start gap-3.5 bg-forest-2 px-1 py-6 sm:px-5 lg:px-6"
+              >
+                <SpiceIcon mono name={t.icon} className="mt-0.5 w-6 shrink-0 text-marigold" />
+                <span className="min-w-0">
+                  <span className="label-micro block text-marigold">{t.title}</span>
+                  <span className="mt-1.5 block text-copy leading-snug text-ghee">{t.note}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </section>
   );
 }

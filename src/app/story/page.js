@@ -8,8 +8,8 @@ import { PRODUCTS } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
 export const metadata = {
-  title: "Our story — a boy, a bicycle, 1975",
-  description: `Fifty years from one stone chakki in Indore to a range of ${PRODUCTS.length} blends. The taste the same, the story new.`,
+  title: "Our story — purani recipe, nayi pehchaan",
+  description: `1975, Indore. A cycle shop, and then a life in masala. Fifty years and three generations later — real ingredients, no fillers, no shortcuts, across ${PRODUCTS.length} blends.`,
 };
 
 export default function StoryPage() {
@@ -31,15 +31,30 @@ export default function StoryPage() {
           </p>
 
           <h1 className="h-poster mt-5 max-w-4xl">
-            The taste the same.
+            Purani Recipe.
             <br />
-            <span className="text-marigold">The story new.</span>
+            <span className="text-marigold">Nayi Pehchaan.</span>
           </h1>
 
-          <p className="lede mt-5 max-w-xl text-paper/72">
-            {FOUNDER.name} left his shop at {FOUNDER.departure} with a bag of chillies strapped to a
-            bicycle. Fifty years later the bicycle is a factory — and the recipe has not moved.
+          <p className="lede mt-6 max-w-2xl text-paper/85">
+            1975. Indore. Ek cycle ki dukaan. Aur phir masalon ka kaam.
           </p>
+
+          <div className="mt-6 grid max-w-4xl gap-5 text-copy-lg leading-relaxed text-paper/75 lg:grid-cols-2 lg:gap-x-12">
+            <p>
+              {FOUNDER.name} started Sunder with a simple belief: gharon tak wahi masala jaana
+              chahiye jo apne ghar mein bhi use kiya jaye.
+            </p>
+            <p>
+              Fifty years and three generations later, the belief hasn&rsquo;t changed: real
+              ingredients, no fillers, no shortcuts.
+            </p>
+            <p className="lg:col-span-2 lg:max-w-3xl">
+              What&rsquo;s changed is how far that spice travels. From one Indore kitchen to homes
+              across India, we still hand-pound and slow-grind the way the family always has,
+              because that&rsquo;s the only way heritage masala is supposed to taste.
+            </p>
+          </div>
         </div>
       </section>
 

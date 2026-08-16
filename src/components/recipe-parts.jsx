@@ -38,18 +38,26 @@ export function Uses({ slugs, className = "" }) {
   );
 }
 
-/** Time · serves · effort · heat, as a definition list. */
-export function RecipeStats({ recipe, className = "" }) {
+/**
+ * Time · serves · effort · heat, as a definition list.
+ *
+ * `showServes` is off wherever the servings dial is on the page — two numbers
+ * for the same thing, one of which moves and one of which does not, is worse
+ * than either alone.
+ */
+export function RecipeStats({ recipe, className = "", showServes = true }) {
   return (
     <dl className={`flex flex-wrap items-center gap-x-8 gap-y-3 ${className}`}>
       <div>
         <dt className="label-micro text-ink-mute">Time</dt>
         <dd className="font-poster text-[1.5rem] leading-none text-ink">{recipe.time}</dd>
       </div>
-      <div>
-        <dt className="label-micro text-ink-mute">Serves</dt>
-        <dd className="font-poster text-[1.5rem] leading-none text-ink">{recipe.serves}</dd>
-      </div>
+      {showServes ? (
+        <div>
+          <dt className="label-micro text-ink-mute">Serves</dt>
+          <dd className="font-poster text-[1.5rem] leading-none text-ink">{recipe.serves}</dd>
+        </div>
+      ) : null}
       <div>
         <dt className="label-micro text-ink-mute">Effort</dt>
         <dd className="font-poster text-[1.5rem] leading-none text-ink">{recipe.difficulty}</dd>
@@ -64,25 +72,9 @@ export function RecipeStats({ recipe, className = "" }) {
   );
 }
 
-/** Everything that goes in, on paper. */
-export function Ingredients({ recipe, className = "" }) {
-  return (
-    <div className={`rounded-[1.2rem] border-2 border-ink/15 bg-paper/70 p-5 ${className}`}>
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="label-micro text-ink-mute">Everything that goes in</p>
-        <p className="font-deva text-copy text-ink-mute" lang="hi">सामग्री</p>
-      </div>
-      <ul className="mt-3 grid gap-x-8 gap-y-1.5 text-copy text-ink-soft sm:grid-cols-2">
-        {recipe.ingredients.map((item) => (
-          <li key={item} className="flex gap-2.5">
-            <span aria-hidden="true" className="text-chilli-ink">·</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+/* A static Ingredients list lived here until the servings dial replaced it.
+   RecipeScaler renders that list now — there is no page left that wants the
+   amounts frozen. */
 
 /** The method, as the dark magazine sidebar. */
 export function Method({ recipe, className = "" }) {

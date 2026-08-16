@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Backdrop from "@/components/backdrop";
+import ChefMenu from "@/components/sections/chef-menu";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
-import { Uses, RecipeStats, Ingredients, Method } from "@/components/recipe-parts";
+import { Uses, RecipeStats, Method } from "@/components/recipe-parts";
+import RecipeScaler from "@/components/recipe-scaler";
 import { RECIPES, getRecipe, kickerOf } from "@/lib/recipes";
 import { JsonLd, recipeJsonLd, recipeBreadcrumbJsonLd } from "@/lib/seo";
 
@@ -85,8 +87,12 @@ export default async function RecipePage({ params }) {
 
         <div className="shell relative grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div data-reveal="left">
-            <RecipeStats recipe={recipe} />
-            <Ingredients recipe={recipe} className="mt-7" />
+            <RecipeStats recipe={recipe} showServes={false} />
+
+            {/* The servings dial owns the amounts from here down. */}
+            <div className="mt-7">
+              <RecipeScaler recipe={recipe} />
+            </div>
 
             <p className="label-micro mt-7 text-ink-mute">Plus these off the shelf</p>
             <Uses slugs={recipe.uses} className="mt-2.5 text-ink-soft" />
@@ -107,6 +113,11 @@ export default async function RecipePage({ params }) {
           </div>
         </div>
       </section>
+
+      {/* ── or watch him do it ──
+          Locked to this dish. On the Rasoi hub the chef offers his own menu,
+          which is right there; on a dish page the dish is already chosen. */}
+      <ChefMenu dish={recipe.slug} />
 
       {/* ── keep cooking ── */}
       <section className="relative overflow-hidden bg-paper section-sm">

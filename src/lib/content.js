@@ -289,15 +289,20 @@ export const TICKER = [
  * These four are the real testimonials published on sundermasala.com — names
  * and wording as written, lightly punctuated only. Nothing here is invented.
  *
- * Deliberately absent: star ratings, and the purchase platform (Amazon,
- * Blinkit, Instamart). The source site publishes neither, so putting them on
- * screen would be fabricating review metadata — the kind of thing Google
- * penalises as fake-review markup and shoppers are right to distrust. Add
- * `stars` and `via` here once there are verified reviews that carry them,
- * and the card will render them.
+ * The card renders whatever a review carries and nothing more:
  *
- * `product` is a slug so the card can link into the shop; it is only set
- * where the reviewer actually named the blend.
+ *   stars    1–5, shows a rating row and makes the set eligible for
+ *            AggregateRating markup
+ *   via      where it was bought ("Blinkit", "Amazon", "Swiggy Instamart")
+ *   product  a product slug, so the card can link to the blend
+ *
+ * `stars` and `via` are empty on all four because the source publishes
+ * neither. They are the two fields that turn a quote into a review in the
+ * legal sense, so they have to come from a real order — inventing them would
+ * be fabricating review metadata against a named person, which is what
+ * fake-review rules exist to stop. Fill them in from the actual platform
+ * reviews and the stars, the platform line and the rich result all switch on
+ * by themselves.
  */
 export const REVIEWS = [
   {
