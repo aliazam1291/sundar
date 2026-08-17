@@ -52,15 +52,29 @@ export default function StoryTeaser() {
 
         <div data-reveal="up" style={{ "--reveal-delay": "120ms" }}>
           <p className="font-editorial text-[clamp(1.6rem,3.6vw,2.75rem)] italic leading-[1.1] text-ivory">
-            Purani recipe. Nayi pehchaan.
+            Purani Recipe. Nayi Pehchaan.
           </p>
 
-          <p className="mt-5 max-w-md text-copy-lg text-ivory/65">
-            1975, Indore — a cycle shop, and then a life in masala. {FOUNDER.name} started Sunder
-            on one belief: the masala that reaches other homes should be the one used in his own.
-            Fifty years and three generations on, that belief hasn&rsquo;t moved — real
-            ingredients, no fillers, no shortcuts, still hand-pounded and slow-ground the way the
-            family always has.
+          <p className="mt-5 max-w-lg text-copy-lg text-ivory/70">
+            1975. Indore. Ek cycle ki dukaan. Aur phir masalon ka kaam.
+          </p>
+
+          {/* Two paragraphs, not one run-on — matches how it reads on /story,
+              and keeps {FOUNDER.name} its own sentence so a line-wrapped JSX
+              expression can never again swallow the space after it (see the
+              git history on this file for exactly that bug). */}
+          <p className="mt-4 max-w-lg text-copy-lg text-ivory/65">
+            {FOUNDER.name} started Sunder with a simple belief: gharon tak wahi masala jaana
+            chahiye jo apne ghar mein bhi use kiya jaye.
+          </p>
+          <p className="mt-4 max-w-lg text-copy-lg text-ivory/65">
+            Fifty years and three generations later, the belief hasn&rsquo;t changed: real
+            ingredients, no fillers, no shortcuts.
+          </p>
+          <p className="mt-4 max-w-lg text-copy-lg text-ivory/65">
+            What&rsquo;s changed is how far that spice travels. From one Indore kitchen to homes
+            across India, we still hand-pound and slow-grind the way the family always has,
+            because that&rsquo;s the only way heritage masala is supposed to taste.
           </p>
 
           <div className="rule-dots mt-7 max-w-xs text-terracotta/50" aria-hidden="true" />
