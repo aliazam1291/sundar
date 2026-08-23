@@ -32,7 +32,6 @@ const PAGES = [
   "/recipes/indori-poha",
   "/faq",
   "/story",
-  "/regions",
   "/where-to-buy",
 ];
 const WIDTHS = [390, 1440];

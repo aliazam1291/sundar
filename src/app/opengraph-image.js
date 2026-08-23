@@ -98,7 +98,7 @@ export default async function OgImage() {
         >
           {/* Rotated squares stand in for the brand star — Satori's fallback
               font has no glyph for U+2726 and renders it as tofu. */}
-          <div style={{ display: "flex" }}>HERITAGE</div>
+          <div style={{ display: "flex" }}>BLENDED</div>
           <div
             style={{
               display: "flex",
@@ -108,7 +108,7 @@ export default async function OgImage() {
               transform: "rotate(45deg)",
             }}
           />
-          <div style={{ display: "flex" }}>REGIONS</div>
+          <div style={{ display: "flex" }}>PURE</div>
           <div
             style={{
               display: "flex",
@@ -118,7 +118,7 @@ export default async function OgImage() {
               transform: "rotate(45deg)",
             }}
           />
-          <div style={{ display: "flex" }}>ESSENTIALS</div>
+          <div style={{ display: "flex" }}>WHOLE</div>
         </div>
       </div>
     ),

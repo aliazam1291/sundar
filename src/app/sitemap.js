@@ -10,7 +10,6 @@ export default function sitemap() {
     { url: "", priority: 1, changeFrequency: "weekly" },
     { url: "/shop", priority: 0.9, changeFrequency: "weekly" },
     { url: "/story", priority: 0.7, changeFrequency: "monthly" },
-    { url: "/regions", priority: 0.7, changeFrequency: "monthly" },
     { url: "/recipes", priority: 0.8, changeFrequency: "monthly" },
     { url: "/faq", priority: 0.6, changeFrequency: "monthly" },
     { url: "/where-to-buy", priority: 0.8, changeFrequency: "monthly" },

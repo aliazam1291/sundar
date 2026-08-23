@@ -2,25 +2,37 @@ import Link from "next/link";
 import ProductCard from "@/components/product-card";
 import TastingBench from "@/components/sections/tasting-bench";
 import Marquee from "@/components/marquee";
-import { PRODUCTS, RANGES, RANGE_LIST, productsByRange, starterProducts } from "@/lib/products";
+import {
+  PRODUCTS,
+  CATEGORIES,
+  CATEGORY_LIST,
+  productsByCategory,
+  starterProducts,
+} from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
 /* Counted, not typed: the description said "Eighteen" long after the
    catalogue reached 32, contradicting the "32 blends" on the page itself. */
 export const metadata = {
   title: "Shop the range",
-  description: `${PRODUCTS.length} slow-ground, single-origin blends across three ranges — Heritage, Regions and Everyday Essentials.`,
+  description: `${PRODUCTS.length} slow-ground, single-origin spices — blended masalas, pure ground spices, whole seed and hing.`,
 };
 
-const FILTERS = [{ id: "all", name: "Everything", icon: "jar" }, ...RANGE_LIST];
+/* Category is the only shop axis. The range chips that used to sit beside
+   these are gone with the ranges themselves. */
+const CATEGORY_FILTERS = [{ id: "all", name: "Everything", icon: "jar" }, ...CATEGORY_LIST];
+
+/* A hand-typed `?category=pickle` falls back to "all" rather than rendering
+   an empty grid under a heading naming a category that does not exist. */
+const pick = (raw) =>
+  typeof raw === "string" && (raw === "all" || CATEGORIES[raw]) ? raw : "all";
 
 export default async function ShopPage({ searchParams }) {
   const params = await searchParams;
-  const raw = params?.range;
-  const active = typeof raw === "string" && (raw === "all" || RANGES[raw]) ? raw : "all";
+  const activeCategory = pick(params?.category);
 
-  const items = productsByRange(active);
-  const range = RANGES[active];
+  const items = productsByCategory(activeCategory);
+  const category = CATEGORIES[activeCategory];
   const starters = starterProducts();
 
   return (
@@ -37,7 +49,7 @@ export default async function ShopPage({ searchParams }) {
         <div className="relative shell">
           <p className="eyebrow flex items-center gap-2.5 text-marigold">
             <Star className="w-3.5" />
-            {PRODUCTS.length} blends · three ranges
+            {PRODUCTS.length} blends · {CATEGORY_LIST.length} shelves
           </p>
 
           <h1 className="h-poster mt-5 max-w-4xl">
@@ -47,7 +59,7 @@ export default async function ShopPage({ searchParams }) {
           </h1>
 
           <p className="lede mt-5 max-w-xl text-ghee/72">
-            {range ? range.blurb : "Slow-ground, cold-milled, single-origin. Nothing added, ever."}
+            {category?.blurb ?? "Slow-ground, cold-milled, single-origin. Nothing added, ever."}
           </p>
         </div>
       </section>
@@ -63,12 +75,14 @@ export default async function ShopPage({ searchParams }) {
               a bug rather than "there is more this way"; the trailing padding
               keeps the final chip clear of the fade once you reach the end. */}
           <div className="no-scrollbar edge-fade-r flex gap-2.5 overflow-x-auto py-3.5 pe-8 sm:pe-0">
-            {FILTERS.map((f) => {
-              const on = active === f.id;
+            {CATEGORY_FILTERS.map((f) => {
+              const on = activeCategory === f.id;
+              const count = f.id === "all" ? PRODUCTS.length : productsByCategory(f.id).length;
+
               return (
                 <Link
                   key={f.id}
-                  href={f.id === "all" ? "/shop" : `/shop?range=${f.id}`}
+                  href={f.id === "all" ? "/shop" : `/shop?category=${f.id}`}
                   scroll={false}
                   aria-current={on ? "page" : undefined}
                   className={`chip shrink-0 border-2 !py-3 transition-all ${
@@ -79,6 +93,11 @@ export default async function ShopPage({ searchParams }) {
                 >
                   <SpiceIcon mono name={f.icon} className="w-4" />
                   {f.name}
+                  {/* Solid colours, not faded ink/marigold: a count set at
+                      45% over the marigold rail measured 2.78:1. ink-soft is
+                      7.00 there and clay is 8.52 on the selected chip, both
+                      still a step quieter than the label beside them. */}
+                  <span className={on ? "text-clay" : "text-ink-soft"}>{count}</span>
                 </Link>
               );
             })}
@@ -90,7 +109,7 @@ export default async function ShopPage({ searchParams }) {
           unfiltered view the bestsellers go first as the "start here" —
           once a range is chosen the shopper has already narrowed, and
           repeating picks from another range would just undo that. */}
-      {active === "all" && (
+      {activeCategory === "all" && (
         <section className="tex-paper border-b-2 border-ink/10 bg-paper section-sm">
           <div className="shell">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
@@ -124,19 +143,23 @@ export default async function ShopPage({ searchParams }) {
               heading for the grid. */}
           <h2 className="mb-8 text-label font-semibold uppercase tracking-[0.2em] text-ink-soft">
             {items.length === 0
-              ? `${range?.full ?? "This range"} · coming soon`
-              : `Showing ${items.length} ${items.length === 1 ? "blend" : "blends"}${range ? ` · ${range.full}` : ""}`}
+              ? `${category?.full ?? "This shelf"} · coming soon`
+              : `Showing ${items.length} ${items.length === 1 ? "blend" : "blends"}${
+                  category ? ` · ${category.full}` : ""
+                }`}
           </h2>
 
           {/* A filter that lands on an announced-but-unstocked range has to
               say so. An empty grid reads as a broken page. */}
           {items.length === 0 ? (
             <div className="rounded-[1.4rem] border-2 border-dashed border-ink/25 bg-paper/60 px-6 py-14 text-center">
-              <SpiceIcon mono name={range?.icon ?? "jar"} className="mx-auto w-12 text-ink-mute" />
+              <SpiceIcon mono name={category?.icon ?? "jar"} className="mx-auto w-12 text-ink-mute" />
               <p className="h-poster-xs mt-5 text-ink">Abhi ban raha hai.</p>
+              {/* Every category ships today, so this is unreachable now — it
+                  stays as the guard for a category added before its stock. */}
               <p className="mx-auto mt-3 max-w-md text-copy text-ink-soft">
-                {range?.name} is still being blended. Every Sunder blend we make today sits under
-                Essentials — {PRODUCTS.length} of them.
+                {category?.name} is still being blended. Browse the other{" "}
+                {PRODUCTS.length} blends in the meantime.
               </p>
               <Link href="/shop" className="btn btn-hot mt-6">
                 <SpiceIcon mono name="jar" className="w-4" />

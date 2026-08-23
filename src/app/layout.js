@@ -40,7 +40,7 @@ export const metadata = {
     template: "%s · Sunder Masala",
   },
   description:
-    "Kam masala, poora swaad. Fifty years of slow-ground, single-origin Indian spice blends from the heart of Madhya Pradesh — Heritage, Regions and Everyday Essentials.",
+    "Kam masala, poora swaad. Fifty years of slow-ground, single-origin Indian spice from the heart of Madhya Pradesh — blended masalas, pure ground spices, whole seed and hing.",
   /* Google has ignored meta keywords since 2009 — these are here for the
      handful of other engines and internal tooling that still read them. What
      actually earns the category traffic is the Product / Recipe / FAQPage

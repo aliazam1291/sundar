@@ -380,21 +380,6 @@ export const Marigold = (p) => (
   </Ico>
 );
 
-/* ── Paisley — the block-print motif ────────────────────── */
-export const Paisley = (p) => (
-  <Ico
-    vars={{ "--i1": "var(--color-rani)", "--i2": "var(--color-marigold)", "--i3": "var(--color-cobalt)", "--io": INK }}
-    {...p}
-  >
-    <path
-      {...f1}
-      d="M22 43c-8.6 0-14.6-6-14.6-14.4 0-9 6.4-16.6 15.4-20.6 7.4-3.2 14.6-1 17 5 2.6 6.6-2 13-9.4 13-4 0-6.6-2-6.6-5 0-2.4 1.6-4 3.8-4-3.6-1.6-7 .8-7 4.8 0 4.2 3.4 7.4 8.6 7.4-1.2 8-4.4 13.8-7.2 13.8Z"
-    />
-    <path {...f2} d="M23 34c-4.4-1-7.2-4.2-7.2-8.6 0-5.4 4-10.2 9.8-12.6-6 4.4-8.8 9-8.8 13.4 0 3.4 2.4 6.4 6.2 7.8Z" />
-    <circle {...f3} cx="27" cy="19" r="2.4" />
-  </Ico>
-);
-
 /* ── Decorative brand star (✶) from the deck ────────────── */
 export const Star = ({ className = "", ...rest }) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className={className} {...rest}>
@@ -424,51 +409,6 @@ export function Sunburst({ className = "", rays = 44, opacity = 0.12 }) {
   );
 }
 
-/* ── Corner ornament — the floral trim on every deck slide ─ */
-export function Ornament({ className = "", flip = false }) {
-  return (
-    <svg
-      viewBox="0 0 120 120"
-      className={className}
-      aria-hidden="true"
-      style={flip ? { transform: "scaleX(-1)" } : undefined}
-    >
-      <g fill="currentColor">
-        {/* vine */}
-        <path
-          d="M0 8c26 0 44 10 56 30 8 13 18 20 32 21v8c-18-1-31-10-40-25C38 25 23 16 0 16Z"
-          opacity="0.85"
-        />
-        {/* blooms along the vine */}
-        {[
-          [14, 26, 9],
-          [42, 44, 12],
-          [76, 66, 8],
-          [22, 62, 6],
-        ].map(([cx, cy, r], i) => (
-          <g key={i}>
-            {Array.from({ length: 8 }).map((_, j) => (
-              <ellipse
-                key={j}
-                cx={cx}
-                cy={cy - r * 0.72}
-                rx={r * 0.34}
-                ry={r * 0.72}
-                transform={`rotate(${j * 45} ${cx} ${cy})`}
-                opacity="0.75"
-              />
-            ))}
-            <circle cx={cx} cy={cy} r={r * 0.34} />
-          </g>
-        ))}
-        {/* leaves */}
-        <path d="M60 18c9 2 14 8 15 17-9-2-14-8-15-17Z" opacity="0.7" />
-        <path d="M30 44c-9 2-14 8-15 17 9-2 14-8 15-17Z" opacity="0.7" />
-      </g>
-    </svg>
-  );
-}
-
 /* ── Named registry, for data-driven rendering ─────────── */
 export const SPICE_ICONS = {
   chilli: Chilli,
@@ -492,7 +432,6 @@ export const SPICE_ICONS = {
   sprig: Sprig,
   jar: Jar,
   marigold: Marigold,
-  paisley: Paisley,
 };
 
 export function SpiceIcon({ name, ...rest }) {

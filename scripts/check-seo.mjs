@@ -27,7 +27,6 @@ const PAGES = [
   "/recipes/masala-chai",
   "/faq",
   "/story",
-  "/regions",
   "/where-to-buy",
 ];
 

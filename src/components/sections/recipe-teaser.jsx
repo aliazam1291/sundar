@@ -37,7 +37,7 @@ export default function RecipeTeaser() {
               en="Achha khaana, achhi recipe se shuru hota hai."
             />
           </div>
-          <Link href="/recipes" className="btn btn-hot shrink-0" data-reveal="up" style={{ "--reveal-delay": "100ms" }}>
+          <Link href="/recipes" className="btn btn-hot shrink-0 self-start sm:self-auto" data-reveal="up" style={{ "--reveal-delay": "100ms" }}>
             See all recipes
           </Link>
         </div>

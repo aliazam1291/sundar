@@ -6,7 +6,7 @@ import HeatScale from "@/components/heat-scale";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 import {
   PRODUCTS,
-  RANGES,
+  CATEGORIES,
   getProduct,
   relatedProducts,
   formatPrice,
@@ -32,11 +32,14 @@ export default async function ProductPage({ params }) {
   const product = getProduct(slug);
   if (!product) notFound();
 
-  const range = RANGES[product.range];
+  /* Breadcrumb, spec row and the "more from" shelf all key off the category
+     now. Range was the same word ("Essentials") under all 32 packs, so it
+     told a shopper nothing and its link went to an unfiltered shop. */
+  const category = CATEGORIES[product.category];
   const related = relatedProducts(product);
 
   const SPECS = [
-    { label: "Range", value: range.name, icon: range.icon },
+    { label: "Shelf", value: category.name, icon: category.icon },
     { label: "Pack sizes", value: product.sizes.join(" · "), icon: "mortar" },
     { label: "Heat", value: ["None", "Mild", "Medium", "Warm", "Hot", "Fierce"][product.heat], icon: "flame" },
     { label: "Additives", value: "None, ever", icon: "sprig" },
@@ -70,7 +73,7 @@ export default async function ProductPage({ params }) {
           <nav aria-label="Breadcrumb" className="mb-9 flex items-center gap-2 text-micro font-semibold uppercase tracking-[0.16em] text-white/60">
             <Link href="/shop" className="link-sweep inline-block py-2.5 hover:text-white">Shop</Link>
             <span aria-hidden="true">/</span>
-            <Link href={`/shop?range=${range.id}`} className="link-sweep inline-block py-2.5 hover:text-white">{range.name}</Link>
+            <Link href={`/shop?category=${category.id}`} className="link-sweep inline-block py-2.5 hover:text-white">{category.name}</Link>
             <span aria-hidden="true">/</span>
             <span className="text-white/85">{product.name}</span>
           </nav>
@@ -91,7 +94,7 @@ export default async function ProductPage({ params }) {
             <div className="anim-rise text-white">
               <p className="eyebrow flex items-center gap-2.5 text-white/70" style={{ animationDelay: "40ms" }}>
                 <Star className="w-3.5" />
-                {range.full}
+                {category.full}
               </p>
 
               <h1 className="h-poster mt-4 text-[clamp(2.6rem,7.5vw,5.5rem)]" style={{ animationDelay: "120ms" }}>
@@ -220,10 +223,14 @@ export default async function ProductPage({ params }) {
           <div className="shell">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
               <h2 className="h-editorial max-w-xl text-ink" data-reveal="up">
-                More from {range.name}
+                More {category.name}
               </h2>
-              <Link href={`/shop?range=${range.id}`} className="btn shrink-0" data-reveal="up">
-                See the range
+              <Link
+                href={`/shop?category=${category.id}`}
+                className="btn shrink-0 self-start sm:self-auto"
+                data-reveal="up"
+              >
+                See the shelf
               </Link>
             </div>
 

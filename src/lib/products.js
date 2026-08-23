@@ -1,48 +1,18 @@
 /**
- * Sunder Masala — catalogue + range taxonomy.
- * Three ranges, three appetites (per the brand strategy deck).
+ * Sunder Masala — catalogue + shop taxonomy.
+ *
+ * CATEGORIES is the taxonomy the shop runs on: the four collections the live
+ * store actually sells under. RANGES is the brand's own framing and now holds
+ * only the one range that ships.
  */
 
 import { fillFor, inkVariant, readableOn } from "@/lib/color";
 
+/* Only Essentials ships. The Heritage and Regions ranges were announced in
+   the brand deck and carried here as empty, "coming soon" shelves — they are
+   no longer surfaced anywhere on the site, so they are no longer modelled.
+   The real shop taxonomy is CATEGORIES below. */
 export const RANGES = {
-  heritage: {
-    id: "heritage",
-    name: "Heritage",
-    full: "Sunder Heritage",
-    who: "The occasion cook",
-    line: "From the courts of Awadh, to your table.",
-    blurb:
-      "Slow-ground, festive, inherited. Recipes handed down — never invented for a trend.",
-    voice: ["Heritage", "Hereditary", "Confident", "Sourced"],
-    bg: "var(--color-forest)",
-    ink: "var(--color-ghee)",
-    accent: "var(--color-marigold)",
-    // The real hex behind `accent`, for JS-side contrast math (readableOn) —
-    // a CSS var reference can't be measured, only a colour can.
-    accentHex: "#ffc740",
-    tw: { bg: "bg-forest", text: "text-ghee", accent: "text-marigold" },
-    /* accent type, per the brand font spec */
-    font: "font-heritage",
-    icon: "starAnise",
-  },
-  regions: {
-    id: "regions",
-    name: "Regions",
-    full: "Sunder Regions",
-    who: "The rooted foodie",
-    line: "Apna region, apni thali.",
-    blurb:
-      "Hyper-local blends you cannot find on a national shelf. One region, one hero dish, one masala.",
-    voice: ["Sarcastic", "Punny", "Intentional"],
-    bg: "var(--color-saffron)",
-    ink: "var(--color-ink)",
-    accent: "var(--color-oxblood)",
-    accentHex: "#6f1a10",
-    tw: { bg: "bg-saffron", text: "text-ink", accent: "text-oxblood" },
-    font: "font-regional",
-    icon: "thela",
-  },
   essentials: {
     id: "essentials",
     name: "Essentials",
@@ -62,10 +32,114 @@ export const RANGES = {
   },
 };
 
-/* Stocked first. Essentials is the only range with anything in it today, so
-   leading with Heritage put two "coming soon" panels — and two dead filter
-   chips — ahead of the first thing anyone can actually buy. */
-export const RANGE_LIST = [RANGES.essentials, RANGES.regions, RANGES.heritage];
+export const RANGE_LIST = [RANGES.essentials];
+
+/* ── Categories — the real shop taxonomy ──────────────────
+   These are the four collections the live sundermasala.com store actually
+   sells under, and they partition the catalogue exactly: 13 + 9 + 8 + 2 = 32.
+
+   A category is a shelf fact ("what is in the packet"), so every SKU has one
+   and every category has SKUs — which is why this, and not RANGES, is what
+   the shop filters, the nav and the footer are built from. */
+export const CATEGORIES = {
+  blended: {
+    id: "blended",
+    name: "Blended Spices",
+    full: "Sunder Blended Spices",
+    line: "Poora masala, ek packet mein.",
+    blurb:
+      "The ground-and-mixed shelf. Many spices, roasted and milled to one recipe, so a dish takes one spoon instead of nine jars.",
+    bg: "var(--color-oxblood)",
+    ink: "var(--color-marigold)",
+    icon: "jar",
+  },
+  pure: {
+    id: "pure",
+    name: "Pure Spices",
+    full: "Sunder Pure Spices",
+    line: "Ek cheez. Bas woh cheez.",
+    blurb:
+      "Single spices, ground and nothing else. No filler, no colour, no bulking agent — haldi that is only haldi.",
+    bg: "var(--color-saffron)",
+    ink: "var(--color-ink)",
+    icon: "turmeric",
+  },
+  whole: {
+    id: "whole",
+    name: "Whole Spices",
+    full: "Sunder Whole Spices",
+    line: "Sabut. Jaisa ped se aaya.",
+    blurb:
+      "Uncut seed and pod, for the tadka and the grinder at home. The oil is still inside — it comes out in the pan, not in the packet.",
+    bg: "var(--color-forest)",
+    ink: "var(--color-ghee)",
+    icon: "cumin",
+  },
+  asafoetida: {
+    id: "asafoetida",
+    name: "Asafoetida",
+    full: "Sunder Asafoetida (Hing)",
+    line: "Ek chutki, poora tadka.",
+    blurb:
+      "Hing on its own shelf, because it behaves like nothing else in the box — a pinch does the work of a handful.",
+    bg: "var(--color-cobalt)",
+    ink: "var(--color-marigold)",
+    icon: "pinch",
+  },
+};
+
+/* Shelf order: biggest shelf first, hing last — it is two SKUs and a
+   specialist buy, not somewhere to start browsing. */
+export const CATEGORY_LIST = [
+  CATEGORIES.blended,
+  CATEGORIES.pure,
+  CATEGORIES.whole,
+  CATEGORIES.asafoetida,
+];
+
+/* Membership by slug rather than a `category:` line inside each of the 32
+   literals — kept here it can be read as a whole and checked against the
+   live collection pages in one glance, and the assertion below catches a
+   typo or a missed SKU at import time instead of on a silently short shelf. */
+const CATEGORY_MEMBERS = {
+  blended: [
+    "garam-masala",
+    "kitchen-king",
+    "shahi-paneer-masala",
+    "pav-bhaji-masala",
+    "chole-masala",
+    "sambhar-masala",
+    "raita-masala",
+    "chaat-masala",
+    "jaljira",
+    "kasuri-methi",
+    "dal-masala",
+    "jeeravan-poha-masala",
+    "achar-masala",
+  ],
+  pure: [
+    "lal-mirch-powder",
+    "kuti-teja-mirch",
+    "haldi-powder",
+    "dhaniya-powder",
+    "amchur-powder",
+    "kashmiri-mirchi-powder",
+    "kali-mirch-powder",
+    "safed-mirch-powder",
+    "sunth-powder",
+  ],
+  whole: [
+    "jeera-whole",
+    "rai-whole",
+    "kali-mirch-whole",
+    "laung-whole",
+    "methi-dana-whole",
+    "ajwain-whole",
+    "elaichi-whole",
+    "sauf-whole",
+  ],
+  asafoetida: ["shahi-hing", "asafoetida-hing"],
+};
 
 export const PRODUCTS = [
   {
@@ -706,6 +780,31 @@ for (const p of PRODUCTS) {
     p.packText === "var(--color-ink)" ? "rgba(20,16,12,0.68)" : "rgba(253,246,232,0.78)";
 }
 
+/* ── Category assignment ──────────────────────────────────
+   Inverted from CATEGORY_MEMBERS once, then written onto each product so the
+   rest of the app reads `p.category` exactly the way it reads `p.range`. */
+const CATEGORY_OF = Object.fromEntries(
+  Object.entries(CATEGORY_MEMBERS).flatMap(([id, slugs]) => slugs.map((s) => [s, id]))
+);
+
+for (const p of PRODUCTS) {
+  p.category = CATEGORY_OF[p.slug];
+}
+
+/* A SKU with no shelf would vanish from every category filter while still
+   showing in "Everything" — the kind of fault that reads as a missing product
+   rather than a data error. Fail loudly at import instead. */
+if (process.env.NODE_ENV !== "production") {
+  const orphans = PRODUCTS.filter((p) => !p.category).map((p) => p.slug);
+  if (orphans.length) {
+    throw new Error(`products.js: no category for ${orphans.join(", ")}`);
+  }
+  const unknown = Object.keys(CATEGORY_OF).filter((s) => !PRODUCTS.some((p) => p.slug === s));
+  if (unknown.length) {
+    throw new Error(`products.js: CATEGORY_MEMBERS names unknown slug ${unknown.join(", ")}`);
+  }
+}
+
 /* ── Helpers ──────────────────────────────────────────── */
 
 export const getProduct = (slug) => PRODUCTS.find((p) => p.slug === slug);
@@ -713,10 +812,12 @@ export const getProduct = (slug) => PRODUCTS.find((p) => p.slug === slug);
 export const productsByRange = (range) =>
   range === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.range === range);
 
-/* Regions and Heritage are announced but not yet stocked — the whole
-   catalogue currently ships as Essentials. Anything that renders a range
-   asks this rather than assuming a non-empty list, so the day a Heritage
-   SKU is added the "coming soon" states disappear on their own. */
+export const productsByCategory = (category) =>
+  category === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.category === category);
+
+/* Kept for any caller that still guards on it: with the unstocked ranges
+   gone this is always false, but a range added later with no SKUs in it
+   would light the "coming soon" states back up on its own. */
 export const isComingSoon = (range) => productsByRange(range).length === 0;
 
 export const featuredProducts = () => PRODUCTS.filter((p) => p.featured);
@@ -727,7 +828,15 @@ export const featuredProducts = () => PRODUCTS.filter((p) => p.featured);
 export const starterProducts = () =>
   ["garam-masala", "haldi-powder", "lal-mirch-powder"].map(getProduct).filter(Boolean);
 
-export const relatedProducts = (product, limit = 3) =>
-  PRODUCTS.filter((p) => p.range === product.range && p.slug !== product.slug).slice(0, limit);
+/* Was `p.range === product.range`, which is every one of the 32 packs — so
+   "more like this" under a whole jeera offered chaat masala. Category is the
+   shelf a shopper is actually standing at, so it goes first; the rest of the
+   catalogue backfills only when a shelf is smaller than `limit`. */
+export const relatedProducts = (product, limit = 3) => {
+  const others = PRODUCTS.filter((p) => p.slug !== product.slug);
+  const sameShelf = others.filter((p) => p.category === product.category);
+  const rest = others.filter((p) => p.category !== product.category);
+  return [...sameShelf, ...rest].slice(0, limit);
+};
 
 export const formatPrice = (n) => `₹${n.toLocaleString("en-IN")}`;

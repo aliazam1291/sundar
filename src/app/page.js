@@ -13,9 +13,10 @@ import { TICKER } from "@/lib/content";
  * The page reads: the promise → what we sell → who we are → what to cook →
  * who says so → how to use it → where to buy.
  *
- * Sections that used to sit here and no longer do: the sourcing pillars and
- * the region map (both render in full on /story and /regions — they were
- * being scrolled past twice), the brand-platform cards (now on /story), and
+ * Sections that used to sit here and no longer do: the sourcing pillars (they
+ * render in full on /story — it was being scrolled past twice), the region
+ * map (the Regions range is no longer part of the site, so neither is its
+ * map; the component is still in the repo), the brand-platform cards, and
  * the chutki essay, the horn and the separate featured shelf, which the
  * category section now covers. Their components are all still in the repo.
  */

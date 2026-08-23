@@ -8,7 +8,7 @@ import Marquee from "@/components/marquee";
 import SiteSearch from "@/components/site-search";
 import { Star, SpiceIcon } from "@/components/spice-icons";
 import { TICKER } from "@/lib/content";
-import { RANGE_LIST, productsByRange, isComingSoon, PRODUCTS } from "@/lib/products";
+import { CATEGORY_LIST, productsByCategory, PRODUCTS } from "@/lib/products";
 import { RECIPES } from "@/lib/recipes";
 
 /**
@@ -39,11 +39,11 @@ const NAV = [
   {
     label: "Our Story",
     href: "/story",
-    match: (p) => p.startsWith("/story") || p.startsWith("/regions"),
+    match: (p) => p.startsWith("/story"),
     links: [
       { href: "/story", label: "Our story", note: "A boy, a bicycle, 1975", icon: "starAnise" },
-      { href: "/regions", label: "Regional map", note: "Twelve districts, twelve plates", icon: "thela" },
       { href: "/#ritual", label: "The chutki", note: "Kam masala, poora swaad", icon: "pinch" },
+      { href: "/story#sourcing", label: "Sourcing", note: "Where the spice comes from", icon: "sprig" },
     ],
   },
   {
@@ -298,42 +298,49 @@ export default function SiteHeader() {
           style={{ maxHeight: "100dvh", transitionTimingFunction: "var(--ease-spice)" }}
         >
           <div className="px-6">
-            {/* The ranges lead on mobile too — they are what people came for,
-                and burying them under a "Shop" tap cost a whole step. */}
-            <p className="eyebrow text-marigold">Shop the ranges</p>
-            <ul className="mt-3 grid gap-2">
-              {RANGE_LIST.map((r) => (
-                <li key={r.id}>
+            {/* The shelves lead on mobile too — they are what people came for,
+                and burying them under a "Shop" tap cost a whole step. These
+                are categories rather than ranges: every one has stock, so no
+                tap here lands on an empty grid. */}
+            <p className="eyebrow text-marigold">Shop the shelves</p>
+            {/* The taglines wrap to two and three lines at 320px, which pushed
+                every nav link and the CTA below the fold on a small phone —
+                the sheet scrolled, but nothing on screen said so. One
+                truncated line keeps the flavour and puts the rest in frame. */}
+            <ul className="mt-3 grid gap-1.5">
+              {CATEGORY_LIST.map((c) => (
+                <li key={c.id}>
                   <Link
-                    href={`/shop?range=${r.id}`}
-                    className="flex items-center gap-3 rounded-xl border border-ghee/20 px-4 py-3.5"
+                    href={`/shop?category=${c.id}`}
+                    className="flex items-center gap-3 rounded-xl border border-ghee/20 px-4 py-2.5"
                   >
-                    <SpiceIcon name={r.icon} className="w-6 shrink-0 text-marigold" />
+                    <SpiceIcon name={c.icon} className="w-5 shrink-0 text-marigold" />
                     <span className="min-w-0 flex-1">
-                      <span className="block text-sm font-semibold">{r.full}</span>
-                      <span className="label-micro mt-0.5 block text-ghee/55">{r.who}</span>
+                      <span className="block text-sm font-semibold">{c.name}</span>
+                      <span className="label-micro mt-0.5 block truncate text-ghee/55">{c.line}</span>
                     </span>
                     <span className="label-micro shrink-0 text-marigold">
-                      {isComingSoon(r.id) ? "Soon" : productsByRange(r.id).length}
+                      {productsByCategory(c.id).length}
                     </span>
                   </Link>
                 </li>
               ))}
             </ul>
 
-            <ul className="mt-7 divide-y divide-ghee/15 border-y border-ghee/15">
+            <ul className="mt-5 divide-y divide-ghee/15 border-y border-ghee/15">
               {[
                 { href: "/#categories", label: "Categories" },
                 { href: "/shop", label: "All blends", count: PRODUCTS.length },
                 { href: "/recipes", label: "Rasoi", count: RECIPES.length },
                 { href: "/story", label: "Our Story" },
-                { href: "/regions", label: "Regions" },
                 { href: "/faq", label: "FAQs" },
                 { href: "/#ritual", label: "The Chutki" },
               ].map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="flex items-center justify-between gap-4 py-4">
-                    <span className="font-poster text-[1.9rem] leading-none">{item.label}</span>
+                  <Link href={item.href} className="flex items-center justify-between gap-4 py-3">
+                    <span className="font-poster text-[1.6rem] leading-none sm:text-[1.9rem]">
+                      {item.label}
+                    </span>
                     {item.count ? (
                       <span className="label-micro text-ghee/50">{item.count}</span>
                     ) : (
@@ -344,7 +351,7 @@ export default function SiteHeader() {
               ))}
             </ul>
 
-            <Link href="/shop" className="btn btn-gold mt-7 w-full justify-center">
+            <Link href="/shop" className="btn btn-gold mt-6 w-full justify-center">
               <SpiceIcon mono name="jar" className="w-4" />
               Buy the range
             </Link>
@@ -380,27 +387,27 @@ function RangeMenu({ onPick }) {
 
       <div className="rule-dots my-1.5 text-ink/20" aria-hidden="true" />
 
-      {RANGE_LIST.map((r) => (
+      {CATEGORY_LIST.map((c) => (
         <Link
-          key={r.id}
-          href={`/shop?range=${r.id}`}
+          key={c.id}
+          href={`/shop?category=${c.id}`}
           onClick={onPick}
           className="flex items-start gap-3 rounded-[0.9rem] px-3 py-2.5 transition-colors hover:bg-cream"
         >
           <span
             className="mt-0.5 grid h-9 w-9 shrink-0 place-content-center rounded-full border-2 border-ink"
-            style={{ background: r.bg }}
+            style={{ background: c.bg }}
           >
-            <SpiceIcon mono name={r.icon} className="w-4" style={{ color: r.ink }} />
+            <SpiceIcon mono name={c.icon} className="w-4" style={{ color: c.ink }} />
           </span>
           <span className="min-w-0 flex-1">
             <span className="flex items-baseline justify-between gap-3">
-              <span className="h-card text-ink">{r.name}</span>
+              <span className="h-card text-ink">{c.name}</span>
               <span className="label-micro shrink-0 text-ink-mute">
-                {isComingSoon(r.id) ? "Soon" : productsByRange(r.id).length}
+                {productsByCategory(c.id).length}
               </span>
             </span>
-            <span className="mt-0.5 block text-meta text-ink-mute">{r.who}</span>
+            <span className="mt-0.5 block text-meta text-ink-mute">{c.line}</span>
           </span>
         </Link>
       ))}

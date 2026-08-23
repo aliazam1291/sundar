@@ -1006,6 +1006,23 @@ body {
 .reveal-ready [data-reveal].is-in {
   opacity: 1;
   transform: none;
+}
+
+/* The clip end-state belongs to the clip reveal ALONE.
+ *
+ * This used to sit on `[data-reveal].is-in`, so every revealed container ended
+ * up with `clip-path: inset(0 0 0 0)` — a clip to its exact border box — even
+ * though only `[data-reveal="clip"]` animates a clip. Anything a child paints
+ * outside that box was then sliced the moment the section scrolled into view,
+ * which is why it never showed up in a static screenshot taken before the
+ * reveal fired.
+ *
+ * What it cut: every `.plaque` eyebrow. `.tilt-tag` rotates the pill -2.5deg,
+ * so its corners rise 2.3–5.2px above the container's top edge, and its
+ * `3px 3px 0` hard shadow sits outside on the right — all of it clipped flat.
+ * Hover states that lift a card (`translate(-3px,-3px)` plus a 10px shadow)
+ * were losing their shadow the same way. */
+.reveal-ready [data-reveal="clip"].is-in {
   clip-path: inset(0 0 0 0);
 }
 

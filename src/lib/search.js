@@ -11,7 +11,7 @@
  * it earns.
  */
 
-import { PRODUCTS, RANGES } from "@/lib/products";
+import { PRODUCTS, CATEGORIES } from "@/lib/products";
 import { RECIPES, kickerOf } from "@/lib/recipes";
 
 const norm = (s) =>
@@ -84,10 +84,18 @@ function buildIndex() {
       sub: p.kind,
       hindi: p.hindi,
       icon: p.icon,
-      meta: `${RANGES[p.range]?.name ?? ""} · ${p.size}`,
+      meta: `${CATEGORIES[p.category]?.name ?? ""} · ${p.size}`,
       href: `/shop/${p.slug}`,
       terms: norm(
-        [p.name, p.kind, DEVA[p.slug], p.hindi, p.tagline, RANGES[p.range]?.name, p.slug.replace(/-/g, " ")].join(" ")
+        [
+          p.name,
+          p.kind,
+          DEVA[p.slug],
+          p.hindi,
+          p.tagline,
+          CATEGORIES[p.category]?.name,
+          p.slug.replace(/-/g, " "),
+        ].join(" ")
       ),
     });
   }

@@ -82,7 +82,7 @@ export const FAQS = [
   {
     group: "buying",
     q: "How is Sunder different from the big national masala brands?",
-    a: "Two things. Our Regions range makes hyper-local blends that a national brand cannot justify — one region, one hero dish, one masala — and we grind for potency rather than volume, so the pack is smaller and lasts longer. We would rather sell you 50g you finish than 500g that goes stale in the cupboard.",
+    a: "Two things. We grind for potency rather than volume, so the pack is smaller and lasts longer — we would rather sell you 50g you finish than 500g that goes stale in the cupboard. And we sell the whole spice as well as the blend, so you can buy jeera as seed for the tadka and as part of a masala, from the same mill.",
   },
   {
     group: "buying",

@@ -1,11 +1,14 @@
 import Link from "next/link";
 import PackShot from "@/components/pack-shot";
 import HeatScale from "@/components/heat-scale";
-import { RANGES, formatPrice } from "@/lib/products";
+import { CATEGORIES, formatPrice } from "@/lib/products";
 import { SpiceIcon } from "@/components/spice-icons";
 
 export default function ProductCard({ product, index = 0 }) {
-  const range = RANGES[product.range];
+  /* The shelf, not the range: every one of the 32 packs is Essentials, so
+     that label printed the same word on every card in the grid and carried
+     no information. "Whole Spices" vs "Blended Spices" actually sorts them. */
+  const category = CATEGORIES[product.category];
 
   return (
     <article
@@ -36,7 +39,7 @@ export default function ProductCard({ product, index = 0 }) {
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
               <p className="chip mb-2.5 border-none px-0" style={{ color: product.hueInk }}>
-                {range.name}
+                {category.name}
               </p>
               <h3 className="h-poster-xs text-ink">
                 {product.name}

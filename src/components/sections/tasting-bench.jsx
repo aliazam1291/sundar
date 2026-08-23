@@ -4,8 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import PackShot from "@/components/pack-shot";
 import { Star, SpiceIcon } from "@/components/spice-icons";
-import { PRODUCTS, RANGES, formatPrice } from "@/lib/products";
-import { readableOn } from "@/lib/color";
+import { PRODUCTS, CATEGORIES, formatPrice } from "@/lib/products";
 
 /**
  * The tasting bench — build a chutki, get a real blend back.
@@ -71,7 +70,9 @@ export default function TastingBench() {
     return best;
   }, [mix]);
 
-  const range = RANGES[match.range];
+  /* The shelf, not the range — the range chip read "Essentials" whatever the
+     bench handed back, which told the player nothing about what they built. */
+  const category = CATEGORIES[match.category];
 
   return (
     <section className="relative isolate overflow-hidden bg-cobalt section text-paper">
@@ -157,9 +158,12 @@ export default function TastingBench() {
               <div className="min-w-0">
                 <span
                   className="chip chip-solid"
-                  style={{ "--chip-bg": range.accent, "--chip-fg": readableOn(range.accentHex) }}
+                  /* Each category declares the foreground that is readable on
+                     its own ground (measured 4.92–9.63:1), so the chip takes
+                     the pair straight from the record instead of deriving one. */
+                  style={{ "--chip-bg": category.bg, "--chip-fg": category.ink }}
                 >
-                  {range.name}
+                  {category.name}
                 </span>
                 <h3 className="h-poster-xs mt-3">{match.name}</h3>
                 <p className="label-micro mt-1.5 text-ghee/70">{match.kind}</p>

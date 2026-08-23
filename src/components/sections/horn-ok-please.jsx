@@ -160,7 +160,7 @@ export default function HornOkPlease() {
                 )}
               </svg>
             </button>
-            <Link href="/regions" className="btn btn-ghost text-sun">
+            <Link href="/story" className="btn btn-ghost text-sun">
               Follow the route
             </Link>
           </div>

@@ -107,8 +107,8 @@ export default function FindUs() {
                 <SpiceIcon mono name="jar" className="w-4" />
                 Shop all {PRODUCTS.length} blends
               </Link>
-              <Link href="/shop?range=essentials" className="btn btn-ghost btn-sm text-ink">
-                Start with Essentials
+              <Link href="/shop?category=blended" className="btn btn-ghost btn-sm text-ink">
+                Start with the blends
               </Link>
             </div>
           </div>
@@ -146,7 +146,7 @@ export default function FindUs() {
               10,000+ stores and 500+ highway dhabas already carry us. Ask for the red pack.
             </p>
 
-            <a href="tel:+917312500000" className="btn btn-gold btn-sm mt-5">
+            <a href="tel:+917312500000" className="btn btn-gold btn-sm mt-5 self-start">
               <SpiceIcon mono name="truck" className="w-4" />
               Find a stockist
             </a>
@@ -179,7 +179,14 @@ export default function FindUs() {
               Bulk formats, distribution opportunities and business enquiries. Bataiye aapka city,
               volume, aur zaroorat.
             </p>
-            <a href={TRADE_MAIL} className="btn btn-gold btn-sm mt-5">
+            {/* btn-gold ships an oxblood shadow, and this card *is* oxblood —
+                the hard shadow was landing invisibly, so the one button on the
+                card read as flat against every other pill on the page. */}
+            <a
+              href={TRADE_MAIL}
+              className="btn btn-gold btn-sm mt-5 self-start"
+              style={{ "--btn-shadow": "var(--color-ink)" }}
+            >
               Become a distributor
             </a>
           </div>

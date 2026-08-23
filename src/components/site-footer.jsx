@@ -3,24 +3,23 @@ import Logo from "@/components/logo";
 import Marquee from "@/components/marquee";
 import RevealRoot from "@/components/reveal-root";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
-import { RANGE_LIST } from "@/lib/products";
+import { CATEGORY_LIST, productsByCategory } from "@/lib/products";
 
 const COLUMNS = [
   {
     title: "Shop",
     links: [
       { href: "/shop", label: "All blends" },
-      { href: "/#categories", label: "Shop by category" },
-      { href: "/shop?range=heritage", label: "Heritage" },
-      { href: "/shop?range=regions", label: "Regions" },
-      { href: "/shop?range=essentials", label: "Essentials" },
+      { href: "/shop?category=blended", label: "Blended spices" },
+      { href: "/shop?category=pure", label: "Pure spices" },
+      { href: "/shop?category=whole", label: "Whole spices" },
+      { href: "/shop?category=asafoetida", label: "Asafoetida · hing" },
     ],
   },
   {
     title: "The brand",
     links: [
       { href: "/story", label: "Our story" },
-      { href: "/regions", label: "Regional map" },
       { href: "/recipes", label: "Rasoi · recipes" },
       { href: "/#ritual", label: "The chutki ritual" },
       { href: "/story#sourcing", label: "Sourcing" },
@@ -125,21 +124,25 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        {/* range strip */}
-        <div className="section-body grid gap-3 border-t border-ghee/15 pt-10 sm:grid-cols-3">
-          {RANGE_LIST.map((r, i) => (
-            <div
-              key={r.id}
+        {/* shelf strip — four now, so it steps 1 → 2 → 4 rather than
+            leaving a lone orphan on the second row of a three-up grid */}
+        <div className="section-body grid gap-3 border-t border-ghee/15 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+          {CATEGORY_LIST.map((c, i) => (
+            <Link
+              key={c.id}
+              href={`/shop?category=${c.id}`}
               data-reveal="up"
               style={{ "--reveal-delay": `${i * 80}ms` }}
-              className="flex items-start gap-3.5"
+              className="flex items-start gap-3.5 rounded-xl p-2 -m-2 transition-colors hover:bg-ghee/8"
             >
-              <SpiceIcon name={r.icon} className="mt-0.5 w-7 shrink-0 text-marigold" />
-              <div>
-                <p className="font-poster text-lg leading-none">{r.name}</p>
-                <p className="mt-1.5 text-label text-ghee/70">{r.who}</p>
+              <SpiceIcon name={c.icon} className="mt-0.5 w-7 shrink-0 text-marigold" />
+              <div className="min-w-0">
+                <p className="font-poster text-lg leading-none">{c.name}</p>
+                <p className="mt-1.5 text-label text-ghee/70">
+                  {productsByCategory(c.id).length} blends
+                </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

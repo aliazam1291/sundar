@@ -22,7 +22,6 @@ const PAGES = [
   "/shop",
   "/shop/dal-masala",
   "/story",
-  "/regions",
   "/recipes",
   "/recipes/indori-poha",
   "/faq",

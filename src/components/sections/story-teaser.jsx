@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FOUNDER } from "@/lib/content";
-import { Star, SpiceIcon } from "@/components/spice-icons";
+import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 
 /**
  * The story, as a trailer.
@@ -9,53 +9,67 @@ import { Star, SpiceIcon } from "@/components/spice-icons";
  * the same ~1400px of chapters twice, with the founder card appearing on a
  * landing page before anyone had asked who he was. This is the one-beat
  * version that sends people to the real thing.
+ *
+ * Painted as a lorry panel, not as a film frame. The previous version was a
+ * sepia reel — black letterbox bars, grain, a vignette, terracotta on near-
+ * black — which is a whole second visual language dropped between two
+ * truck-art sections, and on the home page it read as a different site. The
+ * beat it carries (one year, one line, one man) survives; the grade does not.
+ *
+ * It also drops the `text-ivory/70`-style fades that version leaned on. Per
+ * the README, faded type over a saturated ground blends toward that ground
+ * and quietly fails contrast — every value here is a solid palette colour
+ * chosen to pass on forest.
  */
 export default function StoryTeaser() {
   return (
-    <section className="relative isolate overflow-hidden bg-reel section text-ivory">
-      {/* film grain */}
-      <svg
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.09] mix-blend-screen"
-        aria-hidden="true"
-        preserveAspectRatio="none"
-      >
-        <filter id="teaserGrain">
-          <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="9" />
-          <feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#teaserGrain)" />
-      </svg>
+    <section className="relative isolate overflow-hidden bg-forest section text-ghee">
+      <Sunburst
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold"
+        rays={52}
+        opacity={0.1}
+      />
+      <div className="tex-grid pointer-events-none absolute inset-0 opacity-25" aria-hidden="true" />
 
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "radial-gradient(110% 75% at 50% 45%, transparent 45%, rgba(0,0,0,0.7) 100%)" }}
-        aria-hidden="true"
+      {/* The chakki is the one prop worth keeping from the reel — it is the
+          object the whole story is about. Sized off the viewport so it scales
+          out of the way on a phone instead of sitting under the headline. */}
+      <SpiceIcon
+        mono
+        name="chakki"
+        className="pointer-events-none absolute -right-14 bottom-4 w-[min(26rem,55vw)] text-marigold opacity-[0.08]"
       />
 
-      {/* letterbox */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-20 h-5 bg-black sm:h-7" aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-5 bg-black sm:h-7" aria-hidden="true" />
-
-      <div className="shell relative grid items-center gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <div className="shell relative grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
         <div data-reveal="up">
-          <p className="label-micro text-dune/70">A film in one reel</p>
           <p
-            className="font-poster text-drop mt-3 text-[clamp(4rem,12vw,9rem)] leading-[0.85] text-terracotta"
-            style={{ "--drop": "var(--color-sepia)" }}
+            className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
+            style={{ "--plaque-bg": "var(--color-chilli)", "--plaque-fg": "var(--color-paper)" }}
+          >
+            <Star className="w-3.5" />
+            A film in one reel
+          </p>
+
+          <p
+            className="font-poster text-drop mt-5 text-[clamp(4rem,12vw,9rem)] leading-[0.85] text-marigold"
+            style={{ "--drop": "var(--color-ink)" }}
           >
             1975
           </p>
-          <p className="font-deva mt-3 text-copy-lg text-ivory/60" lang="hi">
+
+          <p className="font-deva mt-3 text-copy-lg text-ghee" lang="hi">
             भारत · India
           </p>
+
+          <div className="rule-dots mt-6 max-w-[12rem] text-marigold/45" aria-hidden="true" />
         </div>
 
         <div data-reveal="up" style={{ "--reveal-delay": "120ms" }}>
-          <p className="font-editorial text-[clamp(1.6rem,3.6vw,2.75rem)] italic leading-[1.1] text-ivory">
-            Purani Recipe. Nayi Pehchaan.
+          <p className="font-editorial text-[clamp(1.6rem,3.6vw,2.75rem)] italic leading-[1.15] text-paper">
+            Purani Recipe. <span className="text-marigold">Nayi Pehchaan.</span>
           </p>
 
-          <p className="mt-5 max-w-lg text-copy-lg text-ivory/70">
+          <p className="mt-5 max-w-lg text-copy-lg text-ghee">
             1975. Indore. Ek cycle ki dukaan. Aur phir masalon ka kaam.
           </p>
 
@@ -63,31 +77,34 @@ export default function StoryTeaser() {
               and keeps {FOUNDER.name} its own sentence so a line-wrapped JSX
               expression can never again swallow the space after it (see the
               git history on this file for exactly that bug). */}
-          <p className="mt-4 max-w-lg text-copy-lg text-ivory/65">
+          <p className="mt-4 max-w-lg text-copy text-ghee">
             {FOUNDER.name} started Sunder with a simple belief: gharon tak wahi masala jaana
             chahiye jo apne ghar mein bhi use kiya jaye.
           </p>
-          <p className="mt-4 max-w-lg text-copy-lg text-ivory/65">
+          <p className="mt-4 max-w-lg text-copy text-ghee">
             Fifty years and three generations later, the belief hasn&rsquo;t changed: real
             ingredients, no fillers, no shortcuts.
           </p>
-          <p className="mt-4 max-w-lg text-copy-lg text-ivory/65">
+          <p className="mt-4 max-w-lg text-copy text-ghee">
             What&rsquo;s changed is how far that spice travels. From one Indore kitchen to homes
             across India, we still hand-pound and slow-grind the way the family always has,
             because that&rsquo;s the only way heritage masala is supposed to taste.
           </p>
 
-          <div className="rule-dots mt-7 max-w-xs text-terracotta/50" aria-hidden="true" />
-
-          <p className="label-micro mt-5 text-terracotta-2">
-            {FOUNDER.name} · {FOUNDER.role}
+          <p
+            className="mt-7 inline-flex flex-wrap items-center gap-x-2.5 gap-y-1 border-s-4 border-marigold ps-4 text-label font-semibold uppercase tracking-[0.18em] text-marigold"
+          >
+            {FOUNDER.name}
+            <span className="text-ghee">· {FOUNDER.role}</span>
           </p>
 
-          <Link href="/story" className="btn btn-ghost mt-7 border-ivory/40 text-ivory">
-            <SpiceIcon mono name="chakki" className="w-4" />
-            Watch the reel
-            <Star className="w-3" />
-          </Link>
+          <div className="mt-8">
+            <Link href="/story" className="btn btn-gold">
+              <SpiceIcon mono name="chakki" className="w-4" />
+              Read the full story
+              <Star className="w-3" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

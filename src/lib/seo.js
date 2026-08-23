@@ -15,7 +15,7 @@
  * exactly that mismatch.
  */
 
-import { PRODUCTS, RANGES, formatPrice } from "@/lib/products";
+import { PRODUCTS, CATEGORIES, formatPrice } from "@/lib/products";
 import { RECIPES, COOK_ACTIONS } from "@/lib/recipes";
 
 export const SITE = "https://sundermasala.com";
@@ -34,7 +34,7 @@ export const organizationJsonLd = () => ({
   foundingDate: "1975",
   slogan: "Kam masala, poora swaad",
   description:
-    "Slow-ground Indian spices and masala blends from Indore, Madhya Pradesh. Three ranges — Heritage, Regions and Everyday Essentials.",
+    "Slow-ground Indian spices and masala blends from Indore, Madhya Pradesh. Blended masalas, pure ground spices, whole seed and hing.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Indore",
@@ -56,7 +56,7 @@ export const websiteJsonLd = () => ({
 
 /** One SKU, with the trail above it. */
 export function productJsonLd(product) {
-  const range = RANGES[product.range];
+  const category = CATEGORIES[product.category];
 
   return [
     {
@@ -67,7 +67,7 @@ export function productJsonLd(product) {
       description: product.tagline,
       image: abs(product.image),
       sku: product.slug,
-      category: `Spices & Masala · ${range?.name ?? ""}`.trim(),
+      category: `Spices & Masala · ${category?.name ?? ""}`.trim(),
       brand: { "@type": "Brand", name: "Sunder Masala" },
       offers: {
         "@type": "Offer",
@@ -87,7 +87,7 @@ export function productJsonLd(product) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Shop", item: abs("/shop") },
-        { "@type": "ListItem", position: 2, name: range?.name ?? "Range", item: abs(`/shop?range=${product.range}`) },
+        { "@type": "ListItem", position: 2, name: category?.name ?? "Shop", item: abs(`/shop?category=${product.category}`) },
         { "@type": "ListItem", position: 3, name: product.name },
       ],
     },
