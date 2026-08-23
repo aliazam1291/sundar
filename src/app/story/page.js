@@ -2,6 +2,7 @@ import Link from "next/link";
 import Journey from "@/components/sections/journey";
 import Sourcing from "@/components/sections/sourcing";
 import ChakkiMill from "@/components/sections/chakki-mill";
+import HeritageFilm from "@/components/heritage-film";
 import { Journal } from "@/components/sections/ritual";
 import { TIMELINE, FOUNDER } from "@/lib/content";
 import { PRODUCTS } from "@/lib/products";
@@ -22,8 +23,6 @@ export default function StoryPage() {
           rays={52}
           opacity={0.1}
         />
-        <SpiceIcon mono name="chakki" className="pointer-events-none absolute -right-10 top-4 w-80 text-marigold opacity-[0.09]" />
-
         <div className="relative shell">
           <p className="eyebrow flex items-center gap-2.5 text-marigold">
             <Star className="w-3.5" />
@@ -57,6 +56,8 @@ export default function StoryPage() {
           </div>
         </div>
       </section>
+
+      <HeritageFilm />
 
       {/* the film reel */}
       <Journey />

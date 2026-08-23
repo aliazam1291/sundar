@@ -817,7 +817,10 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 16px 22px rgba(20, 16, 12, 0.35));
+  /* The source catalogue photos include a 1px studio floor at their very
+     bottom. Their own transparent margin keeps this crop off the pack. */
+  clip-path: inset(0 0 1.5% 0);
+  filter: none;
 }
 .pack--photo .pack__shadow {
   display: none;
@@ -829,7 +832,7 @@ body {
   border: 2px solid var(--color-ink);
   border-radius: 1.1rem;
   background: var(--color-paper);
-  box-shadow: 6px 6px 0 var(--color-ink);
+  box-shadow: none;
 }
 /* Round the photo rather than clipping the plate: the screenshot's square
    corners are the only thing that needed containing, and clipping the whole
@@ -1329,6 +1332,21 @@ body {
 .anim-swap {
   animation: swap-in 0.5s var(--ease-spice) both;
 }
+
+.hero-family-wrap { width: 100%; max-width: 44rem; margin-inline: auto; }
+.hero-family { position: relative; isolation: isolate; aspect-ratio: 1.279 / 1; overflow: visible; background: transparent; }
+.hero-family__spotlight { position: absolute; z-index: 2; inset: 0; pointer-events: none; background: radial-gradient(circle 12rem at var(--spot-x) var(--spot-y), rgba(168, 48, 156, 0.72), rgba(168, 48, 156, 0) 68%); mix-blend-mode: screen; animation: hero-spot-in 380ms var(--ease-spice) both; }
+.hero-family__image { z-index: 1; object-fit: contain; }
+@keyframes hero-spot-in { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: scale(1); } }
+.hero-family__label { position: absolute; z-index: 3; left: 0; bottom: 0; max-width: min(13.5rem, calc(100% - 1rem)); padding: 0.7rem 0.8rem; border: 1px solid color-mix(in srgb, var(--color-marigold) 70%, transparent); border-radius: 0.75rem; background: color-mix(in srgb, var(--color-forest) 88%, transparent); color: var(--color-paper); }
+.hero-family__label span, .hero-family__label strong { display: block; }
+.hero-family__label span { color: var(--color-marigold); font-size: var(--text-micro); font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; }
+.hero-family__label strong { margin-top: 0.15rem; font-family: var(--font-poster); font-size: clamp(1.25rem, 3vw, 1.75rem); line-height: 1; }
+.hero-family__label p { margin: 0.35rem 0 0; font-size: var(--text-meta); line-height: 1.35; }
+.hero-family__label a { display: inline-block; margin-top: 0.5rem; color: var(--color-ghee); font-size: var(--text-label); font-weight: 700; }
+.hero-family__picker { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.35rem; margin-top: 0.75rem; }
+.hero-family__picker button { min-height: 2.6rem; border: 1px solid color-mix(in srgb, var(--color-marigold) 45%, transparent); border-radius: 0.45rem; background: transparent; color: var(--color-ghee); font-family: var(--font-body); font-size: var(--text-label); font-weight: 700; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 160ms var(--ease-snap); }
+.hero-family__picker button:hover, .hero-family__picker button.is-active { background: var(--color-marigold); color: var(--color-ink); transform: translateY(-2px); }
 
 @keyframes rise-in {
   from { opacity: 0; transform: translateY(1.05em); }

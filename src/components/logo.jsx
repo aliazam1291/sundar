@@ -23,7 +23,7 @@ import Image from "next/image";
 export default function Logo({ className = "", priority = false, title = "Sunder Masala" }) {
   return (
     <Image
-      src="/sundar-logo.png"
+      src="/sundar-logo.webp"
       alt={title}
       width={397}
       height={294}

@@ -5,7 +5,6 @@ import RecipeTeaser from "@/components/sections/recipe-teaser";
 import Reviews from "@/components/sections/reviews";
 import HornOkPlease from "@/components/sections/horn-ok-please";
 import Ritual from "@/components/sections/ritual";
-import FindUs from "@/components/sections/find-us";
 import Marquee from "@/components/marquee";
 import { TICKER } from "@/lib/content";
 
@@ -69,8 +68,6 @@ export default function Home() {
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-cobalt)", "--trim-b": "var(--color-raspberry)" }} aria-hidden="true" />
 
-      {/* where to buy, and the trade enquiry */}
-      <FindUs />
     </>
   );
 }

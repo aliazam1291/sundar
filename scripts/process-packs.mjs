@@ -34,9 +34,9 @@ const OUT = "public/packs";
  * distance limit is what stops it eating into a white panel that happens to
  * touch the frame edge.
  */
-const TOLERANCE = 5; // background is >= 250 on every channel
-const SHADOW_REACH = 16; // px the soft pass may travel inward
-const SHADOW_MIN = 224; // shadow is lighter than this stays in play
+const TOLERANCE = 5; // preserve white packaging panels while clearing edge-connected studio white
+const SHADOW_REACH = 0; // CSS supplies the shadow; never retain the studio floor
+const SHADOW_MIN = 255; // disable source contact-shadow retention
 const NEUTRAL = 9; // max channel spread for "grey, not printed colour"
 
 const isBackground = (r, g, b) =>

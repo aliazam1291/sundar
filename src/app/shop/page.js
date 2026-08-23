@@ -163,7 +163,7 @@ export default async function ShopPage({ searchParams }) {
               </p>
               <Link href="/shop" className="btn btn-hot mt-6">
                 <SpiceIcon mono name="jar" className="w-4" />
-                Shop all {PRODUCTS.length} blends
+                Explore all {PRODUCTS.length} blends
               </Link>
             </div>
           ) : (

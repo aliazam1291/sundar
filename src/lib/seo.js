@@ -30,7 +30,7 @@ export const organizationJsonLd = () => ({
   name: "Sunder Masala",
   alternateName: "सुंदर मसाला",
   url: SITE,
-  logo: abs("/sundar-logo.png"),
+  logo: abs("/sundar-logo.webp"),
   foundingDate: "1975",
   slogan: "Kam masala, poora swaad",
   description:

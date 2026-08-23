@@ -7,7 +7,7 @@ import { CATEGORY_LIST, productsByCategory } from "@/lib/products";
 
 const COLUMNS = [
   {
-    title: "Shop",
+    title: "Spices",
     links: [
       { href: "/shop", label: "All blends" },
       { href: "/shop?category=blended", label: "Blended spices" },
@@ -33,10 +33,6 @@ const COLUMNS = [
          dropped you at the bottom of a nine-screen page. They point at the
          dedicated page now. */
       { href: "/faq", label: "FAQs" },
-      { href: "/where-to-buy", label: "Where to buy" },
-      { href: "/where-to-buy#stockists", label: "Stockists" },
-      { href: "/where-to-buy#trade", label: "Wholesale & HoReCa" },
-      { href: "/where-to-buy#contact", label: "Contact" },
     ],
   },
 ];

@@ -26,7 +26,7 @@ import { RECIPES } from "@/lib/recipes";
 
 const NAV = [
   {
-    label: "Shop",
+    label: "Spices",
     href: "/shop",
     match: (p) => p.startsWith("/shop"),
     menu: "ranges",
@@ -241,8 +241,8 @@ export default function SiteHeader() {
 
             <Link href="/shop" className="btn btn-hot btn-sm hidden md:inline-flex">
               <SpiceIcon mono name="jar" className="w-4" />
-              <span className="hidden xl:inline">Buy the range</span>
-              <span className="xl:hidden">Shop</span>
+              <span className="hidden xl:inline">Explore spices</span>
+              <span className="xl:hidden">Spices</span>
             </Link>
 
             <button
@@ -302,7 +302,7 @@ export default function SiteHeader() {
                 and burying them under a "Shop" tap cost a whole step. These
                 are categories rather than ranges: every one has stock, so no
                 tap here lands on an empty grid. */}
-            <p className="eyebrow text-marigold">Shop the shelves</p>
+            <p className="eyebrow text-marigold">Explore the shelves</p>
             {/* The taglines wrap to two and three lines at 320px, which pushed
                 every nav link and the CTA below the fold on a small phone —
                 the sheet scrolled, but nothing on screen said so. One
@@ -353,7 +353,7 @@ export default function SiteHeader() {
 
             <Link href="/shop" className="btn btn-gold mt-6 w-full justify-center">
               <SpiceIcon mono name="jar" className="w-4" />
-              Buy the range
+              Explore spices
             </Link>
           </div>
         </nav>

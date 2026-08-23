@@ -32,9 +32,17 @@ let after = 0;
 
 for (const file of pngs) {
   const src = `${DIR}/${file}`;
-  before += (await stat(src)).size;
+  let source;
+  try {
+    source = await stat(src);
+  } catch (error) {
+    if (error.code === "ENOENT") continue;
+    throw error;
+  }
+  before += source.size;
 
   const out = src.replace(/\.png$/, ".webp");
+  await rm(out, { force: true });
   const info = await sharp(src)
     .resize({ width: MAX_EDGE, height: MAX_EDGE, fit: "inside", withoutEnlargement: true })
     .webp({ quality: QUALITY, alphaQuality: 100, effort: 6 })
