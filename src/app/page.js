@@ -10,7 +10,12 @@ import { TICKER } from "@/lib/content";
 
 /**
  * The page reads: the promise → what we sell → who we are → what to cook →
- * who says so → how to use it → where to buy.
+ * how to use it → who says so.
+ *
+ * The testimonials close the page. They used to sit mid-scroll between the
+ * recipes and the ritual, which spent the strongest social proof on someone
+ * still browsing; last position means the final thing read before the footer
+ * is somebody else vouching for the mill.
  *
  * Sections that used to sit here and no longer do: the sourcing pillars (they
  * render in full on /story — it was being scrolled past twice), the region
@@ -52,6 +57,11 @@ export default function Home() {
       {/* the breather — loudest thing on the page, and the hinge into the film */}
       <HornOkPlease />
 
+      {/* The horn is painted derbyshire and the story oxblood — a real
+          change of panel, so it gets the painted seam the other joins have.
+          Before this the two sat flush and, both being dark, ran together. */}
+      <div className="trim-band" style={{ "--trim-a": "var(--color-marigold)", "--trim-b": "var(--color-chilli)" }} aria-hidden="true" />
+
       {/* who we are — the trailer; the full reel is on /story */}
       <StoryTeaser />
 
@@ -60,13 +70,14 @@ export default function Home() {
 
       <div className="trim-band" style={{ "--trim-a": "var(--color-tomato)", "--trim-b": "var(--color-sun)" }} aria-hidden="true" />
 
-      {/* who says so */}
-      <Reviews />
-
       {/* how to actually use it */}
       <Ritual />
 
-      <div className="trim-band" style={{ "--trim-a": "var(--color-cobalt)", "--trim-b": "var(--color-raspberry)" }} aria-hidden="true" />
+
+      <div className="trim-band" style={{ "--trim-a": "var(--color-sun)", "--trim-b": "var(--color-raspberry)" }} aria-hidden="true" />
+
+      {/* who says so — the last word before the footer */}
+      <Reviews />
 
     </>
   );

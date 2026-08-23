@@ -826,6 +826,24 @@ body {
   display: none;
 }
 
+/* Fit the pack to its container instead of to its own aspect ratio.
+ *
+ * For a row of cards that must line up, the pack cannot set the height: the
+ * photos are cutouts with their own proportions (a jar is ~178px tall where a
+ * pouch is ~142px at the same width), so a shrink-wrapped stage came out a
+ * different height on every card and pushed the divider, kicker and title out
+ * of line across the row.
+ *
+ * Declared after `.pack--photo .pack__body` so it wins the specificity tie —
+ * both selectors score (0,2,0), so source order is what decides. `object-fit:
+ * contain` on the photo means a tall pack simply letterboxes inside the box
+ * rather than overflowing and being shaved by the card's own overflow clip. */
+.pack--fit,
+.pack--fit .pack__body {
+  height: 100%;
+  aspect-ratio: auto;
+}
+
 /* One SKU is a lifestyle screenshot rather than a cutout — it keeps a plate. */
 .pack--plate .pack__body {
   padding: 5%;
@@ -1340,6 +1358,10 @@ body {
 @keyframes hero-spot-in { from { opacity: 0; transform: scale(0.88); } to { opacity: 1; transform: scale(1); } }
 .hero-family__label { position: absolute; z-index: 3; left: 0; bottom: 0; max-width: min(13.5rem, calc(100% - 1rem)); padding: 0.7rem 0.8rem; border: 1px solid color-mix(in srgb, var(--color-marigold) 70%, transparent); border-radius: 0.75rem; background: color-mix(in srgb, var(--color-forest) 88%, transparent); color: var(--color-paper); }
 .hero-family__label span, .hero-family__label strong { display: block; }
+/* The relation rides on the same line as the name — the rule above turns
+   every span in the label into a block, which would otherwise drop "· Maa"
+   onto a line of its own. */
+.hero-family__label .hero-family__relation { display: inline; color: var(--color-ghee); }
 .hero-family__label span { color: var(--color-marigold); font-size: var(--text-micro); font-weight: 700; letter-spacing: 0.11em; text-transform: uppercase; }
 .hero-family__label strong { margin-top: 0.15rem; font-family: var(--font-poster); font-size: clamp(1.25rem, 3vw, 1.75rem); line-height: 1; }
 .hero-family__label p { margin: 0.35rem 0 0; font-size: var(--text-meta); line-height: 1.35; }

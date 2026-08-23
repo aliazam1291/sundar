@@ -43,7 +43,6 @@ const NAV = [
     links: [
       { href: "/story", label: "Our story", note: "A boy, a bicycle, 1975", icon: "starAnise" },
       { href: "/#ritual", label: "The chutki", note: "Kam masala, poora swaad", icon: "pinch" },
-      { href: "/story#sourcing", label: "Sourcing", note: "Where the spice comes from", icon: "sprig" },
     ],
   },
   {

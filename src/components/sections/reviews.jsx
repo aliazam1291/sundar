@@ -10,10 +10,14 @@ import Bilingual from "@/components/bilingual";
  * Cards render whatever a review actually carries and nothing more — a
  * rating only appears if `stars` is set, a platform only if `via` is. See
  * REVIEWS in lib/content.js for why those fields are currently empty.
+ *
+ * Cobalt, not forest: this section now closes the page, and the footer it
+ * hands off to is forest — two forest bands meeting would have read as one.
+ * Measured on cobalt: ghee 5.90, marigold 4.92, paper 7.12.
  */
 export default function Reviews() {
   return (
-    <section className="relative isolate overflow-hidden bg-forest section text-ghee">
+    <section className="relative isolate overflow-hidden bg-cobalt section text-ghee">
       <Sunburst
         className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold"
         rays={44}

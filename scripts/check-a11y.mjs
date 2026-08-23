@@ -125,7 +125,9 @@ for (const [label, open, scope] of [
     async () => page.getByRole("button", { name: /Search products and recipes/i }).first().click(),
     "[role=dialog]",
   ],
-  ["shop menu", async () => page.getByRole("button", { name: /^Shop$/ }).first().click(), "header nav"],
+  /* The nav trigger is labelled "Spices" (it was "Shop"); matching either
+     keeps this check working through a rename rather than timing out. */
+  ["shop menu", async () => page.getByRole("button", { name: /^(Spices|Shop)$/ }).first().click(), "header nav"],
 ]) {
   await open();
   await page.waitForTimeout(400);

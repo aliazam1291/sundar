@@ -18,12 +18,18 @@ import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
  *
  * It also drops the `text-ivory/70`-style fades that version leaned on. Per
  * the README, faded type over a saturated ground blends toward that ground
- * and quietly fails contrast — every value here is a solid palette colour
- * chosen to pass on forest.
+ * and quietly fails contrast — every value here is a solid palette colour,
+ * measured on oxblood: ghee 8.84, marigold 7.37, paper 10.66.
+ *
+ * The ground is oxblood rather than forest because the section directly
+ * follows the horn, which is painted derbyshire. Forest against derbyshire
+ * measures dE 19.6 — the closest pair of grounds on the site by a distance,
+ * both dark greens — so with no trim between them the two sections ran
+ * together as one long green band. Oxblood against derbyshire is dE 66.6.
  */
 export default function StoryTeaser() {
   return (
-    <section className="relative isolate overflow-hidden bg-forest section text-ghee">
+    <section className="relative isolate overflow-hidden bg-oxblood section text-ghee">
       <Sunburst
         className="pointer-events-none absolute inset-x-0 bottom-0 h-full w-full text-marigold"
         rays={52}
@@ -44,7 +50,7 @@ export default function StoryTeaser() {
         <div data-reveal="up">
           <p
             className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
-            style={{ "--plaque-bg": "var(--color-chilli)", "--plaque-fg": "var(--color-paper)" }}
+            style={{ "--plaque-bg": "var(--color-marigold)", "--plaque-fg": "var(--color-ink)" }}
           >
             <Star className="w-3.5" />
             A film in one reel

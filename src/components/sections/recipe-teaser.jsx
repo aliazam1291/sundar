@@ -55,12 +55,27 @@ export default function RecipeTeaser() {
                 style={{ "--reveal-delay": `${(i % 4) * 80}ms` }}
                 className={`card-lift group flex flex-col overflow-hidden rounded-[1.4rem] border-2 border-ink ${tone.bg} ${tone.text}`}
               >
-                <div className="relative flex items-center justify-center px-6 pt-7 pb-5">
+                {/* Fixed-height stage.
+                    The pack photos are cutouts with their own intrinsic
+                    aspect ratios — a jar is far taller than a pouch — so a
+                    stage that shrink-wrapped its pack came out 141px tall on
+                    one card and 178px on the next. Every row below it (the
+                    divider, the kicker, the title, the time) then sat at a
+                    different height across the row.
+                    Pinning the stage and letting each pack contain itself
+                    inside it puts all four dividers on one line. */}
+                <div className="relative flex h-[13.5rem] items-center justify-center px-6 py-6">
                   <SpiceIcon
                     name={pack?.icon ?? "jar"}
                     className="pointer-events-none absolute -right-4 -top-3 w-24 opacity-[0.14] transition-transform duration-700 group-hover:rotate-12"
                   />
-                  {pack ? <PackShot product={pack} size="sm" className="w-[58%] max-w-[130px]" /> : null}
+                  {pack ? (
+                    <PackShot
+                      product={pack}
+                      size="sm"
+                      className="pack--fit h-full w-[58%] max-w-[130px]"
+                    />
+                  ) : null}
                 </div>
 
                 <div className="flex flex-1 flex-col border-t-2 border-ink/20 p-5">
