@@ -1,5 +1,6 @@
 import FindUs from "@/components/sections/find-us";
 import { Star, Sunburst } from "@/components/spice-icons";
+import PagePortrait from "@/components/page-portrait";
 import Bilingual from "@/components/bilingual";
 import { PRODUCTS } from "@/lib/products";
 
@@ -32,27 +33,42 @@ export default function WhereToBuyPage() {
           opacity={0.1}
         />
 
-        <div className="shell relative">
-          <p
-            className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
-            style={{ "--plaque-bg": "var(--color-sun)", "--plaque-fg": "var(--color-ink)" }}
-          >
-            <Star className="w-3.5" />
-            Stockists &amp; shipping
-          </p>
+        {/* Sudhaji sent Bunty out with the bag — the errand this whole
+            page is about. */}
+        <div className="shell relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+          <div>
+            <p
+              className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
+              style={{ "--plaque-bg": "var(--color-sun)", "--plaque-fg": "var(--color-ink)" }}
+            >
+              <Star className="w-3.5" />
+              Stockists &amp; shipping
+            </p>
 
-          <Bilingual
-            as="h1"
-            className="mt-4 max-w-3xl"
-            accent="text-marigold"
-            hi="कहाँ मिलेगा?"
-            en="Where to buy Sunder."
+            <Bilingual
+              as="h1"
+              className="mt-4 max-w-3xl"
+              accent="text-marigold"
+              hi="कहाँ मिलेगा?"
+              en="Where to buy Sunder."
+            />
+
+            <p className="lede mt-5 max-w-xl text-paper/80">
+              Ten minutes away on quick commerce, on the shelf at your kirana, or shipped from the
+              mill — plus bulk formats if you are buying for a kitchen or a counter.
+            </p>
+          </div>
+
+          <PagePortrait
+            src="/sudhaji-bunty-cutout.webp"
+            alt="Sudhaji sending Bunty off with the market bag"
+            width={1145}
+            height={1374}
+            name="Sudhaji & Bunty"
+            spot="var(--color-sun)"
+            plaqueBg="var(--color-sun)"
+            priority
           />
-
-          <p className="lede mt-5 max-w-xl text-paper/80">
-            Ten minutes away on quick commerce, on the shelf at your kirana, or shipped from the
-            mill — plus bulk formats if you are buying for a kitchen or a counter.
-          </p>
         </div>
       </section>
 

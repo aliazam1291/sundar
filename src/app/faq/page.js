@@ -2,6 +2,7 @@ import Link from "next/link";
 import Backdrop from "@/components/backdrop";
 import Bilingual, { DevaWatermark } from "@/components/bilingual";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import PagePortrait from "@/components/page-portrait";
 import { FAQS, FAQ_GROUPS, faqsIn, faqJsonLd } from "@/lib/faqs";
 
 export const metadata = {
@@ -48,7 +49,9 @@ export default function FaqPage() {
         />
         <DevaWatermark word="सवाल" className="text-marigold" position="right" opacity={0.1} />
 
-        <div className="shell relative">
+        {/* Sudhaji, mid-answer — "ask us anything" reads better next to
+            someone who looks like she already knows. */}
+        <div className="shell relative grid items-start gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
           <div className="max-w-3xl">
             <p
               className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
@@ -82,6 +85,18 @@ export default function FaqPage() {
               ))}
             </ul>
           </div>
+
+          <PagePortrait
+            src="/sudhaji-cutout.webp"
+            alt="Sudhaji"
+            width={1145}
+            height={1374}
+            name="Sudhaji"
+            spot="var(--color-marigold)"
+            plaqueBg="var(--color-sun)"
+            className="lg:mt-4"
+            priority
+          />
         </div>
       </section>
 

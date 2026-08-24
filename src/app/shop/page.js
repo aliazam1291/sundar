@@ -10,6 +10,7 @@ import {
   starterProducts,
 } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import PagePortrait from "@/components/page-portrait";
 
 /* Counted, not typed: the description said "Eighteen" long after the
    catalogue reached 32, contradicting the "32 blends" on the page itself. */
@@ -46,21 +47,36 @@ export default async function ShopPage({ searchParams }) {
         />
         <div className="tex-grid pointer-events-none absolute inset-0 opacity-30" />
 
-        <div className="relative shell">
-          <p className="eyebrow flex items-center gap-2.5 text-marigold">
-            <Star className="w-3.5" />
-            {PRODUCTS.length} blends · {CATEGORY_LIST.length} shelves
-          </p>
+        {/* Pihu stands in for "go on, start browsing" — the same nod a
+            shopkeeper gives a customer walking in, not a caption claiming
+            she picked any one blend. */}
+        <div className="relative shell grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+          <div>
+            <p className="eyebrow flex items-center gap-2.5 text-marigold">
+              <Star className="w-3.5" />
+              {PRODUCTS.length} blends · {CATEGORY_LIST.length} shelves
+            </p>
 
-          <h1 className="h-poster mt-5 max-w-4xl">
-            The whole
-            <br />
-            <span className="text-marigold">spice box.</span>
-          </h1>
+            <h1 className="h-poster mt-5 max-w-4xl">
+              The whole
+              <br />
+              <span className="text-marigold">spice box.</span>
+            </h1>
 
-          <p className="lede mt-5 max-w-xl text-ghee/72">
-            {category?.blurb ?? "Slow-ground, cold-milled, single-origin. Nothing added, ever."}
-          </p>
+            <p className="lede mt-5 max-w-xl text-ghee/72">
+              {category?.blurb ?? "Slow-ground, cold-milled, single-origin. Nothing added, ever."}
+            </p>
+          </div>
+
+          <PagePortrait
+            src="/pihu-cutout.webp"
+            alt="Pihu giving a thumbs up"
+            width={1145}
+            height={1374}
+            name="Pihu"
+            spot="var(--color-marigold)"
+            priority
+          />
         </div>
       </section>
 

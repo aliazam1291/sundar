@@ -1370,6 +1370,74 @@ body {
 .hero-family__picker button { min-height: 2.6rem; border: 1px solid color-mix(in srgb, var(--color-marigold) 45%, transparent); border-radius: 0.45rem; background: transparent; color: var(--color-ghee); font-family: var(--font-body); font-size: var(--text-label); font-weight: 700; cursor: pointer; transition: background-color 160ms ease, color 160ms ease, transform 160ms var(--ease-snap); }
 .hero-family__picker button:hover, .hero-family__picker button.is-active { background: var(--color-marigold); color: var(--color-ink); transform: translateY(-2px); }
 
+/* Interior-page masthead portrait — see page-portrait.jsx.
+ *
+ * Two devices carry it, both lifted from the home hero's family photo
+ * (hero-family.jsx) rather than invented fresh: a colour-matched spotlight
+ * glow behind the figure, and a `.plaque` chip overlapping its lower corner.
+ * A bare painterly cutout on a flat poster ground reads as a sticker pasted
+ * on top of the page; wiring it into the same chrome every other accent on
+ * the page uses is what makes the illustration style read as intentional
+ * rather than mismatched.
+ *
+ * The contact-shadow ellipse only applies to `tone="cutout"` figures with no
+ * background of their own (Pihu, Sudhaji, Sudhaji + Bunty) — the `tone="glow"`
+ * portraits (Rameshji, Bunty solo) already carry a baked-in vignette that
+ * does this job, and a second shadow under an already-lit figure double.
+ */
+.page-portrait { position: relative; isolation: isolate; margin-inline: auto; width: 100%; max-width: 14.5rem; }
+.page-portrait__img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
+.page-portrait--glow .page-portrait__img { filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4)); }
+
+/* Below `lg` the portrait sits in normal flow under the text — its own
+   height never competes with anything, so sizing it by width (above) is
+   fine there. At `lg` it moves beside the headline in a grid row, and a
+   full-body figure is tall: on a real laptop window (short viewport height,
+   browser chrome eating into it) the row came out taller than the visible
+   viewport, and the crop that costs is the character's own feet — the one
+   place a cropped photo of a person always looks like a mistake.
+   Capping by HEIGHT here instead of width guarantees the whole figure clears
+   a normal window regardless of how much text sits beside it; width follows
+   from each image's own aspect ratio once height is fixed, so a solo figure
+   and the two-person shot both still keep their proportions. */
+@media (min-width: 1024px) {
+  .page-portrait {
+    width: auto;
+    max-width: 100%;
+    height: clamp(13rem, 30vh, 19rem);
+    justify-self: center;
+  }
+  .page-portrait__img { width: auto; height: 100%; max-width: 100%; }
+}
+
+.page-portrait__spotlight {
+  position: absolute;
+  z-index: 0;
+  inset: -18%;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 34%, color-mix(in srgb, var(--spot-c) 60%, transparent), transparent 66%);
+  mix-blend-mode: screen;
+}
+.page-portrait__shadow {
+  position: absolute;
+  z-index: 0;
+  left: 14%;
+  right: 14%;
+  bottom: 3%;
+  height: 7%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(20, 16, 12, 0.4), transparent 72%);
+  filter: blur(8px);
+}
+
+/* Overlapping the image's own edge — not sitting beside it — is what makes
+   the chip read as pinned onto the portrait rather than as a caption under
+   an unrelated photo. */
+.page-portrait__tag { position: absolute; z-index: 2; bottom: -0.7rem; white-space: nowrap; }
+.page-portrait--left .page-portrait__tag { left: -0.85rem; }
+.page-portrait--right .page-portrait__tag { right: -0.85rem; }
+
+
 @keyframes rise-in {
   from { opacity: 0; transform: translateY(1.05em); }
   to   { opacity: 1; transform: translateY(0); }

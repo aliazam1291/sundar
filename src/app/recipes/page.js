@@ -3,6 +3,7 @@ import TasteTester from "@/components/sections/taste-tester";
 import Bilingual, { DevaWatermark } from "@/components/bilingual";
 import RecipeIndex from "@/components/recipe-index";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import PagePortrait from "@/components/page-portrait";
 import { RECIPES, spellOut } from "@/lib/recipes";
 import { JsonLd, recipeCollectionJsonLd } from "@/lib/seo";
 
@@ -48,7 +49,10 @@ export default function RecipesPage() {
         />
         <DevaWatermark word="रसोई" className="text-marigold" position="right" opacity={0.1} />
 
-        <div className="shell relative">
+        {/* Bunty's reaction is the whole pitch for a recipe corner: the
+            heat actually lands. His own glow is baked into the image, so it
+            sits straight on the section's oxblood with nothing else added. */}
+        <div className="shell relative grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div className="max-w-3xl">
             <p
               className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
@@ -72,6 +76,17 @@ export default function RecipesPage() {
               get it wrong. Every one adjusts to the number you are feeding.
             </p>
           </div>
+
+          <PagePortrait
+            src="/bunty-glow.webp"
+            alt="Bunty reacting to the heat"
+            width={933}
+            height={1400}
+            tone="glow"
+            name="Bunty"
+            plaqueBg="var(--color-sun)"
+            priority
+          />
         </div>
       </section>
 

@@ -7,6 +7,7 @@ import { Journal } from "@/components/sections/ritual";
 import { TIMELINE, FOUNDER } from "@/lib/content";
 import { PRODUCTS } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import PagePortrait from "@/components/page-portrait";
 
 export const metadata = {
   title: "Our story — purani recipe, nayi pehchaan",
@@ -23,37 +24,53 @@ export default function StoryPage() {
           rays={52}
           opacity={0.1}
         />
-        <div className="relative shell">
-          <p className="eyebrow flex items-center gap-2.5 text-marigold">
-            <Star className="w-3.5" />
-            Est. 1975 · MCMLXXV
-          </p>
-
-          <h1 className="h-poster mt-5 max-w-4xl">
-            Purani Recipe.
-            <br />
-            <span className="text-marigold">Nayi Pehchaan.</span>
-          </h1>
-
-          <p className="lede mt-6 max-w-2xl text-paper/85">
-            1975. Indore. Ek cycle ki dukaan. Aur phir masalon ka kaam.
-          </p>
-
-          <div className="mt-6 grid max-w-4xl gap-5 text-copy-lg leading-relaxed text-paper/75 lg:grid-cols-2 lg:gap-x-12">
-            <p>
-              {FOUNDER.name} started Sunder with a simple belief: gharon tak wahi masala jaana
-              chahiye jo apne ghar mein bhi use kiya jaye.
+        {/* Rameshji, not a stand-in for the founder — the point is the taste
+            that keeps three generations cooking, not a claim about who he is.
+            His glow is baked into the image; it just sits on the oxblood. */}
+        <div className="relative shell grid items-start gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-12">
+          <div>
+            <p className="eyebrow flex items-center gap-2.5 text-marigold">
+              <Star className="w-3.5" />
+              Est. 1975 · MCMLXXV
             </p>
-            <p>
-              Fifty years and three generations later, the belief hasn&rsquo;t changed: real
-              ingredients, no fillers, no shortcuts.
+
+            <h1 className="h-poster mt-5 max-w-4xl">
+              Purani Recipe.
+              <br />
+              <span className="text-marigold">Nayi Pehchaan.</span>
+            </h1>
+
+            <p className="lede mt-6 max-w-2xl text-paper/85">
+              1975. Indore. Ek cycle ki dukaan. Aur phir masalon ka kaam.
             </p>
-            <p className="lg:col-span-2 lg:max-w-3xl">
-              What&rsquo;s changed is how far that spice travels. From one Indore kitchen to homes
-              across India, we still hand-pound and slow-grind the way the family always has,
-              because that&rsquo;s the only way heritage masala is supposed to taste.
-            </p>
+
+            <div className="mt-6 grid gap-5 text-copy-lg leading-relaxed text-paper/75 lg:grid-cols-2 lg:gap-x-12">
+              <p>
+                {FOUNDER.name} started Sunder with a simple belief: gharon tak wahi masala jaana
+                chahiye jo apne ghar mein bhi use kiya jaye.
+              </p>
+              <p>
+                Fifty years and three generations later, the belief hasn&rsquo;t changed: real
+                ingredients, no fillers, no shortcuts.
+              </p>
+              <p className="lg:col-span-2">
+                What&rsquo;s changed is how far that spice travels. From one Indore kitchen to homes
+                across India, we still hand-pound and slow-grind the way the family always has,
+                because that&rsquo;s the only way heritage masala is supposed to taste.
+              </p>
+            </div>
           </div>
+
+          <PagePortrait
+            src="/rameshji-glow.webp"
+            alt="Rameshji savouring the masala"
+            width={933}
+            height={1400}
+            tone="glow"
+            name="Rameshji"
+            plaqueBg="var(--color-marigold)"
+            priority
+          />
         </div>
       </section>
 
