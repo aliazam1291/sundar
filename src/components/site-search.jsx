@@ -247,16 +247,14 @@ export default function SiteSearch({ className = "" }) {
                             {hit.meta}
                           </span>
                         </span>
-                        <span
-                          className="chip chip-solid shrink-0"
-                          style={{
-                            "--chip-bg":
-                              hit.kind === "product" ? "var(--color-marigold)" : "var(--color-kiwi)",
-                            "--chip-fg": "var(--color-ink)",
-                          }}
-                        >
-                          {hit.kind === "product" ? "Buy" : "Cook"}
-                        </span>
+                        {hit.kind === "product" ? null : (
+                          <span
+                            className="chip chip-solid shrink-0"
+                            style={{ "--chip-bg": "var(--color-kiwi)", "--chip-fg": "var(--color-ink)" }}
+                          >
+                            Cook
+                          </span>
+                        )}
                       </Link>
                     </li>
                   ))}

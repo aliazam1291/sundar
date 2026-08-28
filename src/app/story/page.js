@@ -12,6 +12,7 @@ import PagePortrait from "@/components/page-portrait";
 export const metadata = {
   title: "Our story — purani recipe, nayi pehchaan",
   description: `1975, Indore. A cycle shop, and then a life in masala. Fifty years and three generations later — real ingredients, no fillers, no shortcuts, across ${PRODUCTS.length} blends.`,
+  alternates: { canonical: "/story" },
 };
 
 export default function StoryPage() {
@@ -27,7 +28,7 @@ export default function StoryPage() {
         {/* Rameshji, not a stand-in for the founder — the point is the taste
             that keeps three generations cooking, not a claim about who he is.
             His glow is baked into the image; it just sits on the oxblood. */}
-        <div className="relative shell grid items-start gap-8 lg:grid-cols-[1.3fr_0.7fr] lg:gap-12">
+        <div className="relative shell grid items-start gap-8 md:grid-cols-[1.3fr_0.7fr] md:gap-12">
           <div>
             <p className="eyebrow flex items-center gap-2.5 text-marigold">
               <Star className="w-3.5" />

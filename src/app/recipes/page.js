@@ -52,7 +52,15 @@ export default function RecipesPage() {
         {/* Bunty's reaction is the whole pitch for a recipe corner: the
             heat actually lands. His own glow is baked into the image, so it
             sits straight on the section's oxblood with nothing else added. */}
-        <div className="shell relative grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+        {/* The grid can't carry `.shell` and shrink-to-fit on the same
+            element — `.shell`'s own `margin-inline: auto` re-centers it the
+            moment it shrinks, same misalignment introduced a different way.
+            See the matching structure in faq/page.js: `.shell` stays on the
+            outer div, the grid is a plain nested div so `w-fit` shrinks it
+            to its content (text capped at max-w-3xl, portrait capped by its
+            own height rule) while it keeps the shell's left edge by default. */}
+        <div className="shell relative">
+        <div className="grid items-center gap-8 w-full md:grid-cols-[1.15fr_0.85fr] md:gap-12">
           <div className="max-w-3xl">
             <p
               className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
@@ -87,6 +95,7 @@ export default function RecipesPage() {
             plaqueBg="var(--color-sun)"
             priority
           />
+        </div>
         </div>
       </section>
 

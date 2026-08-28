@@ -37,12 +37,18 @@ const NAV = [
     match: (p) => p.startsWith("/recipes"),
   },
   {
+    label: "Blog",
+    href: "/blog",
+    match: (p) => p.startsWith("/blog"),
+  },
+  {
     label: "Our Story",
     href: "/story",
     match: (p) => p.startsWith("/story"),
     links: [
       { href: "/story", label: "Our story", note: "A boy, a bicycle, 1975", icon: "starAnise" },
       { href: "/#ritual", label: "The chutki", note: "Kam masala, poora swaad", icon: "pinch" },
+      { href: "/contact", label: "Contact us", note: "Baat Karein · Get in touch", icon: "truck" },
     ],
   },
   {
@@ -331,8 +337,10 @@ export default function SiteHeader() {
                 { href: "/#categories", label: "Categories" },
                 { href: "/shop", label: "All blends", count: PRODUCTS.length },
                 { href: "/recipes", label: "Rasoi", count: RECIPES.length },
+                { href: "/blog", label: "Blog" },
                 { href: "/story", label: "Our Story" },
                 { href: "/faq", label: "FAQs" },
+                { href: "/contact", label: "Contact Us" },
                 { href: "/#ritual", label: "The Chutki" },
               ].map((item) => (
                 <li key={item.href}>

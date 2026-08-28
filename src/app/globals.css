@@ -97,15 +97,15 @@
   /* — Type scale ——————————————————————————————————
      Five body steps, full stop. Everything below 0.7rem was
      illegible and everything between 0.92–1.02rem was noise. */
-  --text-micro: 0.7rem;
+  --text-micro: 0.75rem;
   --text-micro--line-height: 1.2;
-  --text-label: 0.78rem;
+  --text-label: 0.82rem;
   --text-label--line-height: 1.25;
-  --text-meta: 0.86rem;
+  --text-meta: 0.88rem;
   --text-meta--line-height: 1.45;
-  --text-copy: 0.97rem;
+  --text-copy: 1.0rem;
   --text-copy--line-height: 1.62;
-  --text-copy-lg: 1.06rem;
+  --text-copy-lg: 1.1rem;
   --text-copy-lg--line-height: 1.6;
 
   /* — Motion ————————————————————————————————————— */
@@ -194,9 +194,20 @@ body {
    is never larger than the space outside it.
    ============================================================ */
 
+/* max-width came off entirely for a stretch, then got re-added ONLY to the
+   handful of two-column hero/masthead grids that broke without it (their
+   text and portrait don't stretch to fill a column, so an uncapped shell
+   left a growing dead gap between them — see hero.jsx, chakki-mill.jsx,
+   and the shop/recipes/faq/story/where-to-buy masthead grids).
+   That was the wrong scope: every OTHER section on the same pages was still
+   uncapped, so the page's left edge jumped between two different insets as
+   you scrolled — flush at 0px through most sections, 160px in from those
+   six. The cap belongs here, once, so every section lines up at the same
+   edge. Below 1600px this is unchanged either way — the cap only ever binds
+   above it. */
 .shell {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin-inline: auto;
   padding-inline: clamp(1.15rem, 4vw, 2.5rem);
 }
@@ -1385,26 +1396,22 @@ body {
  * portraits (Rameshji, Bunty solo) already carry a baked-in vignette that
  * does this job, and a second shadow under an already-lit figure double.
  */
-.page-portrait { position: relative; isolation: isolate; margin-inline: auto; width: 100%; max-width: 14.5rem; }
+/* Mobile: fill most of the column — a stacked portrait that is clearly
+   smaller than the headline text it belongs to reads as an afterthought.
+   28rem lets it breathe at the right visual weight. */
+.page-portrait { position: relative; isolation: isolate; margin-inline: auto; width: 100%; max-width: 28rem; }
 .page-portrait__img { position: relative; z-index: 1; width: 100%; height: auto; display: block; }
 .page-portrait--glow .page-portrait__img { filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4)); }
 
-/* Below `lg` the portrait sits in normal flow under the text — its own
-   height never competes with anything, so sizing it by width (above) is
-   fine there. At `lg` it moves beside the headline in a grid row, and a
-   full-body figure is tall: on a real laptop window (short viewport height,
-   browser chrome eating into it) the row came out taller than the visible
-   viewport, and the crop that costs is the character's own feet — the one
-   place a cropped photo of a person always looks like a mistake.
-   Capping by HEIGHT here instead of width guarantees the whole figure clears
-   a normal window regardless of how much text sits beside it; width follows
-   from each image's own aspect ratio once height is fixed, so a solo figure
-   and the two-person shot both still keep their proportions. */
-@media (min-width: 1024px) {
+/* At md (768px) the masthead grids switch to side-by-side — the portrait
+   moves beside the headline and needs height-capping so full-body figures
+   don't overflow short laptop viewports. Width follows from each image's
+   own aspect ratio once height is fixed. */
+@media (min-width: 768px) {
   .page-portrait {
     width: auto;
     max-width: 100%;
-    height: clamp(13rem, 30vh, 19rem);
+    height: clamp(18rem, 45vh, 28rem);
     justify-self: center;
   }
   .page-portrait__img { width: auto; height: 100%; max-width: 100%; }

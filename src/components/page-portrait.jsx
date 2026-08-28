@@ -39,7 +39,7 @@ export default function PagePortrait({
         alt={alt}
         width={width}
         height={height}
-        sizes="(max-width: 1023px) 50vw, 17rem"
+        sizes="(max-width: 640px) 80vw, (max-width: 1023px) 40vw, 17rem"
         className="page-portrait__img"
         priority={priority}
       />

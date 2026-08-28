@@ -3,7 +3,7 @@ import Logo from "@/components/logo";
 import Marquee from "@/components/marquee";
 import RevealRoot from "@/components/reveal-root";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
-import { CATEGORY_LIST, productsByCategory } from "@/lib/products";
+import { CATEGORY_LIST } from "@/lib/products";
 
 const COLUMNS = [
   {
@@ -21,6 +21,7 @@ const COLUMNS = [
     links: [
       { href: "/story", label: "Our story" },
       { href: "/recipes", label: "Rasoi · recipes" },
+      { href: "/blog", label: "Blog" },
       { href: "/#ritual", label: "The chutki ritual" },
       { href: "/story#sourcing", label: "Sourcing" },
     ],
@@ -28,11 +29,8 @@ const COLUMNS = [
   {
     title: "Help",
     links: [
-      /* These four used to be /#contact, /#stockists, /#trade and /#shipping —
-         anchors into the last section of the home page, so every one of them
-         dropped you at the bottom of a nine-screen page. They point at the
-         dedicated page now. */
       { href: "/faq", label: "FAQs" },
+      { href: "/contact", label: "Contact us" },
     ],
   },
 ];
@@ -42,10 +40,6 @@ export default function SiteFooter() {
     <footer className="relative isolate overflow-hidden bg-forest text-ghee">
       <RevealRoot />
 
-      {/* inset-0, not a partial height. The rays are anchored bottom-centre
-          by the SVG's own preserveAspectRatio, so a box shorter than the
-          footer leaves the top flat and draws a hard seam straight across
-          it — the same trap already noted in ranges/categories. */}
       <Sunburst
         className="pointer-events-none absolute inset-0 h-full w-full text-marigold"
         rays={52}
@@ -120,39 +114,26 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        {/* shelf strip — four now, so it steps 1 → 2 → 4 rather than
-            leaving a lone orphan on the second row of a three-up grid */}
+        {/* shelf strip */}
         <div className="section-body grid gap-3 border-t border-ghee/15 pt-10 sm:grid-cols-2 lg:grid-cols-4">
-          {CATEGORY_LIST.map((c, i) => (
+          {CATEGORY_LIST.map((c) => (
             <Link
               key={c.id}
               href={`/shop?category=${c.id}`}
-              data-reveal="up"
-              style={{ "--reveal-delay": `${i * 80}ms` }}
-              className="flex items-start gap-3.5 rounded-xl p-2 -m-2 transition-colors hover:bg-ghee/8"
+              className="flex items-center gap-3 rounded-2xl border-2 border-ghee/10 px-4 py-3.5 transition-colors hover:border-ghee/25 hover:bg-ghee/5"
             >
-              <SpiceIcon name={c.icon} className="mt-0.5 w-7 shrink-0 text-marigold" />
-              <div className="min-w-0">
-                <p className="font-poster text-lg leading-none">{c.name}</p>
-                <p className="mt-1.5 text-label text-ghee/70">
-                  {productsByCategory(c.id).length} blends
-                </p>
-              </div>
+              <span
+                className="grid h-9 w-9 shrink-0 place-content-center rounded-full border-2 border-ghee"
+                style={{ background: c.bg }}
+              >
+                <SpiceIcon mono name={c.icon} className="w-4" style={{ color: c.ink }} />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="h-card block text-ghee">{c.name}</span>
+                <span className="label-micro mt-0.5 block truncate text-ghee/50">{c.line}</span>
+              </span>
             </Link>
           ))}
-        </div>
-
-        {/* legal */}
-        <div className="mt-12 flex flex-col gap-4 border-t border-ghee/15 pt-7 text-label text-ghee/55 sm:flex-row sm:items-center sm:justify-between">
-          <p className="flex items-center gap-2">
-            <Star className="w-3 text-marigold" />
-            © {new Date().getFullYear()} Sunder Masala · Indore, Madhya Pradesh
-          </p>
-          <p className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span>FSSAI licensed</span>
-            <span>No colours · No preservatives</span>
-            <span className="font-deva">मसालों का सिकंदर</span>
-          </p>
         </div>
       </div>
     </footer>

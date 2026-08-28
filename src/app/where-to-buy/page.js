@@ -35,7 +35,7 @@ export default function WhereToBuyPage() {
 
         {/* Sudhaji sent Bunty out with the bag — the errand this whole
             page is about. */}
-        <div className="shell relative grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12">
+        <div className="shell relative grid items-center gap-8 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
           <div>
             <p
               className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"

@@ -17,6 +17,7 @@ import PagePortrait from "@/components/page-portrait";
 export const metadata = {
   title: "Shop the range",
   description: `${PRODUCTS.length} slow-ground, single-origin spices — blended masalas, pure ground spices, whole seed and hing.`,
+  alternates: { canonical: "/shop" },
 };
 
 /* Category is the only shop axis. The range chips that used to sit beside
@@ -50,7 +51,7 @@ export default async function ShopPage({ searchParams }) {
         {/* Pihu stands in for "go on, start browsing" — the same nod a
             shopkeeper gives a customer walking in, not a caption claiming
             she picked any one blend. */}
-        <div className="relative shell grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+        <div className="relative shell grid items-center gap-8 md:grid-cols-[1.15fr_0.85fr] md:gap-12">
           <div>
             <p className="eyebrow flex items-center gap-2.5 text-marigold">
               <Star className="w-3.5" />

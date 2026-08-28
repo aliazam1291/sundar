@@ -51,7 +51,18 @@ export default function FaqPage() {
 
         {/* Sudhaji, mid-answer — "ask us anything" reads better next to
             someone who looks like she already knows. */}
-        <div className="shell relative grid items-start gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+        {/* The grid can't carry `.shell` itself and also shrink-to-fit:
+            `.shell`'s own CSS sets `margin-inline: auto`, so an element with
+            both classes re-centers the moment it shrinks below the shell's
+            width — same misalignment as before, just introduced a different
+            way. `.shell` stays on the OUTER div (full width up to 1600px,
+            flush-left like every other section); the grid is a plain nested
+            div with no margin rule of its own, so `w-fit` just shrinks it to
+            its content — text capped at max-w-3xl, portrait capped by its
+            own height rule, neither filling an fr-share of the shell — while
+            it keeps sitting at the shell's left edge by default. */}
+        <div className="shell relative">
+        <div className="grid items-start gap-8 w-full md:grid-cols-[1.2fr_0.8fr] md:gap-12">
           <div className="max-w-3xl">
             <p
               className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
@@ -94,9 +105,10 @@ export default function FaqPage() {
             name="Sudhaji"
             spot="var(--color-marigold)"
             plaqueBg="var(--color-sun)"
-            className="lg:mt-4"
+            className="md:mt-4"
             priority
           />
+        </div>
         </div>
       </section>
 

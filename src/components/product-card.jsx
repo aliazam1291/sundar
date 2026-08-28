@@ -20,9 +20,17 @@ export default function ProductCard({ product, index = 0 }) {
         href={`/shop/${product.slug}`}
         className="card-lift block h-full overflow-hidden rounded-[1.4rem] border-2 border-ink/12 bg-cream/70 transition-colors hover:border-ink/70"
       >
-        {/* pack stage */}
+        {/* Fixed-height stage.
+            Pack photos are cutouts with their own intrinsic proportions — a
+            jar sits taller than a pouch at the same width — so a stage sized
+            to its pack (as this was) came out a different height per card
+            (234–279px measured across the Blended shelf), pushing the
+            divider and everything below it out of line row to row. Pinning
+            the stage and letting the pack use `pack--fit` to contain itself
+            inside it (same fix as the recipe teaser cards) keeps every
+            divider on one line regardless of which pack is in the card. */}
         <div
-          className="tex-sunburst-warm relative flex items-center justify-center px-8 pt-9 pb-7 sm:px-10 sm:pt-11"
+          className="tex-sunburst-warm relative flex h-[15.5rem] items-center justify-center px-8 py-7 sm:px-10"
           style={{
             background: `linear-gradient(168deg, color-mix(in srgb, ${product.hue[0]} 13%, var(--color-paper)), var(--color-paper))`,
           }}
@@ -31,7 +39,11 @@ export default function ProductCard({ product, index = 0 }) {
             name={product.icon}
             className="pointer-events-none absolute -right-5 -top-4 w-28 text-ink opacity-[0.07] transition-transform duration-700 group-hover:rotate-12"
           />
-          <PackShot product={product} size="sm" className="w-[62%] max-w-[190px]" />
+          <PackShot
+            product={product}
+            size="sm"
+            className="pack--fit h-full w-[62%] max-w-[190px]"
+          />
         </div>
 
         {/* meta */}

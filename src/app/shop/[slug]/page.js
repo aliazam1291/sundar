@@ -24,6 +24,7 @@ export async function generateMetadata({ params }) {
   return {
     title: `${product.name} — ${product.kind}`,
     description: `${product.tagline} ${product.story.slice(0, 120)}…`,
+    alternates: { canonical: `/shop/${product.slug}` },
   };
 }
 
