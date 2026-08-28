@@ -2,6 +2,7 @@ import Link from "next/link";
 import TasteTester from "@/components/sections/taste-tester";
 import Bilingual, { DevaWatermark } from "@/components/bilingual";
 import RecipeIndex from "@/components/recipe-index";
+import RasoiWheel from "@/components/rasoi-wheel";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 import PagePortrait from "@/components/page-portrait";
 import { RECIPES, spellOut } from "@/lib/recipes";
@@ -122,6 +123,11 @@ export default function RecipesPage() {
         </div>
       </section>
 
+      <div className="trim-band" style={{ "--trim-a": "var(--color-marigold)", "--trim-b": "var(--color-oxblood)" }} aria-hidden="true" />
+
+      {/* ── Aaj Kya Banega? Rasoi Wheel ── */}
+      <RasoiWheel />
+
       <div className="trim-band" style={{ "--trim-a": "var(--color-cobalt)", "--trim-b": "var(--color-raspberry)" }} aria-hidden="true" />
 
       {/* ── stay a while ──
@@ -132,3 +138,4 @@ export default function RecipesPage() {
     </>
   );
 }
+

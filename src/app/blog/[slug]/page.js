@@ -101,7 +101,7 @@ export default async function BlogPostPage({ params }) {
           </nav>
 
           <div className="grid items-center gap-8 w-full md:grid-cols-[1.15fr_0.85fr] md:gap-12">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl" data-reveal="up">
               <div className="flex items-center gap-3">
                 <span className="label-micro text-marigold">{post.date}</span>
                 <span className="text-paper/40 font-bold">•</span>
@@ -123,17 +123,19 @@ export default async function BlogPostPage({ params }) {
             </div>
 
             {portrait && (
-              <PagePortrait
-                src={portrait.src}
-                alt={portrait.alt}
-                width={portrait.width}
-                height={portrait.height}
-                tone={portrait.tone}
-                name={portrait.name}
-                spot={portrait.spot}
-                plaqueBg={portrait.plaqueBg}
-                priority
-              />
+              <div data-reveal="scale">
+                <PagePortrait
+                  src={portrait.src}
+                  alt={portrait.alt}
+                  width={portrait.width}
+                  height={portrait.height}
+                  tone={portrait.tone}
+                  name={portrait.name}
+                  spot={portrait.spot}
+                  plaqueBg={portrait.plaqueBg}
+                  priority
+                />
+              </div>
             )}
           </div>
         </div>
@@ -148,7 +150,7 @@ export default async function BlogPostPage({ params }) {
             {post.content.map((block, idx) => {
               if (block.type === "paragraph") {
                 return (
-                  <p key={idx} className="mt-6 text-copy text-ink-soft first:mt-0 first:text-copy-lg first:font-medium">
+                  <p key={idx} data-reveal="up" className="mt-6 text-copy text-ink-soft first:mt-0 first:text-copy-lg first:font-medium">
                     {block.text}
                   </p>
                 );
@@ -156,7 +158,7 @@ export default async function BlogPostPage({ params }) {
               
               if (block.type === "heading") {
                 return (
-                  <h2 key={idx} className="h-poster-xs mt-12 text-[1.8rem] text-ink">
+                  <h2 key={idx} data-reveal="up" className="h-poster-xs mt-12 text-[1.8rem] text-ink">
                     {block.text}
                   </h2>
                 );
@@ -167,6 +169,7 @@ export default async function BlogPostPage({ params }) {
                 return (
                   <div 
                     key={idx} 
+                    data-reveal="up"
                     className={`my-10 card-poster card-pad ${block.bg} ${rotation} flex flex-col justify-between`}
                     style={{ "--card-shadow": block.shadow }}
                   >
@@ -192,7 +195,7 @@ export default async function BlogPostPage({ params }) {
           {/* ── faqs accordion ── */}
           {post.faqs && post.faqs.length > 0 && (
             <div className="mt-16 border-t-2 border-ink/10 pt-12">
-              <h3 className="h-poster-xs text-center text-ink text-[1.8rem] mb-8">
+              <h3 className="h-poster-xs text-center text-ink text-[1.8rem] mb-8" data-reveal="up">
                 FAQs about this story
               </h3>
               
@@ -200,8 +203,9 @@ export default async function BlogPostPage({ params }) {
                 {post.faqs.map((faq, idx) => (
                   <details 
                     key={idx}
+                    data-reveal="up"
+                    style={{ "--reveal-delay": `${idx * 80}ms`, "--card-shadow": "var(--color-marigold)" }}
                     className="group card-poster bg-paper text-ink overflow-hidden transition-all duration-300"
-                    style={{ "--card-shadow": "var(--color-marigold)" }}
                   >
                     <summary className="card-pad flex cursor-pointer items-center justify-between gap-4 font-bold text-copy select-none outline-none">
                       <span>{faq.q}</span>
@@ -228,17 +232,21 @@ export default async function BlogPostPage({ params }) {
       {otherPosts.length > 0 && (
         <section className="bg-sand/30 section">
           <div className="shell">
-            <h3 className="h-poster-xs mb-8 text-[1.8rem]">More from Rasoi Ki Baatein</h3>
+            <h3 className="h-poster-xs mb-8 text-[1.8rem]" data-reveal="up">More from Rasoi Ki Baatein</h3>
             
             <div className="grid gap-6 sm:grid-cols-2">
-              {otherPosts.map((other) => {
+              {otherPosts.map((other, idx) => {
                 const shadow = other.themeName === "forest" ? "var(--color-marigold)" : "var(--color-dragonfruit)";
                 return (
                   <Link 
                     key={other.slug}
                     href={`/blog/${other.slug}`}
+                    data-reveal="up"
+                    style={{ 
+                      "--reveal-delay": `${idx * 100}ms`,
+                      "--card-shadow": shadow
+                    }}
                     className={`card-poster card-pad card-lift ${other.coverColor} flex flex-col justify-between`}
-                    style={{ "--card-shadow": shadow }}
                   >
                     <div>
                       <span className={`label-micro ${other.accentColor}`}>{other.date}</span>

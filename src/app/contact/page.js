@@ -26,7 +26,7 @@ export default function ContactPage() {
 
         <div className="shell relative">
           <div className="grid items-center gap-8 w-full md:grid-cols-[1.15fr_0.85fr] md:gap-12">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl" data-reveal="up">
               <p
                 className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
                 style={{ "--plaque-bg": "var(--color-marigold)", "--plaque-fg": "var(--color-ink)" }}
@@ -48,16 +48,18 @@ export default function ContactPage() {
               </p>
             </div>
 
-            <PagePortrait
-              src="/pihu-cutout.webp"
-              alt="Pihu giving a thumbs up"
-              width={1145}
-              height={1374}
-              name="Pihu"
-              spot="var(--color-marigold)"
-              plaqueBg="var(--color-sun)"
-              priority
-            />
+            <div data-reveal="scale">
+              <PagePortrait
+                src="/pihu-cutout.webp"
+                alt="Pihu giving a thumbs up"
+                width={1145}
+                height={1374}
+                name="Pihu"
+                spot="var(--color-marigold)"
+                plaqueBg="var(--color-sun)"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -72,6 +74,7 @@ export default function ContactPage() {
             <div className="grid gap-6">
               {/* direct contact */}
               <div 
+                data-reveal="left"
                 className="card-poster card-pad bg-paper text-ink"
                 style={{ "--card-shadow": "var(--color-oxblood)" }}
               >
@@ -95,6 +98,8 @@ export default function ContactPage() {
 
               {/* physical address */}
               <div 
+                data-reveal="left"
+                style={{ "--reveal-delay": "100ms" }}
                 className="card-poster card-pad bg-marigold text-ink"
                 style={{ "--card-shadow": "var(--color-oxblood)" }}
               >
@@ -115,6 +120,8 @@ export default function ContactPage() {
 
               {/* trade & distribution */}
               <div 
+                data-reveal="left"
+                style={{ "--reveal-delay": "200ms" }}
                 className="card-poster card-pad bg-oxblood text-paper"
                 style={{ "--card-shadow": "var(--color-sun)" }}
               >
@@ -135,7 +142,7 @@ export default function ContactPage() {
             </div>
 
             {/* form column */}
-            <div className="sticky top-24">
+            <div className="sticky top-24" data-reveal="right" style={{ "--reveal-delay": "100ms" }}>
               <ContactForm />
             </div>
           </div>

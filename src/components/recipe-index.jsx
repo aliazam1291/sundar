@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import HeatScale from "@/components/heat-scale";
+import FoodIllustration from "@/components/food-illustration";
 import { RECIPES, RECIPE_TONE, COURSES, kickerOf } from "@/lib/recipes";
 
 /**
@@ -80,7 +81,10 @@ export default function RecipeIndex() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <p className={`label-micro ${tone.accent}`}>{kickerOf(r)}</p>
-                  <HeatScale level={r.heat} showLabel={false} size="w-3.5" className={tone.accent} />
+                  <div className="flex items-center gap-2.5">
+                    <HeatScale level={r.heat} showLabel={false} size="w-3.5" className={tone.accent} />
+                    <FoodIllustration slug={r.slug} className="w-16 h-16 shrink-0" />
+                  </div>
                 </div>
 
                 <p className="font-deva mt-4 text-[1.35rem] leading-tight" lang="hi">

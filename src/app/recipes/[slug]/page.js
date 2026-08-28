@@ -7,6 +7,132 @@ import { Uses, RecipeStats, Method } from "@/components/recipe-parts";
 import RecipeScaler from "@/components/recipe-scaler";
 import { RECIPES, getRecipe, kickerOf } from "@/lib/recipes";
 import { JsonLd, recipeJsonLd, recipeBreadcrumbJsonLd } from "@/lib/seo";
+import { DevaWatermark } from "@/components/bilingual";
+import PagePortrait from "@/components/page-portrait";
+import FoodIllustration from "@/components/food-illustration";
+
+const PORTRAITS_MAP = {
+  "indori-poha": {
+    src: "/bunty-glow.webp",
+    alt: "Bunty",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Bunty",
+    spot: "var(--color-sun)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "dal-tadka": {
+    src: "/sudhaji-cutout.webp",
+    alt: "Sudhaji",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Sudhaji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "rajma-chawal": {
+    src: "/rameshji-glow.webp",
+    alt: "Ramesh Ji",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Ramesh Ji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-marigold)",
+  },
+  "chole-bhature": {
+    src: "/rameshji-glow.webp",
+    alt: "Ramesh Ji",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Ramesh Ji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-marigold)",
+  },
+  "shahi-paneer": {
+    src: "/pihu-cutout.webp",
+    alt: "Pihu",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Pihu",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "pav-bhaji": {
+    src: "/pihu-cutout.webp",
+    alt: "Pihu",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Pihu",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "sambhar": {
+    src: "/sudhaji-cutout.webp",
+    alt: "Sudhaji",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Sudhaji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "kadhi-pakora": {
+    src: "/sudhaji-cutout.webp",
+    alt: "Sudhaji",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Sudhaji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "baingan-bharta": {
+    src: "/rameshji-glow.webp",
+    alt: "Ramesh Ji",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Ramesh Ji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-marigold)",
+  },
+  "masala-chai": {
+    src: "/pihu-cutout.webp",
+    alt: "Pihu",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Pihu",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "aloo-chaat": {
+    src: "/bunty-glow.webp",
+    alt: "Bunty",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Bunty",
+    spot: "var(--color-sun)",
+    plaqueBg: "var(--color-sun)",
+  },
+  "jeera-aloo": {
+    src: "/sudhaji-cutout.webp",
+    alt: "Sudhaji",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Sudhaji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-sun)",
+  }
+};
 
 /**
  * One dish, one URL.
@@ -38,6 +164,7 @@ export default async function RecipePage({ params }) {
   if (!recipe) notFound();
 
   const others = RECIPES.filter((r) => r.slug !== recipe.slug).slice(0, 3);
+  const portrait = PORTRAITS_MAP[recipe.slug];
 
   return (
     <>
@@ -51,8 +178,10 @@ export default async function RecipePage({ params }) {
           rays={48}
           opacity={0.1}
         />
+        <DevaWatermark word={recipe.hi} className="text-marigold" position="right" opacity={0.06} />
 
         <div className="shell relative">
+          {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-7 flex items-center gap-2 text-micro font-semibold uppercase tracking-[0.16em] text-paper/60">
             <Link href="/recipes" className="link-sweep inline-block py-2.5 hover:text-marigold">
               Rasoi
@@ -61,21 +190,50 @@ export default async function RecipePage({ params }) {
             <span className="text-paper/85">{recipe.title}</span>
           </nav>
 
-          <p
-            className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
-            style={{ "--plaque-bg": "var(--color-sun)", "--plaque-fg": "var(--color-ink)" }}
-          >
-            <Star className="w-3.5" />
-            {kickerOf(recipe)}
-          </p>
+          <div className="grid items-center gap-8 w-full md:grid-cols-[1.15fr_0.85fr] md:gap-12">
+            <div className="max-w-3xl" data-reveal="up">
+              <p
+                className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
+                style={{ "--plaque-bg": "var(--color-sun)", "--plaque-fg": "var(--color-ink)" }}
+              >
+                <Star className="w-3.5" />
+                {kickerOf(recipe)}
+              </p>
 
-          <p className="font-deva mt-4 text-[clamp(1.4rem,3vw,2.2rem)] leading-tight text-marigold" lang="hi">
-            {recipe.hi}
-          </p>
-          <h1 className="h-poster mt-1">{recipe.title}</h1>
-          <p className="font-editorial mt-2 text-copy-lg italic text-paper/70">{recipe.dish}</p>
+              <p className="font-deva mt-4 text-[clamp(1.4rem,3vw,2.2rem)] leading-tight text-marigold" lang="hi">
+                {recipe.hi}
+              </p>
+              <h1 className="h-poster mt-1">{recipe.title}</h1>
+              <p className="font-editorial mt-2 text-copy-lg italic text-paper/70">{recipe.dish}</p>
 
-          <p className="lede mt-5 max-w-xl text-paper/80">{recipe.blurb}</p>
+              <p className="lede mt-5 max-w-xl text-paper/80">{recipe.blurb}</p>
+
+              {/* Food Illustration Decal */}
+              <div className="mt-7 flex items-center gap-3.5 bg-paper/5 border border-paper/10 p-3 rounded-2xl max-w-sm">
+                <FoodIllustration slug={recipe.slug} className="w-14 h-14 shrink-0 filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.25)] bg-paper/10 p-1.5 rounded-full border border-marigold/30" />
+                <div>
+                  <p className="label-micro text-marigold">Sunder Rasoi Decal</p>
+                  <p className="text-copy-sm font-semibold text-paper/90">Authentic {recipe.title} preparation</p>
+                </div>
+              </div>
+            </div>
+
+            {portrait && (
+              <div data-reveal="scale">
+                <PagePortrait
+                  src={portrait.src}
+                  alt={portrait.alt}
+                  width={portrait.width}
+                  height={portrait.height}
+                  tone={portrait.tone}
+                  name={portrait.name}
+                  spot={portrait.spot}
+                  plaqueBg={portrait.plaqueBg}
+                  priority
+                />
+              </div>
+            )}
+          </div>
         </div>
       </section>
 

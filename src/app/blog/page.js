@@ -27,7 +27,7 @@ export default function BlogListingPage() {
 
         <div className="shell relative">
           <div className="grid items-center gap-8 w-full md:grid-cols-[1.15fr_0.85fr] md:gap-12">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl" data-reveal="up">
               <p
                 className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
                 style={{ "--plaque-bg": "var(--color-marigold)", "--plaque-fg": "var(--color-ink)" }}
@@ -50,16 +50,18 @@ export default function BlogListingPage() {
               </p>
             </div>
 
-            <PagePortrait
-              src="/bunty-glow.webp"
-              alt="Bunty reacting to the heat"
-              width={933}
-              height={1400}
-              tone="glow"
-              name="Bunty"
-              plaqueBg="var(--color-marigold)"
-              priority
-            />
+            <div data-reveal="scale">
+              <PagePortrait
+                src="/bunty-glow.webp"
+                alt="Bunty reacting to the heat"
+                width={933}
+                height={1400}
+                tone="glow"
+                name="Bunty"
+                plaqueBg="var(--color-marigold)"
+                priority
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -71,7 +73,7 @@ export default function BlogListingPage() {
         <div className="shell">
           {/* featured post */}
           {featuredPost && (
-            <div className="mb-12">
+            <div className="mb-12" data-reveal="up">
               <p className="label-micro mb-4 text-ink-soft">Featured Article</p>
               <div 
                 className="card-poster card-pad group relative overflow-hidden bg-oxblood text-paper flex flex-col justify-between"
@@ -127,15 +129,19 @@ export default function BlogListingPage() {
 
           {/* secondary posts grid */}
           <div className="grid gap-8 sm:grid-cols-2">
-            {secondaryPosts.map((post) => {
+            {secondaryPosts.map((post, idx) => {
               const shadowColor = post.themeName === "forest" ? "var(--color-marigold)" : "var(--color-dragonfruit)";
               const quote = post.content.find(b => b.type === "quote");
               
               return (
                 <div 
                   key={post.slug}
+                  data-reveal="up"
                   className={`card-poster card-pad card-lift flex flex-col justify-between ${post.coverColor}`}
-                  style={{ "--card-shadow": shadowColor }}
+                  style={{ 
+                    "--reveal-delay": `${idx * 120}ms`,
+                    "--card-shadow": shadowColor 
+                  }}
                 >
                   <div>
                     <div className="flex items-center gap-3">

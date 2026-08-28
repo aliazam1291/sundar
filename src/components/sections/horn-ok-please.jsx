@@ -43,6 +43,7 @@ export default function HornOkPlease() {
   const [muted, setMuted] = useState(false);
   const timer = useRef(null);
   const audio = useRef(null);
+  const sectionRef = useRef(null);
 
   /* Built lazily on the click, which is also what satisfies the browser's
      autoplay policy — an AudioContext created before a gesture starts
@@ -57,7 +58,11 @@ export default function HornOkPlease() {
       ctx = new Ctx();
       audio.current = ctx;
     }
-    if (ctx.state === "suspended") ctx.resume();
+    if (ctx.state === "suspended") {
+      ctx.resume().catch((err) => {
+        console.log("AudioContext autoplay blocked by browser policy until interaction.", err);
+      });
+    }
 
     const t = ctx.currentTime;
 
@@ -103,6 +108,31 @@ export default function HornOkPlease() {
     timer.current = setTimeout(() => setHonking(false), 700);
   }, [muted, sound]);
 
+  useEffect(() => {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+
+    let hasHonkedOnScroll = false;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasHonkedOnScroll) {
+          hasHonkedOnScroll = true;
+          // Trigger the horn and tailgate flip when scrolled into view
+          honk();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [honk]);
+
   useEffect(
     () => () => {
       clearTimeout(timer.current);
@@ -114,7 +144,7 @@ export default function HornOkPlease() {
   const line = SLOGANS[slogan];
 
   return (
-    <section className="relative isolate overflow-hidden bg-derbyshire section text-paper">
+    <section ref={sectionRef} className="relative isolate overflow-hidden bg-derbyshire section text-paper">
       <div className="tex-sunburst pointer-events-none absolute inset-0" aria-hidden="true" />
 
       <div className="shell relative grid items-center gap-10 lg:grid-cols-[1fr_1.15fr] lg:gap-14">
