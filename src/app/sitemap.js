@@ -1,5 +1,6 @@
 import { PRODUCTS } from "@/lib/products";
 import { RECIPES } from "@/lib/recipes";
+import { POSTS } from "@/lib/posts";
 
 const BASE = "https://sundermasala.com";
 
@@ -12,6 +13,8 @@ export default function sitemap() {
     { url: "/story", priority: 0.7, changeFrequency: "monthly" },
     { url: "/recipes", priority: 0.8, changeFrequency: "monthly" },
     { url: "/faq", priority: 0.6, changeFrequency: "monthly" },
+    { url: "/blog", priority: 0.8, changeFrequency: "weekly" },
+    { url: "/contact", priority: 0.7, changeFrequency: "monthly" },
   ].map((r) => ({
     url: `${BASE}${r.url}`,
     lastModified: now,
@@ -35,5 +38,12 @@ export default function sitemap() {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...recipeRoutes];
+  const blogRoutes = POSTS.map((p) => ({
+    url: `${BASE}/blog/${p.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...recipeRoutes, ...blogRoutes];
 }

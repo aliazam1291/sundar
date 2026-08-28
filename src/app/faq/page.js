@@ -62,7 +62,7 @@ export default function FaqPage() {
             own height rule, neither filling an fr-share of the shell — while
             it keeps sitting at the shell's left edge by default. */}
         <div className="shell relative">
-        <div className="grid items-start gap-8 w-full md:grid-cols-[1.2fr_0.8fr] md:gap-12">
+        <div className="grid items-center gap-8 w-full md:grid-cols-[1.2fr_0.8fr] md:gap-12">
           <div className="max-w-3xl">
             <p
               className="plaque tilt-tag label-micro inline-flex items-center gap-2.5"
@@ -105,7 +105,6 @@ export default function FaqPage() {
             name="Sudhaji"
             spot="var(--color-marigold)"
             plaqueBg="var(--color-sun)"
-            className="md:mt-4"
             priority
           />
         </div>

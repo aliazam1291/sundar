@@ -243,6 +243,104 @@ export const POSTS = [
         a: "Because 'chutki' means a pinch in Hindi. It represents the ancient art of measuring spices by feel and touch, ensuring that you add just the right amount to highlight—not overpower—the primary ingredients."
       }
     ]
+  },
+  {
+    slug: "what-makes-a-masala-worth-passing-down",
+    title: "What Makes A Masala Worth Passing Down?",
+    excerpt: "Sudha Ji was grinding jeera by hand when Bunty asked why she didn't just use the mixer. Kuch cheezein haath se hi banti hain.",
+    date: "August 28, 2026",
+    readTime: "4 min read",
+    author: "Sunder Rasoi Team",
+    coverColor: "bg-oxblood text-paper",
+    accentColor: "text-marigold",
+    spotColor: "var(--color-marigold)",
+    textColor: "text-paper/80",
+    themeName: "oxblood",
+    content: [
+      {
+        type: "paragraph",
+        text: "Sudha Ji was grinding jeera by hand when Bunty asked why she didn't just use the mixer."
+      },
+      {
+        type: "quote",
+        character: "Sudha Ji",
+        text: "Kuch cheezein haath se hi banti hain, beta.",
+        bg: "bg-sun text-ink",
+        shadow: "var(--color-cobalt)"
+      },
+      {
+        type: "paragraph",
+        text: "Pihu wanted to know what that even meant. Fair question."
+      },
+      {
+        type: "heading",
+        text: "It Was Never Just About the Spice"
+      },
+      {
+        type: "paragraph",
+        text: "A masala recipe is easy to write down. Two spoons of this, half a spoon of that, roast until fragrant. What's much harder to write down is the person behind it, how much salt they added by feel, when they knew to lower the flame, and what \"ho gaya\" actually looks like for them."
+      },
+      {
+        type: "paragraph",
+        text: "That is the part that makes a recipe worth keeping. Not the list of ingredients but the judgement of the person who made it."
+      },
+      {
+        type: "heading",
+        text: "The Recipe Remembers What We Forget"
+      },
+      {
+        type: "paragraph",
+        text: "Every family has one dish that isn't really about hunger anymore. It just shows up on a specific occasion, made a specific way, and nobody quite remembers who started it."
+      },
+      {
+        type: "quote",
+        character: "Sudha Ji",
+        text: "Recipe purani ho jaaye, toh usmein log reh jaate hain.",
+        bg: "bg-marigold text-ink",
+        shadow: "var(--color-oxblood)"
+      },
+      {
+        type: "paragraph",
+        text: "She's not wrong. Somewhere along the way, the recipe stops being just food. It becomes the last place certain people still show up. A grandmother who's no longer around to cook it herself is still very much present every time her masala hits hot oil."
+      },
+      {
+        type: "paragraph",
+        text: "That, more than anything, is what makes a masala worth passing down. It's not tradition for tradition's sake. It's the one way left to sit at the table with someone who can't sit there anymore."
+      },
+      {
+        type: "heading",
+        text: "Same Masala, Different Hands"
+      },
+      {
+        type: "paragraph",
+        text: "I like to believe that I have inherited my mother's exact technique (Sudha Ji disagrees)."
+      },
+      {
+        type: "paragraph",
+        text: "Maybe she’s right and I have not inherited it exactly. But the truth is that every hand that cooks a family recipe changes it slightly, and every family accepts that trade without ever discussing it out loud. The masala stays the same. The story and the love around it keep growing."
+      },
+      {
+        type: "paragraph",
+        text: "That is also the idea behind Sunder. Each masala carries a real story on the pack, drawn from real kitchens, some old enough that the families who started them have changed several times over. Same masala since 1975. Different hands every generation."
+      },
+      {
+        type: "quote",
+        character: "Did You Know?",
+        text: "The reddest curry on your plate is often the least spicy thing in the pot. Kashmiri mirch, despite the name and the fiery colour, barely registers on the heat scale compared to everyday red chilli powder. Most Indian kitchens use it purely for colour, then reach for a completely different, hotter chilli when they actually want the dish to bite back.",
+        bg: "bg-dragonfruit text-paper",
+        shadow: "var(--color-ink)"
+      }
+    ],
+    faqs: [
+      {
+        q: "What makes a masala recipe worth passing down?",
+        a: "It's rarely the ingredient list. It's the person's judgement behind it: how much salt, when to lower the flame, what \"ho gaya\" smells like, and knowledge that doesn't survive on paper the way it survives in a kitchen."
+      },
+      {
+        q: "Why do Indian families guard their masala recipes so closely?",
+        a: "Because the recipe often outlives the person who taught it. Cooking it the same way, generations later, is one of the few ways left to keep their memory and spirit alive."
+      }
+    ]
   }
 ];
 

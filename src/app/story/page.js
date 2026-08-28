@@ -8,6 +8,7 @@ import { TIMELINE, FOUNDER } from "@/lib/content";
 import { PRODUCTS } from "@/lib/products";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 import PagePortrait from "@/components/page-portrait";
+import { DevaWatermark } from "@/components/bilingual";
 
 export const metadata = {
   title: "Our story — purani recipe, nayi pehchaan",
@@ -25,10 +26,11 @@ export default function StoryPage() {
           rays={52}
           opacity={0.1}
         />
+        <DevaWatermark word="कहानी" className="text-marigold" position="right" opacity={0.08} />
         {/* Rameshji, not a stand-in for the founder — the point is the taste
             that keeps three generations cooking, not a claim about who he is.
             His glow is baked into the image; it just sits on the oxblood. */}
-        <div className="relative shell grid items-start gap-8 md:grid-cols-[1.3fr_0.7fr] md:gap-12">
+        <div className="relative shell grid items-center gap-8 md:grid-cols-[1.3fr_0.7fr] md:gap-12">
           <div>
             <p className="eyebrow flex items-center gap-2.5 text-marigold">
               <Star className="w-3.5" />

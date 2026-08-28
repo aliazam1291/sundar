@@ -3,6 +3,50 @@ import { notFound } from "next/navigation";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 import { POSTS, getPost } from "@/lib/posts";
 import Bilingual, { DevaWatermark } from "@/components/bilingual";
+import PagePortrait from "@/components/page-portrait";
+
+const PORTRAITS_MAP = {
+  "why-does-indian-cuisine-change-every-few-hundred-kilometres": {
+    src: "/rameshji-glow.webp",
+    alt: "Ramesh Ji",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Ramesh Ji",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-marigold)"
+  },
+  "what-makes-a-masala-worth-passing-down": {
+    src: "/sudhaji-bunty-cutout.webp",
+    alt: "Sudhaji and Bunty",
+    width: 1280,
+    height: 1536,
+    tone: "cutout",
+    name: "Sudhaji & Bunty",
+    spot: "var(--color-sun)",
+    plaqueBg: "var(--color-sun)"
+  },
+  "the-science-of-slow-grinding-cold-milled-masala": {
+    src: "/bunty-glow.webp",
+    alt: "Bunty",
+    width: 933,
+    height: 1400,
+    tone: "glow",
+    name: "Bunty",
+    spot: "var(--color-marigold)",
+    plaqueBg: "var(--color-marigold)"
+  },
+  "understanding-the-chutki-ritual": {
+    src: "/sudhaji-cutout.webp",
+    alt: "Sudhaji",
+    width: 1145,
+    height: 1374,
+    tone: "cutout",
+    name: "Sudhaji",
+    spot: "var(--color-sun)",
+    plaqueBg: "var(--color-sun)"
+  }
+};
 
 export function generateStaticParams() {
   return POSTS.map((p) => ({ slug: p.slug }));
@@ -33,6 +77,8 @@ export default async function BlogPostPage({ params }) {
   const trimColorA = post.themeName === "forest" ? "var(--color-marigold)" : post.themeName === "cobalt" ? "var(--color-sun)" : "var(--color-marigold)";
   const trimColorB = post.themeName === "forest" ? "var(--color-kiwi)" : post.themeName === "cobalt" ? "var(--color-sky)" : "var(--color-tomato)";
 
+  const portrait = PORTRAITS_MAP[post.slug];
+
   return (
     <>
       {/* ── masthead ── */}
@@ -42,6 +88,7 @@ export default async function BlogPostPage({ params }) {
           rays={48}
           opacity={0.08}
         />
+        <DevaWatermark word="कहानी" className="text-marigold" position="right" opacity={0.06} />
         
         <div className="shell relative">
           {/* Breadcrumbs */}
@@ -53,25 +100,41 @@ export default async function BlogPostPage({ params }) {
             <span className="text-paper/85">{post.title}</span>
           </nav>
 
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-3">
-              <span className="label-micro text-marigold">{post.date}</span>
-              <span className="text-paper/40 font-bold">•</span>
-              <span className="label-micro opacity-80">{post.readTime}</span>
-            </div>
-            
-            <h1 className="h-poster mt-4 text-[2.5rem] md:text-[3.8rem] leading-[1.05] tracking-tight">
-              {post.title}
-            </h1>
-            
-            <p className="lede mt-6 text-paper/80 max-w-3xl">
-              {post.excerpt}
-            </p>
+          <div className="grid items-center gap-8 w-full md:grid-cols-[1.15fr_0.85fr] md:gap-12">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3">
+                <span className="label-micro text-marigold">{post.date}</span>
+                <span className="text-paper/40 font-bold">•</span>
+                <span className="label-micro opacity-80">{post.readTime}</span>
+              </div>
+              
+              <h1 className="h-poster mt-4 text-[2.5rem] md:text-[3.8rem] leading-[1.05] tracking-tight">
+                {post.title}
+              </h1>
+              
+              <p className="lede mt-6 text-paper/80 max-w-3xl">
+                {post.excerpt}
+              </p>
 
-            <div className="mt-6 flex items-center gap-3 text-paper/70">
-              <SpiceIcon mono name="pinch" className="w-5 text-marigold" />
-              <span className="text-label">Written by {post.author}</span>
+              <div className="mt-6 flex items-center gap-3 text-paper/70">
+                <SpiceIcon mono name="pinch" className="w-5 text-marigold" />
+                <span className="text-label">Written by {post.author}</span>
+              </div>
             </div>
+
+            {portrait && (
+              <PagePortrait
+                src={portrait.src}
+                alt={portrait.alt}
+                width={portrait.width}
+                height={portrait.height}
+                tone={portrait.tone}
+                name={portrait.name}
+                spot={portrait.spot}
+                plaqueBg={portrait.plaqueBg}
+                priority
+              />
+            )}
           </div>
         </div>
       </section>
