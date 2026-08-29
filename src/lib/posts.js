@@ -341,6 +341,153 @@ export const POSTS = [
         a: "Because the recipe often outlives the person who taught it. Cooking it the same way, generations later, is one of the few ways left to keep their memory and spirit alive."
       }
     ]
+  },
+  {
+    slug: "same-spices-different-kitchens",
+    title: "Same Indian Spices. Different Kitchens. Different Flavours.",
+    excerpt: "The same Indian spices can create completely different flavours depending on the region, the technique, and even the job the spice is being asked to do.",
+    date: "August 29, 2026",
+    readTime: "5 min read",
+    author: "Sunder Rasoi Team",
+    coverColor: "bg-sun text-ink",
+    accentColor: "text-oxblood",
+    spotColor: "var(--color-oxblood)",
+    textColor: "text-ink/80",
+    themeName: "sun",
+    content: [
+      {
+        type: "paragraph",
+        text: "Bunty, mirch thodi si daalna."
+      },
+      {
+        type: "quote",
+        character: "Bunty",
+        relation: "House Cook",
+        text: "Kitni?",
+        bg: "bg-oxblood text-paper",
+        shadow: "var(--color-ink)"
+      },
+      {
+        type: "quote",
+        character: "Sudha Ji",
+        relation: "The Kitchen",
+        text: "Bas thodi si.",
+        bg: "bg-marigold text-ink",
+        shadow: "var(--color-oxblood)"
+      },
+      {
+        type: "paragraph",
+        text: "Bunty adds two generous spoons. Sudha Ji looks at the pan."
+      },
+      {
+        type: "quote",
+        character: "Sudha Ji",
+        text: "Yeh thodi si hai?",
+        bg: "bg-dragonfruit text-paper",
+        shadow: "var(--color-ink)"
+      },
+      {
+        type: "quote",
+        character: "Bunty",
+        text: "Mere hisaab se.",
+        bg: "bg-cobalt text-paper",
+        shadow: "var(--color-ink)"
+      },
+      {
+        type: "paragraph",
+        text: "And honestly, that might be the most Indian thing about cooking. There is rarely one fixed meaning of thodi si. The same Indian spices can create completely different flavours depending on the region, the technique, and even the job the spice is being asked to do."
+      },
+      {
+        type: "heading",
+        text: "Indian Masala Changes With the Pan"
+      },
+      {
+        type: "paragraph",
+        text: "A spice isn't just an ingredient. It has timing. Whole spices added to hot oil release their aroma quickly. Ground spices behave differently; they can toast, deepen, or burn much faster."
+      },
+      {
+        type: "quote",
+        character: "Ramesh Ji",
+        text: "Masala daal diya. Ab?",
+        bg: "bg-marigold text-ink",
+        shadow: "var(--color-oxblood)"
+      },
+      {
+        type: "quote",
+        character: "Sudha Ji",
+        text: "Ab usse jalne se bachao.",
+        bg: "bg-oxblood text-paper",
+        shadow: "var(--color-ink)"
+      },
+      {
+        type: "paragraph",
+        text: "The timing matters. If powdered spices are going into a hot pan, adding them with a little water, tomato, or another wet ingredient can help them cook into the gravy instead of catching at the bottom."
+      },
+      {
+        type: "heading",
+        text: "Your Dadi Didn't Measure. She Watched."
+      },
+      {
+        type: "paragraph",
+        text: "When making a gravy, don't judge your spices immediately after adding them. Let them cook until the raw, dusty smell disappears and the oil or gravy smells noticeably rounder."
+      },
+      {
+        type: "quote",
+        character: "Dadi",
+        relation: "Dadi Ka Nuskha",
+        text: "Masala ka rang nahi, uski khushboo dekho.",
+        bg: "bg-forest text-ghee",
+        shadow: "var(--color-marigold)"
+      },
+      {
+        type: "paragraph",
+        text: "And there is another reason the same spice can taste different. Fat, acidity, and heat change how we experience flavour. The same chilli can feel sharper in a tangy chutney, warmer in oil, and softer in a creamy gravy."
+      },
+      {
+        type: "heading",
+        text: "So, What's the Real Secret?"
+      },
+      {
+        type: "paragraph",
+        text: "Maybe it's not about finding the perfect amount of spice. It's about understanding what the spice is doing. Is it building aroma? Bringing heat? Balancing acidity? Adding depth?"
+      },
+      {
+        type: "quote",
+        character: "Bunty",
+        text: "Toh mirch kitni daalun?",
+        bg: "bg-cobalt text-paper",
+        shadow: "var(--color-ink)"
+      },
+      {
+        type: "quote",
+        character: "Sudha Ji",
+        text: "Pehle bata, khaana kaisa chahiye?",
+        bg: "bg-sun text-ink",
+        shadow: "var(--color-oxblood)"
+      },
+      {
+        type: "paragraph",
+        text: "And that's the thing about Indian spices. There isn't always one right answer. The region changes them. The pan changes them. The pairing changes them. And the person cooking changes them too."
+      },
+      {
+        type: "paragraph",
+        text: "That is also why Sunder Masala focuses on both everyday spices and regional favourites: the spice should bring its character to the kitchen, while the cook decides where the story goes."
+      }
+    ],
+    faqs: [
+      {
+        q: "Why do spices sometimes smell stronger than they taste?",
+        a: "Aroma and taste are not the same thing. Heat, fat, and cooking time can change how much of a spice's flavour compounds reach your palate, so a spice can smell powerful without making a dish equally intense."
+      },
+      {
+        q: "Why do older spices lose their punch even when they look fine?",
+        a: "Spices slowly lose their volatile oils after grinding. They may retain their colour while losing much of the aroma that gives them character. That's why freshness is often easier to judge by smell than appearance."
+      },
+      {
+        q: "Why do Indian masala blends taste different from one another?",
+        a: "Because each masala blend balances spices in different proportions. One may lean earthy and warm, while another may be sharper, more aromatic, or more heat-forward. Sunder Masala's regional blends use this balance to give familiar dishes a distinct flavour without requiring a completely different set of ingredients."
+      }
+    ]
   }
 ];
 

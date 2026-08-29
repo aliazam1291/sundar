@@ -45,6 +45,16 @@ const PORTRAITS_MAP = {
     name: "Sudhaji",
     spot: "var(--color-sun)",
     plaqueBg: "var(--color-sun)"
+  },
+  "same-spices-different-kitchens": {
+    src: "/sudhaji-bunty-cutout.webp",
+    alt: "Sudhaji and Bunty",
+    width: 1280,
+    height: 1536,
+    tone: "cutout",
+    name: "Sudhaji & Bunty",
+    spot: "var(--color-sun)",
+    plaqueBg: "var(--color-sun)"
   }
 };
 
@@ -74,8 +84,8 @@ export default async function BlogPostPage({ params }) {
   // Map theme colors to class styling
   const headerBgClass = post.themeName === "forest" ? "bg-forest" : post.themeName === "cobalt" ? "bg-cobalt" : "bg-oxblood";
   const headerTextClass = "text-paper";
-  const trimColorA = post.themeName === "forest" ? "var(--color-marigold)" : post.themeName === "cobalt" ? "var(--color-sun)" : "var(--color-marigold)";
-  const trimColorB = post.themeName === "forest" ? "var(--color-kiwi)" : post.themeName === "cobalt" ? "var(--color-sky)" : "var(--color-tomato)";
+  const trimColorA = post.themeName === "forest" ? "var(--color-marigold)" : post.themeName === "cobalt" ? "var(--color-sun)" : post.themeName === "sun" ? "var(--color-sun)" : "var(--color-marigold)";
+  const trimColorB = post.themeName === "forest" ? "var(--color-kiwi)" : post.themeName === "cobalt" ? "var(--color-sky)" : post.themeName === "sun" ? "var(--color-dragonfruit)" : "var(--color-tomato)";
 
   const portrait = PORTRAITS_MAP[post.slug];
 
