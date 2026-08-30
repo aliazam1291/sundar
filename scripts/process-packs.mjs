@@ -28,16 +28,75 @@ const OUT = "public/packs";
  * game: a generous tolerance floods straight through the pack's white face
  * and deletes it, which is what happened the first time round.
  *
- * So the hard cut is deliberately tight, and the soft contact shadow — which
- * is genuinely darker than the pack's white — is taken by a second pass that
- * is only allowed to creep a short distance in from the real background. That
- * distance limit is what stops it eating into a white panel that happens to
- * touch the frame edge.
+ * So the hard cut is deliberately tight, and the soft contact shadow — whose
+ * tones overlap the pack's own white and so cannot be told apart by colour —
+ * is taken by a separate per-column pass below.
  */
 const TOLERANCE = 5; // preserve white packaging panels while clearing edge-connected studio white
-const SHADOW_REACH = 0; // CSS supplies the shadow; never retain the studio floor
-const SHADOW_MIN = 255; // disable source contact-shadow retention
+const SHADOW_MIN = 165; // darkest grey still treated as studio floor, not printed ink
 const NEUTRAL = 9; // max channel spread for "grey, not printed colour"
+
+/**
+ * How much a column may brighten before the shadow walk calls it the pack.
+ *
+ * The depth cap alone was not a guard. Several pouches seal along the bottom
+ * with a pale strip, and a column standing on one never meets a printed edge
+ * to stop against, so the walk ran the full cap straight into the packaging
+ * and sliced the seal off jeera, ajwain and the hing stand-up pouch.
+ *
+ * Tone cannot separate them — the floor fades through 170-250 and that seal
+ * sits in the same range. Direction can: a cast shadow darkens toward the
+ * object and is densest at contact, so a rise means the walk has climbed out
+ * of the shadow and onto the pack. Small enough to catch the seal, wide
+ * enough to ride out sensor noise in a smooth gradient.
+ */
+const SHADOW_RISE = 10;
+
+/**
+ * How far up each column the shadow pass may clear, as a fraction of height.
+ *
+ * Setting this to 0 (the previous value) did not mean "no shadow" — it meant
+ * the shadow was never removed. The hard cut only clears 250 and above, so the
+ * contact shadow's 170-250 gradient failed that test, was not background, and
+ * survived as an opaque grey saucer spilling out under every pack, wider than
+ * the pack itself. With `.pack__photo` adding its own drop-shadow on top, each
+ * one sat on two, and the saucer also padded the crop by ~66px of nothing.
+ *
+ * Removing it cannot be done on colour alone: the floor fades through 170-250
+ * and the carton's own white panel sits at 240-247, so the ranges overlap. Two
+ * attempts flooding *connected* from the background both walked in along the
+ * left edge — where the white panel meets the background with no printed
+ * border to fence it — and shaved the panel off, costing chaat masala 18% of
+ * its area. Confining that flood to the bottom fifth only shortened the notch.
+ *
+ * So the pass is per-column instead, walking up from the base: with no
+ * sideways step it cannot reach a vertical edge at all, whatever the tone.
+ * The cap bounds a column whose base is the pack's own white and so never
+ * hits a printed edge to stop against. 4.5% clears the saucer several times
+ * over while staying well inside the shortest pack's artwork.
+ */
+const SHADOW_REACH_RATIO = 0.045;
+
+/**
+ * Radius for closing the bites the flood chews out of the pack's own edge.
+ *
+ * A pack edge is not matte. Pouch film creases and the jar's shoulder throw
+ * specular highlights that reach 250+, which is the studio white's own range,
+ * so the flood walks into them and takes an irregular bite. The result is an
+ * outline that dissolves into speckle — measured as alpha crossings per
+ * scanline, a clean pack is 2.0 and the worst of these ran 3.45.
+ *
+ * De-fringing does not help: that repairs the *colour* of the boundary, and
+ * this is damage to its *shape*. A morphological close (grow the pack, then
+ * shrink it back) fills any bite narrower than twice this radius and returns
+ * the silhouette to where it started. 2px clears the speckle while being far
+ * too small to bridge the gap between the two objects in the red chilli shot
+ * or to refill the contact shadow, which is an order of magnitude thicker.
+ *
+ * It runs before the de-fringe, so pixels this restores are still repainted
+ * from the interior rather than kept at their washed-out highlight value.
+ */
+const CLOSE_RADIUS = 2;
 
 const isBackground = (r, g, b) =>
   r >= 255 - TOLERANCE && g >= 255 - TOLERANCE && b >= 255 - TOLERANCE;
@@ -91,66 +150,156 @@ async function cut(file) {
     if (y < h - 1) push(x, y + 1);
   }
 
-  /* Second pass: creep into the contact shadow. Seeded from the true
-     background and hard-capped at SHADOW_REACH pixels, so a white panel that
-     runs to the edge of frame cannot be eaten from the outside in. */
-  const depth = new Uint8Array(w * h);
-  const soft = new Int32Array(w * h);
-  let sHead = 0;
-  let sTail = 0;
+  /* Second pass: lift the contact shadow off the base, one column at a time.
+     Walk up from the first kept pixel in each column, clearing neutral grey
+     until the printed edge stops it or the reach cap runs out. */
+  const reach = Math.max(2, Math.round(h * SHADOW_REACH_RATIO));
 
-  for (let i = 0; i < w * h; i += 1) {
-    if (!outside[i]) continue;
-    const x = i % w;
-    const y = (i / w) | 0;
-    const near = [
-      x > 0 ? i - 1 : -1,
-      x < w - 1 ? i + 1 : -1,
-      y > 0 ? i - w : -1,
-      y < h - 1 ? i + w : -1,
-    ];
-    for (const j of near) {
-      if (j < 0 || outside[j] || depth[j]) continue;
-      const o = j * 4;
-      if (!isShadow(data[o], data[o + 1], data[o + 2])) continue;
-      depth[j] = 1;
-      soft[sTail++] = j;
+  for (let x = 0; x < w; x += 1) {
+    let y = h - 1;
+    while (y >= 0 && outside[y * w + x]) y -= 1; // skip the cleared background
+
+    /* A contact shadow only ever gets darker as it approaches the pack it is
+       cast by — it is densest where the two meet. So climb while the column
+       keeps darkening, and stop the moment it brightens again, because that
+       upturn is the pack's own base catching the light. */
+    let floor = 255;
+    for (let n = 0; n < reach && y >= 0; n += 1, y -= 1) {
+      const i = y * w + x;
+      if (outside[i]) break;
+      const o = i * 4;
+      const r = data[o];
+      const g = data[o + 1];
+      const b = data[o + 2];
+      if (!isShadow(r, g, b)) break;
+      const lum = Math.min(r, g, b);
+      if (lum > floor + SHADOW_RISE) break;
+      if (lum < floor) floor = lum;
+      outside[i] = 1;
     }
   }
 
-  while (sHead < sTail) {
-    const i = soft[sHead++];
-    const d = depth[i];
-    if (d >= SHADOW_REACH) continue;
+  /* Close the bites chewed out of the pack edge (see CLOSE_RADIUS).
+     Erode the background, then dilate it back: an intrusion narrower than
+     2*r vanishes, while the outline as a whole returns to where it was.
+     Anything off-frame counts as background, so the border stays clear. */
+  if (CLOSE_RADIUS > 0) {
+    const r = CLOSE_RADIUS;
+    const shrunk = new Uint8Array(w * h);
+    const grown = new Uint8Array(w * h);
+
+    for (let y = 0; y < h; y += 1) {
+      for (let x = 0; x < w; x += 1) {
+        let all = 1;
+        for (let dy = -r; dy <= r && all; dy += 1) {
+          for (let dx = -r; dx <= r; dx += 1) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+            if (!outside[ny * w + nx]) {
+              all = 0;
+              break;
+            }
+          }
+        }
+        shrunk[y * w + x] = all;
+      }
+    }
+
+    for (let y = 0; y < h; y += 1) {
+      for (let x = 0; x < w; x += 1) {
+        let any = 0;
+        for (let dy = -r; dy <= r && !any; dy += 1) {
+          for (let dx = -r; dx <= r; dx += 1) {
+            const nx = x + dx;
+            const ny = y + dy;
+            if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+            if (shrunk[ny * w + nx]) {
+              any = 1;
+              break;
+            }
+          }
+        }
+        grown[y * w + x] = any;
+      }
+    }
+
+    outside.set(grown);
+  }
+
+  /* De-fringe: repaint the boundary with the pack's own colour.
+     ---------------------------------------------------------------
+     The studio white does not stop dead at the pack. JPEG ringing smears it a
+     couple of pixels inward, so the outline of every cutout carried a pale rim
+     that the flood had no reason to clear — it is not background, it is the
+     codec's blend of background and pack. Invisible on the cream page, obvious
+     the moment a pack sits on a dark ground: the garam masala jar's red cap
+     was ringed with white. It was not one bad pack either, it was the whole
+     catalogue — 61% of edge pixels on average, 82% at worst.
+
+     Fading those pixels (the previous fix) only made the halo translucent; the
+     rim was still lighter than the pack. The rim has to take the colour of
+     whatever it borders instead, so each fringe pixel is repainted from the
+     nearest pixel far enough inside to be uncontaminated.
+
+     This is safe on a white panel — the nearest interior pixel there is also
+     white, so those edges are repainted with themselves and nothing moves. */
+  const FRINGE = 2;
+  const dist = new Int16Array(w * h).fill(-1);
+  const from = new Int32Array(w * h).fill(-1);
+  const walk = new Int32Array(w * h);
+  const near = (i) => {
     const x = i % w;
     const y = (i / w) | 0;
-    const near = [
-      x > 0 ? i - 1 : -1,
-      x < w - 1 ? i + 1 : -1,
-      y > 0 ? i - w : -1,
-      y < h - 1 ? i + w : -1,
-    ];
-    for (const j of near) {
-      if (j < 0 || outside[j] || depth[j]) continue;
-      const o = j * 4;
-      if (!isShadow(data[o], data[o + 1], data[o + 2])) continue;
-      depth[j] = d + 1;
-      soft[sTail++] = j;
+    return [x > 0 ? i - 1 : -1, x < w - 1 ? i + 1 : -1, y > 0 ? i - w : -1, y < h - 1 ? i + w : -1];
+  };
+
+  /* How deep each kept pixel sits under the cut edge, to FRINGE and no more. */
+  let dHead = 0;
+  let dTail = 0;
+  for (let i = 0; i < w * h; i += 1) {
+    if (outside[i]) walk[dTail++] = i;
+  }
+  while (dHead < dTail) {
+    const i = walk[dHead++];
+    const d = outside[i] ? 0 : dist[i];
+    if (d >= FRINGE) continue;
+    for (const j of near(i)) {
+      if (j < 0 || outside[j] || dist[j] >= 0) continue;
+      dist[j] = d + 1;
+      walk[dTail++] = j;
     }
   }
 
-  /* Shadow pixels fade out rather than cut, so the pack keeps a soft foot. */
+  /* Carry interior colour outward into that band. */
+  let cHead = 0;
+  let cTail = 0;
   for (let i = 0; i < w * h; i += 1) {
-    if (!depth[i] || outside[i]) continue;
+    if (outside[i] || dist[i] >= 0) continue; // interior: deeper than FRINGE
+    for (const j of near(i)) {
+      if (j < 0 || outside[j] || dist[j] < 0 || from[j] >= 0) continue;
+      from[j] = i;
+      walk[cTail++] = j;
+    }
+  }
+  while (cHead < cTail) {
+    const i = walk[cHead++];
+    for (const j of near(i)) {
+      if (j < 0 || outside[j] || dist[j] < 0 || from[j] >= 0) continue;
+      from[j] = from[i];
+      walk[cTail++] = j;
+    }
+  }
+  for (let i = 0; i < w * h; i += 1) {
+    if (outside[i] || dist[i] < 0 || from[i] < 0) continue;
     const o = i * 4;
-    const lum = Math.min(data[o], data[o + 1], data[o + 2]);
-    /* 255 -> gone, SHADOW_MIN -> mostly kept */
-    const a = Math.round(255 * Math.min(1, Math.max(0, (255 - lum) / (255 - SHADOW_MIN))));
-    if (a < 40) outside[i] = 1;
-    else data[o + 3] = Math.min(data[o + 3], a);
+    const s = from[i] * 4;
+    data[o] = data[s];
+    data[o + 1] = data[s + 1];
+    data[o + 2] = data[s + 2];
   }
 
-  /* Clear the background, and feather anything on the boundary. */
+  /* Clear the background and measure the pack. */
   let minX = w;
   let minY = h;
   let maxX = -1;
@@ -164,19 +313,6 @@ async function cut(file) {
       if (outside[i]) {
         data[o + 3] = 0;
         continue;
-      }
-
-      /* A kept pixel touching a cleared one is usually JPEG ringing — a
-         near-white halo the codec smeared around the product. Soften only
-         those. Anything with real tone in it stays fully opaque, or the
-         pack's own white edge goes translucent again. */
-      const edge =
-        (x > 0 && outside[i - 1]) ||
-        (x < w - 1 && outside[i + 1]) ||
-        (y > 0 && outside[i - w]) ||
-        (y < h - 1 && outside[i + w]);
-      if (edge && Math.min(data[o], data[o + 1], data[o + 2]) >= 248) {
-        data[o + 3] = 96;
       }
 
       if (data[o + 3] > 8) {

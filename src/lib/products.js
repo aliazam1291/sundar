@@ -158,7 +158,6 @@ export const PRODUCTS = [
     hue: ["#6f1a10", "#8b2517"],
     /* real packaging shot, from sundermasala.com */
     image: "/packs/sunder-shahi-hing.webp",
-    imagePlate: true,
     story:
       "Shahi Hing from the Sunder range — processed and packed in a hygienic plant, with no artificial colours or preservatives.",
     featured: true,

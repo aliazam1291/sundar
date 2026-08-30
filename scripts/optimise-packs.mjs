@@ -19,7 +19,18 @@ import sharp from "sharp";
 const DIR = "public/packs";
 const CATALOGUE = "src/lib/products.js";
 const MAX_EDGE = 1000;
-const QUALITY = 82;
+const QUALITY = 90;
+
+/**
+ * The originals are store JPEGs, so every cutout arrives already carrying
+ * compression softness, and cropping to the pack throws away the white margin
+ * that made it look sharp in the frame. A light unsharp puts back the edge
+ * definition on the printed type without haloing the pack's outline.
+ *
+ * This does not invent detail — see the note in fetch-packs about the source
+ * ceiling. It only stops the last encode from compounding the softness.
+ */
+const SHARPEN = { sigma: 0.7, m1: 0.4, m2: 0.9 };
 
 const pngs = (await readdir(DIR)).filter((f) => f.endsWith(".png"));
 if (!pngs.length) {
@@ -45,6 +56,7 @@ for (const file of pngs) {
   await rm(out, { force: true });
   const info = await sharp(src)
     .resize({ width: MAX_EDGE, height: MAX_EDGE, fit: "inside", withoutEnlargement: true })
+    .sharpen(SHARPEN)
     .webp({ quality: QUALITY, alphaQuality: 100, effort: 6 })
     .toFile(out);
 

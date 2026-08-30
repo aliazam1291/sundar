@@ -855,22 +855,6 @@ body {
   aspect-ratio: auto;
 }
 
-/* One SKU is a lifestyle screenshot rather than a cutout — it keeps a plate. */
-.pack--plate .pack__body {
-  padding: 5%;
-  border: 2px solid var(--color-ink);
-  border-radius: 1.1rem;
-  background: var(--color-paper);
-  box-shadow: none;
-}
-/* Round the photo rather than clipping the plate: the screenshot's square
-   corners are the only thing that needed containing, and clipping the whole
-   body sliced the roundel — which hangs past the pack edge by design — flat
-   down one side. The photo is inset 5%, so its own radius is enough. */
-.pack--plate .pack__photo {
-  filter: none;
-  border-radius: 0.55rem;
-}
 .pack--tilt .pack__body {
   transform: rotateY(-13deg) rotateX(3deg);
 }

@@ -45,9 +45,7 @@ export default function PackShot({
   if (product.image) {
     return (
       <div
-        className={`pack pack--photo ${product.imagePlate ? "pack--plate" : ""} ${
-          tilt ? "pack--tilt" : ""
-        } ${className}`}
+        className={`pack pack--photo ${tilt ? "pack--tilt" : ""} ${className}`}
       >
         <div className="pack__body">
           <Image
