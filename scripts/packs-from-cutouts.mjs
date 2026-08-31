@@ -16,9 +16,14 @@
  *   - "Sunder-Hing_Kuti Teja-Mirch Powder-500g-01" is a plain HING pouch;
  *     the kuti teja half of the name is wrong.
  *
+ * A second drop on 2026-08-31 added the eight whole spices as
+ * "image-Photoroom (35)" .. "(42)" — generic names, identified by eye and
+ * mapped below by number. That closes every SKU except shahi-hing, whose
+ * only art is a poster (see scripts/cut-shahi-hing.mjs) rather than a
+ * pack cutout.
+ *
  * Sources with no SKU (Patna Mirch, the garam masala box and jar) are left
- * out. SKUs with no source here — the eight whole spices and shahi-hing —
- * keep the cutouts already in public/packs.
+ * out.
  */
 
 import { readdir } from "node:fs/promises";
@@ -35,36 +40,42 @@ const SHARPEN = { sigma: 0.7, m1: 0.4, m2: 0.9 };
 /** Alpha below this is background fringe, not pack. */
 const TRIM_THRESHOLD = 12;
 
-/** source basename (without "-Photoroom.png") -> catalogue filename */
+/** source basename (without ".png") -> catalogue filename */
 const MAP = {
-  "Sunder-Achar Masala (Pouch)-1": "sunder-achar-masala",
-  "Sunder-Chaat Masala-1": "sunder-chaat-masala",
-  "Sunder-Chhole Masala-1": "sunder-chole-masala-chana-masala",
-  "Sunder-Dal Masala-1": "sunder-dal-masala",
-  "Sunder-Garam Masala (Pouch)-2": "sunder-garam-masala",
-  "Sunder-Hing_Kuti Teja-Mirch Powder-500g-01": "asafoetida-hing",
-  "Sunder-Jaljira-1": "sunder-jaljira",
-  "Sunder-Jeeravan (poha masala) -1": "sunder-jeeravan-poha-masala",
-  "Sunder-Kitchen King Masala-1": "sunder-kitchen-king-masala",
-  "Sunder-Pav Bhaji Masala-1": "sunder-pav-bhaji-masala",
-  "Sunder-Raita Masala-1": "sunder-raita-masala",
-  "Sunder-Sambhar Masala-1": "sunder-sambar-masala",
-  "Sunder-Shahi Paneer Masala-1": "sunder-shahi-paneer-masala",
-  "Sunder_Amchur Powder-01": "sunder-amchur-powder",
-  "Sunder_Black Pepper Powder-01": "sunder-black-pepper-powder-kali-mirch-powder",
-  "Sunder_Coriander Powder-01": "sunder-coriander-powder-dhaniya-powder",
-  "Sunder_Dry Ginger Powder-01": "sunder-dry-ginger-powder-sunth-powder",
-  "Sunder_Kashmiri Mirchi-01": "sunder-kashmiri-mirchi-powder",
-  "Sunder_Kasuri Methi-01": "sunder-kasuri-methi",
-  "Sunder_Kuti Teja-Mirch Powder-500g-01": "sunder-kuti-teja-mirch-powder",
-  "Sunder_Red Chilli Powder-01": "sunder-red-chilli-powder-lal-mirch-powder",
-  "Sunder_Red Chilli Powder-01 ": "sunder-turmeric-powder-haldi-powder",
-  "Sunder_White Pepper Powder-01": "sunder-white-pepper-powder-safed-mirch-powder",
+  "Sunder-Achar Masala (Pouch)-1-Photoroom": "sunder-achar-masala",
+  "Sunder-Chaat Masala-1-Photoroom": "sunder-chaat-masala",
+  "Sunder-Chhole Masala-1-Photoroom": "sunder-chole-masala-chana-masala",
+  "Sunder-Dal Masala-1-Photoroom": "sunder-dal-masala",
+  "Sunder-Garam Masala (Pouch)-2-Photoroom": "sunder-garam-masala",
+  "Sunder-Hing_Kuti Teja-Mirch Powder-500g-01-Photoroom": "asafoetida-hing",
+  "Sunder-Jaljira-1-Photoroom": "sunder-jaljira",
+  "Sunder-Jeeravan (poha masala) -1-Photoroom": "sunder-jeeravan-poha-masala",
+  "Sunder-Kitchen King Masala-1-Photoroom": "sunder-kitchen-king-masala",
+  "Sunder-Pav Bhaji Masala-1-Photoroom": "sunder-pav-bhaji-masala",
+  "Sunder-Raita Masala-1-Photoroom": "sunder-raita-masala",
+  "Sunder-Sambhar Masala-1-Photoroom": "sunder-sambar-masala",
+  "Sunder-Shahi Paneer Masala-1-Photoroom": "sunder-shahi-paneer-masala",
+  "Sunder_Amchur Powder-01-Photoroom": "sunder-amchur-powder",
+  "Sunder_Black Pepper Powder-01-Photoroom": "sunder-black-pepper-powder-kali-mirch-powder",
+  "Sunder_Coriander Powder-01-Photoroom": "sunder-coriander-powder-dhaniya-powder",
+  "Sunder_Dry Ginger Powder-01-Photoroom": "sunder-dry-ginger-powder-sunth-powder",
+  "Sunder_Kashmiri Mirchi-01-Photoroom": "sunder-kashmiri-mirchi-powder",
+  "Sunder_Kasuri Methi-01-Photoroom": "sunder-kasuri-methi",
+  "Sunder_Kuti Teja-Mirch Powder-500g-01-Photoroom": "sunder-kuti-teja-mirch-powder",
+  "Sunder_Red Chilli Powder-01-Photoroom": "sunder-red-chilli-powder-lal-mirch-powder",
+  "Sunder_Red Chilli Powder-01 -Photoroom": "sunder-turmeric-powder-haldi-powder",
+  "Sunder_White Pepper Powder-01-Photoroom": "sunder-white-pepper-powder-safed-mirch-powder",
+  "image-Photoroom (35)": "sunder-ajwain-carom-seeds",
+  "image-Photoroom (36)": "sunder-elaichi-green-cardamom",
+  "image-Photoroom (37)": "sunder-fennel-seeds-sauf",
+  "image-Photoroom (38)": "sunder-kali-mirch-black-pepper",
+  "image-Photoroom (39)": "sunder-methi-dana-fenu-greek",
+  "image-Photoroom (40)": "sunder-laung-cloves",
+  "image-Photoroom (41)": "sunder-rai-mustard-seeds",
+  "image-Photoroom (42)": "sunder-cumin-seeds-jeera",
 };
 
-const present = new Set(
-  (await readdir(SRC)).filter((f) => f.endsWith("-Photoroom.png")).map((f) => f.slice(0, -"-Photoroom.png".length)),
-);
+const present = new Set((await readdir(SRC)).filter((f) => f.endsWith(".png")).map((f) => f.slice(0, -".png".length)));
 
 for (const key of Object.keys(MAP)) {
   if (!present.has(key)) throw new Error(`mapped source missing: ${key}`);
@@ -73,7 +84,7 @@ const skipped = [...present].filter((k) => !(k in MAP));
 
 let bytes = 0;
 for (const [key, name] of Object.entries(MAP)) {
-  const info = await sharp(`${SRC}/${key}-Photoroom.png`)
+  const info = await sharp(`${SRC}/${key}.png`)
     .trim({ threshold: TRIM_THRESHOLD })
     .resize({ width: MAX_EDGE, height: MAX_EDGE, fit: "inside", withoutEnlargement: true })
     .sharpen(SHARPEN)
