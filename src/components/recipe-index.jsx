@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import HeatScale from "@/components/heat-scale";
 import FoodIllustration from "@/components/food-illustration";
 import { RECIPES, RECIPE_TONE, COURSES, kickerOf } from "@/lib/recipes";
+import { photoFor } from "@/lib/recipe-photos";
 
 /**
  * The Rasoi index — twelve dishes, narrowable by when you would cook them.
@@ -71,20 +73,50 @@ export default function RecipeIndex() {
       <div className="mt-6 grid items-stretch gap-5 md:grid-cols-2 xl:grid-cols-3">
         {shown.map((r, i) => {
           const tone = RECIPE_TONE[r.tone] ?? RECIPE_TONE.marigold;
+          const photo = photoFor(r.slug);
           return (
             <article key={r.slug} id={r.slug} className="scroll-mt-32">
               <Link
                 href={`/recipes/${r.slug}`}
                 data-reveal="up"
                 style={{ "--reveal-delay": `${(i % 3) * 80}ms` }}
-                className={`card-poster card-pad card-lift flex h-full flex-col ${tone.bg} ${tone.text}`}
+                className={`card-poster card-lift flex h-full flex-col overflow-hidden ${tone.bg} ${tone.text}`}
               >
+                {/* The dish itself, before anything is said about it.
+                    Framed exactly like the pack stage on a product card — hard
+                    ink rule underneath, poster colour above and below — so the
+                    photograph sits inside the design language rather than
+                    beside it. The drawn dish stays, as a badge over the corner:
+                    the illustrations are the brand's face, the photo is the
+                    proof, and the ask was for both. */}
+                <div className="relative">
+                  <Image
+                    src={photo.src}
+                    alt={`${r.title} — ${r.dish}`}
+                    width={1000}
+                    height={750}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    priority={i < 3}
+                    className="aspect-[4/3] w-full border-b-2 border-ink object-cover"
+                  />
+                  {/* Menu-board tag — course · time, the way a café card prices a
+                      dish before you read a word of the description. */}
+                  <span
+                    className="chip chip-solid absolute bottom-3 left-3"
+                    style={{ "--chip-bg": "var(--color-ink)", "--chip-fg": "var(--color-marigold)" }}
+                  >
+                    ✦ {r.course} · {r.time}
+                  </span>
+                  <FoodIllustration
+                    slug={r.slug}
+                    className="absolute -bottom-3 right-4 h-16 w-16 drop-shadow-[0_2px_0_var(--color-ink)]"
+                  />
+                </div>
+
+                <div className="card-pad flex flex-1 flex-col">
                 <div className="flex items-start justify-between gap-3">
                   <p className={`label-micro ${tone.accent}`}>{kickerOf(r)}</p>
-                  <div className="flex items-center gap-2.5">
-                    <HeatScale level={r.heat} showLabel={false} size="w-3.5" className={tone.accent} />
-                    <FoodIllustration slug={r.slug} className="w-16 h-16 shrink-0" />
-                  </div>
+                  <HeatScale level={r.heat} showLabel={false} size="w-3.5" className={tone.accent} />
                 </div>
 
                 <p className="font-deva mt-4 text-[1.35rem] leading-tight" lang="hi">
@@ -111,6 +143,7 @@ export default function RecipeIndex() {
                       <path d="M5 12h13M12 6l6 6-6 6" />
                     </svg>
                   </span>
+                </div>
                 </div>
               </Link>
             </article>

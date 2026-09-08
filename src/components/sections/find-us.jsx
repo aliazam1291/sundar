@@ -12,17 +12,10 @@ import { featuredProducts, formatPrice, PRODUCTS } from "@/lib/products";
  * ghost cards of flat prose with a single mailto, which is a poster about
  * distribution rather than a way to buy anything.
  *
- * Quick-commerce names are stated but NOT linked: inventing third-party deep
- * links that may 404 is worse than sending people somewhere that works. Swap
- * in the real Blinkit / Instamart / Zepto URLs when they are confirmed.
+ * Quick commerce is deliberately NOT claimed here. The brand is not live on
+ * Blinkit / Instamart / Zepto yet, and saying so was flagged as false. Add the
+ * card back — with real links — only once the listings actually exist.
  */
-
-const TRADE_MAIL =
-  "mailto:hello@sundermasala.com" +
-  "?subject=Wholesale%20%26%20distributor%20enquiry" +
-  "&body=Business%20name%3A%0ACity%3A%0AFormats%20needed%3A%0AMonthly%20volume%3A%0A";
-
-const QUICK = ["Blinkit", "Instamart", "Zepto"];
 
 const entryPack = () =>
   PRODUCTS.filter((p) => !/^5 ?GM$/i.test(p.size)).reduce((a, b) => (b.price < a.price ? b : a));
@@ -120,40 +113,23 @@ export default function FindUs() {
             data-reveal="right"
             style={{ "--card-shadow": "var(--color-oxblood)" }}
           >
-            <p className="label-micro text-oxblood">Quick commerce</p>
-            <h3 className="h-poster-xs mt-2">Ten minutes away</h3>
+            <p className="label-micro text-oxblood">On the shelf</p>
+            <h3 className="h-poster-xs mt-2">Ask at your kirana</h3>
 
             <p className="mt-4 text-copy text-ink-soft">
-              Stocked across Indore and Bhopal — the impulse and the packet, same evening.
+              50,000+ stores and 500+ highway dhabas already carry us. Ask for the red pack.
             </p>
-
-            <p className="label-micro mt-5 text-oxblood">Available on</p>
-            <ul className="mt-2.5 flex flex-wrap gap-2">
-              {QUICK.map((q) => (
-                <li
-                  key={q}
-                  className="label-micro rounded-full border-2 border-dashed border-ink/50 px-3.5 py-2 text-ink-soft"
-                >
-                  {q}
-                </li>
-              ))}
-            </ul>
 
             <div className="rule-dots mt-6 text-ink/40" aria-hidden="true" />
 
-            <p className="label-micro mt-5 text-oxblood">In your kirana too</p>
-            <p className="mt-2 text-copy text-ink-soft">
-              10,000+ stores and 500+ highway dhabas already carry us. Ask for the red pack.
-            </p>
-
-            <a href="tel:+917312500000" className="btn btn-gold btn-sm mt-5 self-start">
+            <a href="tel:+917724999871" className="btn btn-gold btn-sm mt-5 self-start">
               <SpiceIcon mono name="truck" className="w-4" />
               Find a stockist
             </a>
 
             <div className="mt-auto flex items-end justify-between gap-4 pt-7">
               <p className="font-deva text-copy-lg text-oxblood" lang="hi">
-                दस मिनट में, आपके दरवाज़े पर।
+                हर गली, हर दुकान।
               </p>
               <SpiceIcon name="thela" className="w-20 shrink-0" />
             </div>
@@ -182,13 +158,15 @@ export default function FindUs() {
             {/* btn-gold ships an oxblood shadow, and this card *is* oxblood —
                 the hard shadow was landing invisibly, so the one button on the
                 card read as flat against every other pill on the page. */}
-            <a
-              href={TRADE_MAIL}
+            {/* The contact form captures name, phone, city and enquiry type,
+                which a bare mailto never did — send trade leads through it. */}
+            <Link
+              href="/contact"
               className="btn btn-gold btn-sm mt-5 self-start"
               style={{ "--btn-shadow": "var(--color-ink)" }}
             >
               Become a distributor
-            </a>
+            </Link>
           </div>
 
           <div
@@ -208,10 +186,10 @@ export default function FindUs() {
               Blend questions, or which masala your grandmother probably used.
             </p>
             <div className="mt-5 flex flex-wrap gap-2.5">
-              <a href="mailto:hello@sundermasala.com" className="btn btn-gold btn-sm">
+              <a href="mailto:customercare@sundermasala.com" className="btn btn-gold btn-sm">
                 Email us
               </a>
-              <a href="tel:+917312500000" className="btn btn-ghost btn-sm text-sun">
+              <a href="tel:+917724999871" className="btn btn-ghost btn-sm text-sun">
                 Call the mill
               </a>
             </div>

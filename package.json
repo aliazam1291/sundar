@@ -12,8 +12,11 @@
     "audit": "node scripts/audit-layout.mjs",
     "search-check": "node scripts/walk-search.mjs",
     "packs:hing": "node scripts/cut-shahi-hing.mjs",
+    "packs:garam-masala": "node scripts/cut-garam-masala.mjs",
+    "packs:monocarton-drops": "node scripts/cut-monocarton-drops.mjs",
     "packs:cutouts": "node scripts/packs-from-cutouts.mjs",
     "packs": "node scripts/fetch-packs.mjs && node scripts/process-packs.mjs && node scripts/optimise-packs.mjs && node scripts/qa-packs.mjs",
+    "photos": "node scripts/fetch-recipe-photos.mjs",
     "a11y": "node scripts/check-a11y.mjs",
     "seo": "node scripts/check-seo.mjs",
     "qty": "node scripts/check-quantity.mjs"

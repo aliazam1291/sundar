@@ -2,7 +2,9 @@
 
 import { useState, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import FoodIllustration from "@/components/food-illustration";
+import { photoFor, sourceNameOf } from "@/lib/recipe-photos";
 
 /**
  * RasoiWheel — "Aaj Kya Banega?"
@@ -38,7 +40,13 @@ const R     = 218;                     // outer wheel radius
 /** Polar → cartesian. angle = 0 at top, clockwise. */
 function pt(cx, cy, r, angleDeg) {
   const rad = ((angleDeg - 90) * Math.PI) / 180;
-  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  // Browser and server engines round trigonometry at different final digits.
+  // Quantising SVG coordinates avoids a React hydration mismatch without
+  // changing the visible geometry.
+  return {
+    x: Number((cx + r * Math.cos(rad)).toFixed(4)),
+    y: Number((cy + r * Math.sin(rad)).toFixed(4)),
+  };
 }
 
 /** SVG `d` for one pie wedge. */
@@ -76,10 +84,9 @@ export default function RasoiWheel() {
   const [landed,    setLanded]    = useState(null);
   const accumRef = useRef(0);
 
-  function spin() {
+  function spin(target = Math.floor(Math.random() * N)) {
     if (spinning) return;
 
-    const target    = Math.floor(Math.random() * N);
     const extraRevs = 6 + Math.floor(Math.random() * 5);          // 6–10 full turns
     const midOfSeg  = target * SLICE + SLICE / 2;
     const newRot    = accumRef.current
@@ -95,6 +102,7 @@ export default function RasoiWheel() {
   }
 
   const winner = landed !== null ? DISHES[landed] : null;
+  const winnerPhoto = winner ? photoFor(winner.slug) : null;
 
   return (
     <section
@@ -108,7 +116,8 @@ export default function RasoiWheel() {
           const a = (i * (360 / 48) * Math.PI) / 180;
           return (
             <line key={i} x1="50%" y1="50%"
-              x2={`${50 + 80 * Math.cos(a)}%`} y2={`${50 + 80 * Math.sin(a)}%`}
+              x2={`${(50 + 80 * Math.cos(a)).toFixed(4)}%`}
+              y2={`${(50 + 80 * Math.sin(a)).toFixed(4)}%`}
               stroke="#ffc740" strokeWidth="1"
             />
           );
@@ -129,7 +138,7 @@ export default function RasoiWheel() {
             चक्र घुमाओ, थाली सजाओ।
           </p>
           <p className="lede mt-3 text-paper/70 max-w-lg mx-auto">
-            Can't decide what to cook tonight? Spin the wheel and let the rasoi decide.
+            Can&apos;t decide what to cook tonight? Spin the wheel and let the rasoi decide.
           </p>
         </div>
 
@@ -252,8 +261,8 @@ export default function RasoiWheel() {
                 <text
                   key={`en-${i}`}
                   fontFamily="'Bebas Neue', 'Outfit', sans-serif"
-                  fontSize="13"
-                  letterSpacing="0.12em"
+                  fontSize="11.5"
+                  letterSpacing="0.07em"
                   fill={dish.ink}
                   fontWeight="700"
                 >
@@ -375,23 +384,48 @@ export default function RasoiWheel() {
                   animation: "wheel-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both",
                 }}
               >
-                {/* Card header */}
-                <div
-                  className="px-7 pt-7 pb-5 flex items-center justify-between gap-4"
-                  style={{ background: winner.fill, color: winner.ink }}
-                >
-                  <div className="flex-1">
-                    {/* Tag */}
+                {/* Card header — a menu-board card: the dish photographed like
+                    a café would plate it, priced with a course · time tag,
+                    the drawn dish signing the corner underneath its name. */}
+                {winnerPhoto && (
+                  <div className="relative">
+                    <Image
+                      src={winnerPhoto.src}
+                      alt={`${winner.en} — cooked dish`}
+                      width={800}
+                      height={560}
+                      className="aspect-[10/7] w-full object-cover"
+                    />
                     <span
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase tracking-[0.14em]"
-                      style={{ background: winner.spot, color: winner.ink }}
+                      className="chip chip-solid absolute bottom-4 left-4"
+                      style={{ "--chip-bg": "#14100c", "--chip-fg": winner.spot }}
                     >
                       ✦ {winner.course} · {winner.time}
                     </span>
+                    <FoodIllustration
+                      slug={winner.slug}
+                      className="absolute -bottom-3 right-4 h-14 w-14 drop-shadow-[0_2px_0_rgba(0,0,0,0.35)]"
+                    />
+                  </div>
+                )}
+
+                <div
+                  className="px-7 pt-6 pb-5 flex items-center gap-4"
+                  style={{ background: winner.fill, color: winner.ink }}
+                >
+                  <div className="flex-1">
+                    {!winnerPhoto && (
+                      <span
+                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase tracking-[0.14em]"
+                        style={{ background: winner.spot, color: winner.ink }}
+                      >
+                        ✦ {winner.course} · {winner.time}
+                      </span>
+                    )}
 
                     {/* Hindi */}
                     <p
-                      className="font-deva mt-4 font-bold leading-tight"
+                      className={`font-deva font-bold leading-tight ${winnerPhoto ? "" : "mt-4"}`}
                       lang="hi"
                       style={{ fontSize: "clamp(1.7rem, 4.5vw, 2.4rem)", color: winner.spot }}
                     >
@@ -406,7 +440,9 @@ export default function RasoiWheel() {
                       {winner.en}
                     </h3>
                   </div>
-                  <FoodIllustration slug={winner.slug} className="w-24 h-24 shrink-0 filter drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]" />
+                  {!winnerPhoto && (
+                    <FoodIllustration slug={winner.slug} className="w-24 h-24 shrink-0 filter drop-shadow-[0_6px_10px_rgba(0,0,0,0.25)]" />
+                  )}
                 </div>
 
                 {/* Card footer */}
@@ -440,9 +476,22 @@ export default function RasoiWheel() {
                   style={{ background: winner.spot, borderColor: "#14100c", color: winner.ink }}
                 >
                   <p className="font-deva text-[0.9rem] font-bold" lang="hi">
-                    "चक्र ने चुना, अब रसोई तुम्हारी।"
+                    &quot;चक्र ने चुना, अब रसोई तुम्हारी।&quot;
                   </p>
                 </div>
+
+                {winnerPhoto && (
+                  <p
+                    className="px-7 py-2 text-[0.68rem]"
+                    style={{ background: "#14100c", color: "rgba(253,246,232,0.5)" }}
+                  >
+                    Photo by {winnerPhoto.author} ·{" "}
+                    <a href={winnerPhoto.source} className="underline" rel="noopener noreferrer" target="_blank">
+                      {sourceNameOf(winnerPhoto)}
+                    </a>
+                    {" · "}{winnerPhoto.licence}
+                  </p>
+                )}
               </div>
             ) : (
               /* Pre-spin placeholder */
@@ -463,27 +512,52 @@ export default function RasoiWheel() {
                 <p className="text-paper/50 mt-4 text-copy">
                   Spin the wheel and let the rasoi decide.
                 </p>
-                <div className="mt-6 flex justify-center gap-3 flex-wrap">
-                  {DISHES.slice(0, 4).map((d) => (
-                    <span
-                      key={d.slug}
-                      className="px-2.5 py-1 rounded-full text-[0.7rem] font-bold uppercase tracking-wide"
-                      style={{ background: d.fill, color: d.ink }}
-                    >
-                      {d.en}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-2 flex justify-center gap-3 flex-wrap">
-                  {DISHES.slice(4).map((d) => (
-                    <span
-                      key={d.slug}
-                      className="px-2.5 py-1 rounded-full text-[0.7rem] font-bold uppercase tracking-wide"
-                      style={{ background: d.fill, color: d.ink }}
-                    >
-                      {d.en}
-                    </span>
-                  ))}
+                <div className="mt-7 grid grid-cols-2 gap-2.5 text-left sm:grid-cols-4">
+                  {DISHES.map((dish, index) => {
+                    const photo = photoFor(dish.slug);
+                    return (
+                      <button
+                        key={dish.slug}
+                        type="button"
+                        onClick={() => spin(index)}
+                        className="group flex min-w-0 flex-col overflow-hidden rounded-xl border-2 text-center transition-transform hover:-translate-y-1 focus-visible:-translate-y-1"
+                        style={{
+                          borderColor: dish.ink,
+                          boxShadow: `2px 3px 0 ${dish.ink}`,
+                        }}
+                        aria-label={`Choose ${dish.en}`}
+                      >
+                        {photo ? (
+                          <div className="relative">
+                            <Image
+                              src={photo.src}
+                              alt=""
+                              width={160}
+                              height={160}
+                              className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                            />
+                            <FoodIllustration
+                              slug={dish.slug}
+                              className="absolute -bottom-1.5 -right-1.5 h-6 w-6 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]"
+                            />
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-center py-3" style={{ background: dish.fill }}>
+                            <FoodIllustration
+                              slug={dish.slug}
+                              className="h-12 w-12 transition-transform duration-300 group-hover:scale-110"
+                            />
+                          </div>
+                        )}
+                        <span
+                          className="px-1.5 py-1.5 text-[0.66rem] font-extrabold leading-tight uppercase tracking-[0.06em]"
+                          style={{ background: dish.fill, color: dish.ink }}
+                        >
+                          {dish.en}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
             )}

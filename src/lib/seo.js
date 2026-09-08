@@ -16,6 +16,8 @@
  */
 
 import { PRODUCTS, CATEGORIES, formatPrice } from "@/lib/products";
+import { SOCIAL_LINKS } from "@/components/social-icons";
+import { photoFor } from "@/lib/recipe-photos";
 import { RECIPES, COOK_ACTIONS } from "@/lib/recipes";
 
 export const SITE = "https://sundermasala.com";
@@ -33,13 +35,33 @@ export const organizationJsonLd = () => ({
   logo: abs("/sundar-logo.webp"),
   foundingDate: "1975",
   slogan: "Kam masala, poora swaad",
+  /* `sameAs` is what tells Google these two profiles are this same brand
+     (feeds the knowledge-panel social row) rather than unrelated pages that
+     happen to mention the name. */
+  sameAs: SOCIAL_LINKS.map((s) => s.href),
   description:
     "Slow-ground Indian spices and masala blends from Indore, Madhya Pradesh. Blended masalas, pure ground spices, whole seed and hing.",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "204 Samta Nagar, Nemawar Road, Palda",
     addressLocality: "Indore",
     addressRegion: "Madhya Pradesh",
+    postalCode: "452020",
     addressCountry: "IN",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    telephone: "+91-77249-99871",
+    email: "customercare@sundermasala.com",
+    areaServed: "IN",
+    availableLanguage: ["en", "hi"],
+    hoursAvailable: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
   },
 });
 
@@ -106,16 +128,13 @@ function isoDuration(time) {
  * One dish, as a Recipe.
  *
  * `image` is a REQUIRED property for recipe rich results, and it has to be a
- * photograph of the finished dish. There is no food photography in this repo —
- * every image is a pack cutout — so the field is emitted only when a recipe
- * actually carries one, and is otherwise left off.
+ * photograph of the finished dish. Every dish now has one in
+ * lib/recipe-photos, so the field is filled from there.
  *
- * That means these pages are correctly marked up but NOT yet eligible for a
- * recipe rich result. Pointing `image` at the pack shot would fill the field
- * and produce a search result showing a packet of spice captioned "Indori
- * Poha", which is both wrong and the kind of mismatch Google acts on. Add
- * `image: "/recipes/indori-poha.jpg"` to a recipe in lib/recipes.js and it
- * starts working for that dish, one photo at a time.
+ * It must never fall back to the pack shot: that would produce a search
+ * result showing a packet of spice captioned "Indori Poha", which is both
+ * wrong and the kind of mismatch Google acts on. A dish with no photograph
+ * emits no `image` and simply is not eligible, which is the honest outcome.
  */
 export function recipeJsonLd(recipe) {
   const uses = recipe.uses
@@ -128,7 +147,12 @@ export function recipeJsonLd(recipe) {
     name: recipe.title,
     alternateName: recipe.hi,
     description: recipe.blurb,
-    ...(recipe.image ? { image: abs(recipe.image) } : {}),
+    /* Recipe rich results need an image, and the dishes now have a real
+       photograph each — so prefer that over the (absent) recipe.image. */
+    ...(() => {
+      const src = photoFor(recipe.slug)?.src ?? recipe.image;
+      return src ? { image: abs(src) } : {};
+    })(),
     url: abs(`/recipes/${recipe.slug}`),
     recipeCategory: recipe.course,
     recipeCuisine: `Indian · ${recipe.region}`,

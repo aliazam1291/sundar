@@ -422,7 +422,7 @@ export const RECIPES = [
       { act: "stir", text: "Add leaves, boil again, then milk and sugar. Let it rise three times." },
       { act: "pour", text: "Strain from a height. It aerates and it looks better." },
     ],
-    tip: "Sunth is the winter version. In summer leave it out and add more elaichi.",
+    tip: "Sonth is the winter version. In summer leave it out and add more elaichi.",
     serveWith: "Whatever is in the tin. Preferably a rusk.",
     tone: "brown",
   },

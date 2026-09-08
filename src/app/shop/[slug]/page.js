@@ -136,7 +136,7 @@ export default async function ProductPage({ params }) {
               </div>
 
               <p className="mt-4 text-label text-white/55" style={{ animationDelay: "460ms" }}>
-                Quick commerce in Indore &amp; Bhopal · nationwide shipping · 10,000+ kirana stores
+                Nationwide shipping · 50,000+ kirana stores
               </p>
             </div>
           </div>
@@ -182,17 +182,43 @@ export default async function ProductPage({ params }) {
             <div className="space-y-8">
               <div data-reveal="up" style={{ "--reveal-delay": "80ms" }}>
                 <p className="eyebrow text-chilli-ink">Available in</p>
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {product.sizes.map((n) => (
-                    <li key={n} className="chip border-ink/25 text-ink-soft">
-                      {n}
+                {/* Every pack with its own MRP. These were inert chips with no
+                    price against them, so there was no way to check what a
+                    given size costs — the one thing a shopper is here for. */}
+                <ul className="mt-5 divide-y divide-ink/10 border-y border-ink/10">
+                  {product.variants.map((v) => (
+                    <li key={`${v.size}-${v.pack}`} className="flex items-baseline justify-between gap-4 py-2.5">
+                      <span className="min-w-0">
+                        <span className="text-copy font-semibold text-ink">
+                          {v.pricePoint ? `${v.size} pack` : v.size}
+                        </span>
+                        <span className="label-micro ms-2 text-ink-mute">{v.pack}</span>
+                        {v.horeca ? (
+                          <span className="label-micro ms-2 text-chilli-ink">Catering</span>
+                        ) : null}
+                      </span>
+                      <span className="shrink-0 text-copy font-bold text-ink">
+                        {formatPrice(v.mrp)}
+                      </span>
                     </li>
                   ))}
                 </ul>
+                <p className="mt-3 text-meta text-ink-mute">MRP incl. of all taxes.</p>
                 <p className="mt-5 text-meta text-ink-soft">
                   No artificial colours, no added preservatives. Processed and packed in a
                   hygienic plant.
                 </p>
+              </div>
+
+              {/* ── what is actually in it ── */}
+              <div data-reveal="up" style={{ "--reveal-delay": "120ms" }}>
+                <p className="eyebrow text-chilli-ink">Ingredients</p>
+                <p className="mt-5 text-copy text-ink-soft">{product.ingredients}</p>
+                {product.variety && product.variety !== product.ingredients ? (
+                  <p className="mt-3 text-meta text-ink-mute">
+                    Made from {product.variety.toLowerCase()}.
+                  </p>
+                ) : null}
               </div>
 
               <div data-reveal="up" style={{ "--reveal-delay": "160ms" }}>

@@ -333,15 +333,19 @@ export default function SiteHeader() {
             </ul>
 
             <ul className="mt-5 divide-y divide-ghee/15 border-y border-ghee/15">
+              {/* Same order, and the same nesting, as the desktop bar: Spices,
+                  Rasoi, Blog, Our Story (story · chutki · contact), FAQs.
+                  Contact and The Chutki used to trail after FAQs down here,
+                  which put them in a different place on each breakpoint. */}
               {[
                 { href: "/#categories", label: "Categories" },
                 { href: "/shop", label: "All blends", count: PRODUCTS.length },
                 { href: "/recipes", label: "Rasoi", count: RECIPES.length },
                 { href: "/blog", label: "Blog" },
                 { href: "/story", label: "Our Story" },
-                { href: "/faq", label: "FAQs" },
-                { href: "/contact", label: "Contact Us" },
                 { href: "/#ritual", label: "The Chutki" },
+                { href: "/contact", label: "Contact Us" },
+                { href: "/faq", label: "FAQs" },
               ].map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className="flex items-center justify-between gap-4 py-3">

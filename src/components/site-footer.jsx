@@ -3,6 +3,7 @@ import Logo from "@/components/logo";
 import Marquee from "@/components/marquee";
 import RevealRoot from "@/components/reveal-root";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import { SOCIAL_LINKS } from "@/components/social-icons";
 import { CATEGORY_LIST } from "@/lib/products";
 
 const COLUMNS = [
@@ -13,7 +14,7 @@ const COLUMNS = [
       { href: "/shop?category=blended", label: "Blended spices" },
       { href: "/shop?category=pure", label: "Pure spices" },
       { href: "/shop?category=whole", label: "Whole spices" },
-      { href: "/shop?category=asafoetida", label: "Asafoetida · hing" },
+      { href: "/shop?category=asafoetida", label: "Hing" },
     ],
   },
   {
@@ -66,6 +67,26 @@ export default function SiteFooter() {
               Slow-ground, single-origin Indian spice from the heart of Madhya Pradesh. One recipe,
               carried fifty years.
             </p>
+
+            {/* Circle-badge treatment matches the category icons in the shelf
+                strip below — same size, same border, same hover lift — so the
+                social row reads as part of this footer's system rather than a
+                bolted-on widget. */}
+            <ul className="mt-6 flex gap-3">
+              {SOCIAL_LINKS.map(({ name, href, Icon }) => (
+                <li key={name}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Sunder Masala on ${name}`}
+                    className="grid h-11 w-11 place-content-center rounded-full border-2 border-ghee/25 text-ghee/80 transition-colors hover:border-marigold hover:text-marigold"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                </li>
+              ))}
+            </ul>
 
             <form
               className="mt-8"

@@ -7,6 +7,7 @@
  */
 
 import { fillFor, inkVariant, readableOn } from "@/lib/color";
+import { SKU_DETAILS, leadVariant } from "@/lib/sku-details";
 
 /* Only Essentials ships. The Heritage and Regions ranges were announced in
    the brand deck and carried here as empty, "coming soon" shelves — they are
@@ -77,8 +78,8 @@ export const CATEGORIES = {
   },
   asafoetida: {
     id: "asafoetida",
-    name: "Asafoetida",
-    full: "Sunder Asafoetida (Hing)",
+    name: "Hing",
+    full: "Sunder Hing",
     line: "Ek chutki, poora tadka.",
     blurb:
       "Hing on its own shelf, because it behaves like nothing else in the box — a pinch does the work of a handful.",
@@ -145,14 +146,11 @@ export const PRODUCTS = [
   {
     slug: "shahi-hing",
     name: "Shahi Hing",
-    kind: "Asafoetida (Hing)",
+    kind: "Hing",
     range: "essentials",
     tagline: "The pinch that runs the kitchen.",
     hindi: "एक चुटकी, पूरा तड़का।",
     badge: "Purest grade",
-    price: 410,
-    size: "50g",
-    sizes: ["50g"],
     heat: 0,
     icon: "pinch",
     hue: ["#6f1a10", "#8b2517"],
@@ -164,15 +162,16 @@ export const PRODUCTS = [
   },
   {
     slug: "asafoetida-hing",
-    name: "Asafoetida",
-    kind: "Asafoetida (Hing)",
+    name: "Hing",
+    /* Kept distinct from `name` on purpose — the two render right on top of
+       each other on the product page (title, then subtitle) and the site's
+       own tasting-bench AROMA table keys off this string, so it also has to
+       stay in sync there if it ever changes again. */
+    kind: "Hing Powder",
     range: "essentials",
     tagline: "Ninety-nine percent sell compound. We do not.",
     hindi: "असली हींग, बिना मिलावट।",
-    badge: "Bulk pack",
-    price: 1750,
-    size: "50 GM ( 5 x 10 Packs )",
-    sizes: ["50 GM ( 5 x 10 Packs )"],
+    badge: "100% pure",
     heat: 0,
     icon: "jar",
     hue: ["#8b2517", "#b4301c"],
@@ -188,9 +187,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Chana, tuar, makhani — all three.",
     hindi: "हर दाल का अपना मसाला।",
-    price: 40,
-    size: "50 GM",
-    sizes: ["50 GM"],
     heat: 2,
     icon: "fenugreek",
     hue: ["#b36d14", "#f2b30a"],
@@ -207,9 +203,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Relief, for the heat of summer.",
     hindi: "गर्मी का इलाज, एक गिलास में।",
-    price: 50,
-    size: "100 GM",
-    sizes: ["100 GM"],
     heat: 1,
     icon: "cumin",
     hue: ["#4b5d22", "#7fa928"],
@@ -226,9 +219,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Ready to use. No mixing required.",
     hindi: "दादी वाला अचार, बिना मेहनत।",
-    price: 56,
-    size: "200 GM",
-    sizes: ["200 GM", "500 GM"],
     heat: 3,
     icon: "chilli",
     hue: ["#d5231a", "#f13a59"],
@@ -245,9 +235,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Idli, dosa, appam — all of it.",
     hindi: "दक्षिण का असली स्वाद।",
-    price: 36,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 3,
     icon: "fenugreek",
     hue: ["#b36d14", "#e58c1a"],
@@ -263,9 +250,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Chowpatty, on your tawa.",
     hindi: "मुंबई का स्वाद, घर पर।",
-    price: 40,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 3,
     icon: "chilli",
     hue: ["#d5231a", "#e8563a"],
@@ -282,9 +266,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "The sprinkle that fixes anything.",
     hindi: "ऊपर से छिड़का, बात बन गई।",
-    price: 34,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 2,
     icon: "mustard",
     hue: ["#7a6b4d", "#c9a97b"],
@@ -301,9 +282,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Purani Dilli, under pressure.",
     hindi: "छोले ऐसे, जैसे दिल्ली में।",
-    price: 40,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 3,
     icon: "starAnise",
     hue: ["#6f1a10", "#8b2517"],
@@ -321,9 +299,6 @@ export const PRODUCTS = [
     tagline: "Indori poha ki jaan.",
     hindi: "इंदौर, अब हर थाली में।",
     badge: "MP special",
-    price: 25,
-    size: "100 GM",
-    sizes: ["100 GM", "500 GM"],
     heat: 2,
     icon: "cumin",
     hue: ["#e58c1a", "#f2b30a"],
@@ -340,9 +315,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Bitter on purpose.",
     hindi: "कड़वा है, पर ज़रूरी है।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 0,
     icon: "fenugreek",
     hue: ["#7a6b4d", "#b36d14"],
@@ -359,9 +331,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "The crackle that starts the dish.",
     hindi: "चटकती है, तभी तो स्वाद।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 2,
     icon: "mustard",
     hue: ["#b36d14", "#f2b30a"],
@@ -378,9 +347,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "A distinct aroma in the tadka.",
     hindi: "तड़के में डालो, ख़ुशबू आ जाए।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 1,
     icon: "cumin",
     hue: ["#4b5d22", "#7a6b4d"],
@@ -397,9 +363,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Curry, sweet, or the end of the meal.",
     hindi: "खाने के बाद, मुँह मीठा।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 0,
     icon: "coriander",
     hue: ["#4b5d22", "#7fa928"],
@@ -416,9 +379,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Consistency, all year round.",
     hindi: "हर तड़के की शुरुआत।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 1,
     icon: "cumin",
     hue: ["#6b3e2e", "#b36d14"],
@@ -435,9 +395,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Strong taste, right aroma.",
     hindi: "एक लौंग, पूरा असर।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 2,
     icon: "clove",
     hue: ["#6b3e2e", "#8b2517"],
@@ -454,9 +411,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "High in piperine. You will notice.",
     hindi: "साबुत, ताज़ा पिसी।",
-    price: 90,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 3,
     icon: "peppercorn",
     hue: ["#241b13", "#4a3a29"],
@@ -473,9 +427,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Sweet, and a natural mouth freshener.",
     hindi: "मिठास और ख़ुशबू, दोनों।",
-    price: 10,
-    size: "5 GM",
-    sizes: ["5 GM"],
     heat: 0,
     icon: "cardamom",
     hue: ["#4b5d22", "#7fa928"],
@@ -492,9 +443,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "One blend, the whole raj.",
     hindi: "एक डिब्बा, पूरी रसोई।",
-    price: 44,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 2,
     icon: "jar",
     hue: ["#0e3b2c", "#1e6b4c"],
@@ -512,9 +460,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Curd without it is just curd.",
     hindi: "रायते की जान।",
-    price: 38,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 1,
     icon: "cumin",
     hue: ["#7a6b4d", "#c9a97b"],
@@ -531,9 +476,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Crush it between your palms.",
     hindi: "हथेली में मसलो, ख़ुशबू छोड़ो।",
-    price: 28,
-    size: "25 GM",
-    sizes: ["25 GM", "100 GM"],
     heat: 0,
     icon: "fenugreek",
     hue: ["#4b5d22", "#7fa928"],
@@ -554,9 +496,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Instant premix, with cashew.",
     hindi: "मलाई जैसी, शाही असली।",
-    price: 51,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 1,
     icon: "cardamom",
     hue: ["#16523c", "#1e6b4c"],
@@ -573,9 +512,6 @@ export const PRODUCTS = [
     tagline: "The one jar every kitchen trusts.",
     hindi: "हर रसोई का भरोसा।",
     badge: "Best seller",
-    price: 38,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM", "200 GM", "500 GM"],
     heat: 3,
     icon: "starAnise",
     hue: ["#6f1a10", "#8b2517"],
@@ -594,9 +530,6 @@ export const PRODUCTS = [
     tagline: "For the ones who ask for it hotter.",
     hindi: "और तीखा? ये लीजिए।",
     badge: "Extra hot",
-    price: 202,
-    size: "500 GM",
-    sizes: ["500 GM"],
     heat: 5,
     icon: "flame",
     hue: ["#8b2517", "#d5231a"],
@@ -608,14 +541,11 @@ export const PRODUCTS = [
   },
   {
     slug: "sunth-powder",
-    name: "Sunth",
+    name: "Sonth",
     kind: "Dry Ginger Powder",
     range: "essentials",
     tagline: "Winter in a spoon.",
     hindi: "सर्दी का इलाज, रसोई में।",
-    price: 40,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 2,
     icon: "sprig",
     hue: ["#b36d14", "#e58c1a"],
@@ -632,9 +562,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "The table's oldest argument-settler.",
     hindi: "हर मेज़ पर, हर वक़्त।",
-    price: 90,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 3,
     icon: "peppercorn",
     hue: ["#241b13", "#4a3a29"],
@@ -651,9 +578,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Heat you taste but never see.",
     hindi: "दिखे नहीं, लगे ज़रूर।",
-    price: 146,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 3,
     icon: "peppercorn",
     hue: ["#7a6b4d", "#c9a97b"],
@@ -670,9 +594,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "All the colour. Almost none of the fight.",
     hindi: "रंग पूरा, तीखा ज़रा भी नहीं।",
-    price: 52,
-    size: "50 GM",
-    sizes: ["50 GM", "100 GM"],
     heat: 1,
     icon: "chilli",
     hue: ["#b4301c", "#d03821"],
@@ -689,9 +610,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Sourness without the squeeze.",
     hindi: "खटास, बिना निचोड़े।",
-    price: 35,
-    size: "100 GM",
-    sizes: ["100 GM", "500 GM"],
     heat: 0,
     icon: "jar",
     hue: ["#e58c1a", "#f2b30a"],
@@ -708,9 +626,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "The seed no one notices.",
     hindi: "हर ग्रेवी की बुनियाद।",
-    price: 29,
-    size: "100 GM",
-    sizes: ["100 GM", "200 GM", "500 GM"],
     heat: 0,
     icon: "coriander",
     hue: ["#4b5d22", "#1e6b4c"],
@@ -728,9 +643,6 @@ export const PRODUCTS = [
     range: "essentials",
     tagline: "Rasoi ka sona.",
     hindi: "रसोई का सोना।",
-    price: 24,
-    size: "100 GM",
-    sizes: ["100 GM", "200 GM", "500 GM"],
     heat: 0,
     icon: "turmeric",
     hue: ["#f2b30a", "#ffc740"],
@@ -749,9 +661,6 @@ export const PRODUCTS = [
     tagline: "Ek chutki, full fire.",
     hindi: "थोड़ी सी, पूरी आग।",
     badge: "Best seller",
-    price: 46,
-    size: "100 GM",
-    sizes: ["100 GM", "200 GM", "500 GM", "1 KG"],
     heat: 4,
     icon: "chilli",
     hue: ["#d5231a", "#e8563a"],
@@ -763,6 +672,37 @@ export const PRODUCTS = [
     featured: true,
   },
 ];
+
+/* ── Pack sizes, MRP and ingredients ──────────────────────
+   The brand's master sheet is the authority for what a pack costs and what is
+   in it, so those fields are read off SKU_DETAILS rather than typed here — the
+   two sets of numbers drifted badly while they were maintained separately
+   (haldi read ₹24 against a real MRP of ₹46, Shahi Hing ₹410 against ₹310).
+
+   `price` and `size` stay on the product so every existing caller keeps
+   working; they now describe the lead pack instead of a hand-entered guess. */
+for (const p of PRODUCTS) {
+  const detail = SKU_DETAILS[p.slug];
+  if (!detail) continue;
+
+  p.variants = detail.variants;
+  p.ingredients = detail.ingredients;
+  p.variety = detail.variety;
+
+  const lead = leadVariant(p.slug);
+  p.price = lead.mrp;
+  p.size = lead.size;
+  p.sizes = detail.variants.map((v) => v.size);
+}
+
+/* Same reasoning as the orphan check below: a SKU with no sheet entry would
+   silently keep whatever stale price was typed into the catalogue. */
+if (process.env.NODE_ENV !== "production") {
+  const undocumented = PRODUCTS.filter((p) => !SKU_DETAILS[p.slug]).map((p) => p.slug);
+  if (undocumented.length) {
+    throw new Error(`products.js: no sku-details entry for ${undocumented.join(", ")}`);
+  }
+}
 
 /* ── Derived accessible colours ───────────────────────────
    `hue` is tuned for fills. Text needs different values, so derive them

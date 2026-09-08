@@ -23,7 +23,13 @@
  * pack cutout.
  *
  * Sources with no SKU (Patna Mirch, the garam masala box and jar) are left
- * out.
+ * out. Four more are unmapped for the same reason as each other: the client
+ * supplied newer shots for these SKUs outside this drop, each handled by its
+ * own script so a rerun here cannot silently revert them —
+ * "Sunder-Garam Masala (Pouch)-2-Photoroom" (2026-09-07, cut-garam-masala.mjs)
+ * and "Sunder_Black Pepper Powder-01-Photoroom", "Sunder_White Pepper
+ * Powder-01-Photoroom", "Sunder_Dry Ginger Powder-01-Photoroom" (2026-09-08,
+ * cut-monocarton-drops.mjs).
  */
 
 import { readdir } from "node:fs/promises";
@@ -46,7 +52,6 @@ const MAP = {
   "Sunder-Chaat Masala-1-Photoroom": "sunder-chaat-masala",
   "Sunder-Chhole Masala-1-Photoroom": "sunder-chole-masala-chana-masala",
   "Sunder-Dal Masala-1-Photoroom": "sunder-dal-masala",
-  "Sunder-Garam Masala (Pouch)-2-Photoroom": "sunder-garam-masala",
   "Sunder-Hing_Kuti Teja-Mirch Powder-500g-01-Photoroom": "asafoetida-hing",
   "Sunder-Jaljira-1-Photoroom": "sunder-jaljira",
   "Sunder-Jeeravan (poha masala) -1-Photoroom": "sunder-jeeravan-poha-masala",
@@ -56,15 +61,12 @@ const MAP = {
   "Sunder-Sambhar Masala-1-Photoroom": "sunder-sambar-masala",
   "Sunder-Shahi Paneer Masala-1-Photoroom": "sunder-shahi-paneer-masala",
   "Sunder_Amchur Powder-01-Photoroom": "sunder-amchur-powder",
-  "Sunder_Black Pepper Powder-01-Photoroom": "sunder-black-pepper-powder-kali-mirch-powder",
   "Sunder_Coriander Powder-01-Photoroom": "sunder-coriander-powder-dhaniya-powder",
-  "Sunder_Dry Ginger Powder-01-Photoroom": "sunder-dry-ginger-powder-sunth-powder",
   "Sunder_Kashmiri Mirchi-01-Photoroom": "sunder-kashmiri-mirchi-powder",
   "Sunder_Kasuri Methi-01-Photoroom": "sunder-kasuri-methi",
   "Sunder_Kuti Teja-Mirch Powder-500g-01-Photoroom": "sunder-kuti-teja-mirch-powder",
   "Sunder_Red Chilli Powder-01-Photoroom": "sunder-red-chilli-powder-lal-mirch-powder",
   "Sunder_Red Chilli Powder-01 -Photoroom": "sunder-turmeric-powder-haldi-powder",
-  "Sunder_White Pepper Powder-01-Photoroom": "sunder-white-pepper-powder-safed-mirch-powder",
   "image-Photoroom (35)": "sunder-ajwain-carom-seeds",
   "image-Photoroom (36)": "sunder-elaichi-green-cardamom",
   "image-Photoroom (37)": "sunder-fennel-seeds-sauf",

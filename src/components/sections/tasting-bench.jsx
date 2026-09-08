@@ -27,7 +27,7 @@ const DIALS = [
    spice is. Keyed on `kind`, which comes straight from the live product feed. */
 const AROMA = {
   "Garam Masala Powder": 5, Elaichi: 5, Cloves: 5, "Kasuri Methi": 5, "Shahi Paneer Masala": 4,
-  "Kitchen King Masala": 4, "Biryani Masala": 5, "Asafoetida (Hing)": 5, "Fennel Seeds": 4,
+  "Kitchen King Masala": 4, "Biryani Masala": 5, "Hing": 5, "Hing Powder": 5, "Fennel Seeds": 4,
   "Carom Seeds": 4, "Coriander Powder": 3, "Cumin Seeds": 4, "Dry Ginger Powder": 3,
   "Sambhar Masala": 4, "Chole Masala": 4, "Pav Bhaji Masala": 4, "Dal Masala": 3,
   "Mustard Seeds": 2, "Methi Dana": 2, "Turmeric Powder": 2, "Red Chilli Powder": 1,

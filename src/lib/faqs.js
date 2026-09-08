@@ -72,7 +72,7 @@ export const FAQS = [
   {
     group: "buying",
     q: "Where can I buy Sunder Masala?",
-    a: "Across roughly 10,000 kirana stores, on quick commerce in Indore and Bhopal, and shipped nationwide from this site. If your local store does not stock a blend, ask them for it by name — most of our range travels on those shelves.",
+    a: "Across roughly 50,000 kirana stores, and shipped nationwide from this site. If your local store does not stock a blend, ask them for it by name — most of our range travels on those shelves.",
   },
   {
     group: "buying",

@@ -44,6 +44,26 @@ viewport-sized slices instead.
 screenshot with a clean console is the actual pass condition. Output goes to
 `shots/`, which is gitignored.
 
+### Replacing a file in `public/` does not invalidate the image cache
+
+`next/image` caches its optimised output, so overwriting a file under
+`public/` without renaming it leaves every screenshot showing the *old*
+picture. Nothing errors; the page just quietly lies to you. After
+`npm run packs` or `npm run photos`, clear it:
+
+```bash
+rm -rf .next/dev/cache/images        # dev; Next 16 moved it here from .next/cache/images
+```
+
+Two things made this expensive to diagnose. The path moved in Next 16, so the
+obvious `rm -rf .next/cache/images` silently deletes nothing — check that the
+directory you are deleting actually exists. And the cache is keyed on `Accept`,
+so `curl` (which gets JPEG) can return the new image while the browser (which
+gets AVIF) still gets the old one — verifying with `curl` alone will tell you
+it is fixed when it is not. To confirm what the page really loaded, read
+`img.currentSrc` and `img.naturalWidth` in the browser, or check for
+`X-Nextjs-Cache: HIT` with a browser-like `Accept: image/avif,...` header.
+
 ### Verify navigation against a production build, not `next dev`
 
 Fast Refresh rebuilds mid-test and silently swallows `router.push`, so a

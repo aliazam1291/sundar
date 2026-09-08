@@ -5,7 +5,7 @@ import Bilingual from "@/components/bilingual";
 import { PRODUCTS } from "@/lib/products";
 
 /**
- * Where to buy — stockists, quick commerce, shipping, trade.
+ * Where to buy — stockists, shipping, trade.
  *
  * This exists because the footer's Help column had four links (Contact,
  * Stockists, Wholesale, Shipping) that all deep-linked into the closing
@@ -19,7 +19,7 @@ import { PRODUCTS } from "@/lib/products";
  */
 export const metadata = {
   title: "Where to buy",
-  description: `Quick commerce in Indore and Bhopal, 10,000+ kirana stores, and nationwide shipping on all ${PRODUCTS.length} Sunder blends. Wholesale and distributor enquiries too.`,
+  description: `50,000+ kirana stores and nationwide shipping on all ${PRODUCTS.length} Sunder blends. Wholesale and distributor enquiries too.`,
   alternates: { canonical: "/where-to-buy" },
 };
 
@@ -54,8 +54,8 @@ export default function WhereToBuyPage() {
             />
 
             <p className="lede mt-5 max-w-xl text-paper/80">
-              Ten minutes away on quick commerce, on the shelf at your kirana, or shipped from the
-              mill — plus bulk formats if you are buying for a kitchen or a counter.
+              On the shelf at your kirana, or shipped from the mill — plus bulk formats if you
+              are buying for a kitchen or a counter.
             </p>
           </div>
 

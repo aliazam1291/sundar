@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FOUNDER } from "@/lib/content";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
+import PagePortrait from "@/components/page-portrait";
 
 /**
  * The story, as a trailer.
@@ -68,6 +69,35 @@ export default function StoryTeaser() {
           </p>
 
           <div className="rule-dots mt-6 max-w-[12rem] text-marigold/45" aria-hidden="true" />
+
+          {/* Rameshji again, the same cutout /story opens with — not a second
+              character, the same one. The home page used to go quiet on the
+              illustrated cast after the hero: five sections of pure poster
+              graphics with nobody in them, then an inner page suddenly
+              reintroducing a person, which is what read as "a different
+              site" partway through a single visit. This is the smallest fix
+              that isn't that: no new art, no new visual language (the
+              sepia-reel version this section replaced was the mistake of
+              inventing one) — just the existing family appearing more than
+              once on the way to their own page. */}
+          {/* Used exactly as /story uses it — same image, same component,
+              same default sizing — capped to a smaller max-width so it reads
+              as a supporting note in this compact teaser rather than a
+              second masthead. Hidden below `sm`: at that width the column
+              is already full-bleed and a 28rem-capped figure would crowd the
+              numeral above it rather than sit beside it. */}
+          <div className="mt-8 hidden max-w-[11rem] sm:block lg:max-w-[13rem]">
+            <PagePortrait
+              src="/rameshji-glow.webp"
+              alt="Rameshji savouring the masala"
+              width={933}
+              height={1400}
+              tone="glow"
+              name="Rameshji"
+              plaqueBg="var(--color-marigold)"
+              side="right"
+            />
+          </div>
         </div>
 
         <div data-reveal="up" style={{ "--reveal-delay": "120ms" }}>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Backdrop from "@/components/backdrop";
 import ChefMenu from "@/components/sections/chef-menu";
@@ -10,6 +11,7 @@ import { JsonLd, recipeJsonLd, recipeBreadcrumbJsonLd } from "@/lib/seo";
 import { DevaWatermark } from "@/components/bilingual";
 import PagePortrait from "@/components/page-portrait";
 import FoodIllustration from "@/components/food-illustration";
+import { photoFor, sourceNameOf } from "@/lib/recipe-photos";
 
 const PORTRAITS_MAP = {
   "indori-poha": {
@@ -165,6 +167,7 @@ export default async function RecipePage({ params }) {
 
   const others = RECIPES.filter((r) => r.slug !== recipe.slug).slice(0, 3);
   const portrait = PORTRAITS_MAP[recipe.slug];
+  const photo = photoFor(recipe.slug);
 
   return (
     <>
@@ -242,6 +245,51 @@ export default async function RecipePage({ params }) {
       {/* ── the dish ── */}
       <section className="tex-paper relative overflow-hidden bg-cream section">
         <Backdrop field="margins" opacity={0.14} ornamentClass="text-oxblood/20" />
+
+        {/* What it should actually look like when it comes off the stove.
+            Held in the same hard-bordered poster frame as everything else, so
+            the photograph reads as part of the sheet rather than pasted on.
+
+            The credit under it is not decoration: these are Creative Commons
+            photographs and attribution is a condition of the licence. */}
+        {photo && (
+          <div className="shell relative mb-12" data-reveal="up">
+            <figure className="card-poster overflow-hidden">
+              <div className="relative">
+                <Image
+                  src={photo.src}
+                  alt={`${recipe.title} — ${recipe.dish}`}
+                  width={1000}
+                  height={750}
+                  sizes="(max-width: 1024px) 100vw, 960px"
+                  className="aspect-[4/3] w-full object-cover sm:aspect-[3/2]"
+                />
+                <span
+                  className="chip chip-solid absolute bottom-4 left-4"
+                  style={{ "--chip-bg": "var(--color-ink)", "--chip-fg": "var(--color-marigold)" }}
+                >
+                  ✦ {recipe.course} · {recipe.time}
+                </span>
+              </div>
+              <figcaption className="border-t-2 border-ink bg-paper px-5 py-3 text-meta text-ink-mute">
+                {recipe.title} · Photo by {photo.author},{" "}
+                <a href={photo.source} className="underline hover:text-ink" rel="noopener noreferrer" target="_blank">
+                  {sourceNameOf(photo)}
+                </a>
+                {photo.licenceUrl ? (
+                  <>
+                    {" · "}
+                    <a href={photo.licenceUrl} className="underline hover:text-ink" rel="license noopener noreferrer" target="_blank">
+                      {photo.licence}
+                    </a>
+                  </>
+                ) : (
+                  ` · ${photo.licence}`
+                )}
+              </figcaption>
+            </figure>
+          </div>
+        )}
 
         <div className="shell relative grid items-start gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
           <div data-reveal="left">

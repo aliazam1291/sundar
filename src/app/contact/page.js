@@ -3,14 +3,13 @@ import Bilingual, { DevaWatermark } from "@/components/bilingual";
 import { Star, SpiceIcon, Sunburst } from "@/components/spice-icons";
 import PagePortrait from "@/components/page-portrait";
 import ContactForm from "@/components/contact-form";
+import { SOCIAL_LINKS } from "@/components/social-icons";
 
 export const metadata = {
   title: "Contact Us — Baat Karein",
-  description: "Get in touch with Sunder Masala. Enquire about retail distribution, quick commerce availability, or spice blend formulations.",
+  description: "Get in touch with Sunder Masala. Enquire about retail distribution, stockists, or spice blend formulations.",
   alternates: { canonical: "/contact" },
 };
-
-const QUICK_APPS = ["Blinkit", "Zepto", "Swiggy Instamart"];
 
 export default function ContactPage() {
   return (
@@ -44,7 +43,7 @@ export default function ContactPage() {
               />
 
               <p className="lede mt-5 max-w-xl text-paper/80">
-                We'd love to hear from you - please use the form to send us your message or ideas. Or simply pop in for a cup of fresh tea and a cookie.
+                We&apos;d love to hear from you - please use the form to send us your message or ideas. Or simply pop in for a cup of fresh tea and a cookie.
               </p>
             </div>
 
@@ -85,23 +84,37 @@ export default function ContactPage() {
                 </p>
                 
                 <div className="mt-6 flex flex-col gap-3">
-                  <a href="mailto:sundermasala.website@gmail.com" className="flex items-center gap-3 text-copy font-bold text-oxblood hover:underline break-all">
+                  <a href="mailto:customercare@sundermasala.com" className="flex items-center gap-3 text-copy font-bold text-oxblood hover:underline break-all">
                     <SpiceIcon mono name="pinch" className="w-5 shrink-0" />
-                    sundermasala.website@gmail.com
+                    customercare@sundermasala.com
                   </a>
-                  <a href="tel:07312905169" className="flex items-center gap-3 text-copy font-bold text-oxblood hover:underline">
+                  <a href="tel:+917724999871" className="flex items-center gap-3 text-copy font-bold text-oxblood hover:underline">
                     <SpiceIcon mono name="truck" className="w-5 shrink-0" />
-                    TEXT: 0731-2905169
+                    77249 99871
                   </a>
+                </div>
+
+                <div className="mt-6 flex gap-3 border-t-2 border-ink/10 pt-5">
+                  {SOCIAL_LINKS.map(({ name, href, Icon }) => (
+                    <a
+                      key={name}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Sunder Masala on ${name}`}
+                      className="grid h-10 w-10 place-content-center rounded-full border-2 border-ink/20 text-ink-soft transition-colors hover:border-oxblood hover:text-oxblood"
+                    >
+                      <Icon className="h-4.5 w-4.5" />
+                    </a>
+                  ))}
                 </div>
               </div>
 
               {/* physical address */}
-              <div 
+              <div
                 data-reveal="left"
-                style={{ "--reveal-delay": "100ms" }}
+                style={{ "--reveal-delay": "100ms", "--card-shadow": "var(--color-oxblood)" }}
                 className="card-poster card-pad bg-marigold text-ink"
-                style={{ "--card-shadow": "var(--color-oxblood)" }}
               >
                 <p className="label-micro text-oxblood">Visit the mill</p>
                 <h3 className="h-poster-xs mt-2 text-[1.5rem]">Come pop in</h3>
@@ -114,16 +127,15 @@ export default function ContactPage() {
                 <div className="rule-dots my-4 text-ink/20" aria-hidden="true" />
                 <p className="label-micro text-oxblood">Opening Hours</p>
                 <p className="mt-1 text-copy font-bold">
-                  MON to SAT: 9:00AM - 10:00PM
+                  MON to SAT: 9:00AM - 6:00PM
                 </p>
               </div>
 
               {/* trade & distribution */}
-              <div 
+              <div
                 data-reveal="left"
-                style={{ "--reveal-delay": "200ms" }}
+                style={{ "--reveal-delay": "200ms", "--card-shadow": "var(--color-sun)" }}
                 className="card-poster card-pad bg-oxblood text-paper"
-                style={{ "--card-shadow": "var(--color-sun)" }}
               >
                 <p className="label-micro text-marigold">Wholesale & HoReCa</p>
                 <h3 className="h-poster-xs mt-2 text-[1.5rem]">Distributor ya retailer hain?</h3>
@@ -131,13 +143,9 @@ export default function ContactPage() {
                   Bulk formats, distribution opportunities and business enquiries. 
                   Tell us your city, volume requirements, and product needs.
                 </p>
-                <a 
-                  href="mailto:trade@sundermasala.com" 
-                  className="btn btn-gold btn-sm mt-5 self-start"
-                  style={{ "--btn-shadow": "var(--color-ink)" }}
-                >
-                  Become a distributor
-                </a>
+                <p className="mt-4 text-copy font-semibold text-marigold">
+                  Use the form — pick &ldquo;Distributor / wholesale enquiry&rdquo;.
+                </p>
               </div>
             </div>
 
