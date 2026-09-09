@@ -25,7 +25,7 @@ npm run dev
 
 Build: `npm run build` · Serve: `npm run start`
 
-## Structure
+## Structur
 
 ```
 src/
